@@ -1,6 +1,17 @@
 #include "Fahrrad.h"
+#define MIN_VELOCITY 12.0
+#define VELOCITY_DROP_MULTIPLIER 0.90
+#define VELOCITY_DROP_DIST 20.0
 
-Fahrrad::Fahrrad()
+Fahrrad::Fahrrad() : Fahrzeug()
+{
+}
+
+Fahrrad::Fahrrad(string sName):Fahrzeug(this->p_sName)
+{
+}
+
+Fahrrad::Fahrrad(string sName, double dVelocity):Fahrzeug(this->p_sName, this->p_dMaxGeschwindigkeit)
 {
 }
 
@@ -8,24 +19,17 @@ Fahrrad::~Fahrrad()
 {
 }
 
-double Fahrrad::dTanken(double dMenge)
-{
-	return 0.0;
-}
-
 double Fahrrad::dGeschwindigkeit()
 {
 	// speed should descrease with time
 	// each 20 km decreases the speed to 90% of the previous speed
-	if (this->p_dMaxGeschwindigkeit > 12)
+
+	double dAktuelleGeschwindigkeit = this->p_dMaxGeschwindigkeit * pow(VELOCITY_DROP_MULTIPLIER,this->p_dGesamtStrecke / VELOCITY_DROP_DIST);
+	
+	if(dAktuelleGeschwindigkeit < MIN_VELOCITY)
 	{
-		
-		this->p_dMaxGeschwindigkeit *= 0.9;
-	}
-	else
-	{
-		this->p_dMaxGeschwindigkeit = 12;
+		dAktuelleGeschwindigkeit = MIN_VELOCITY;
 	}
 	
-	return this->p_dMaxGeschwindigkeit;
+	return dAktuelleGeschwindigkeit;
 }

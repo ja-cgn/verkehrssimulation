@@ -77,8 +77,8 @@ Fahrzeug::~Fahrzeug()
 /* Initializer function for all constructors */
 void Fahrzeug::vInitialisierung()
 {
-	p_iMaxID++;
-	this->p_iID = p_iMaxID;
+	this->p_iID = Fahrzeug::p_iMaxID + 1;
+	Fahrzeug::p_iMaxID = this->p_iID;
 	this->p_sName = "";
 	this->p_dMaxGeschwindigkeit = 0;
 	this->p_dGesamtStrecke = 0;

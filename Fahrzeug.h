@@ -5,6 +5,7 @@
 #include <iomanip>
 #define EPSILON 0.0001
 
+
 using namespace std;
 
 extern double dGlobaleZeit;

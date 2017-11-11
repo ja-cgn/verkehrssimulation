@@ -11,6 +11,14 @@ using namespace std;
 //Global time var
 double dGlobaleZeit = 0.0;
 
+/*
+	iRandom function creates a random integer value between the fed minumum and maximum value arguments.
+*/
+int iRandom(int min, int max)
+{
+	return min + (rand() % (max - min + 1));
+}
+
 void vAufgabe_1()
 {
 	//MaxGeschwindigkeit in km/h -> 1 Stunde fahren = Geschwindigkeit Wert als Kilometer
@@ -76,8 +84,63 @@ void vAufgabe_1_deb()
 
 }
 
+void vAufgabe_2()
+{
+	int iAnzahlPKW = 0;
+	int iAnzahlFahrraeder = 0;
+	vector<Fahrzeug*> vFahzeuge;
+
+	//inputs from the user
+	cout << "Wie viele PKWs sollen erzeugt werden?" << endl;
+	cin >> iAnzahlPKW;
+	cout << "Wie viele Fahrraeder sollen erzeugt werden?" << endl;
+	cin >> iAnzahlFahrraeder;
+
+	//Fahrrad Erzeugung
+	for (int i = 1; i <= iAnzahlFahrraeder; i++)
+	{
+		Fahrrad* fahrrad = new Fahrrad("FHRD" + to_string(i), iRandom(120, 350) / 10);
+		vFahzeuge.push_back(fahrrad);
+	}
+	//PKW Erzeugung
+	for (int i = 1; i <=iAnzahlPKW; i++)
+	{
+		PKW* pkw = new PKW("AUTO" + to_string(i), iRandom(1200, 2900)/10, iRandom(1, 30), iRandom(30, 90));
+		vFahzeuge.push_back(pkw);
+	}
+
+
+	//Hauptschleife
+	for (; dGlobaleZeit <= 3; dGlobaleZeit += TIME_INCREMENT)
+	{
+		//Output characteristics of vehicles
+		cout << setiosflags(ios::left) << setw(4) << "\nID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
+			<< setiosflags(ios::right) << setw(8) << "MaxKmh" << setw(16) << "GesamtStrecke" << setw(16)
+			<< "Gesamtverbrauch" << setw(12) << "Tankinhalt" << resetiosflags(ios::right) << endl;
+
+		cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+
+		//Updating positions of all vehicles
+		vector<Fahrzeug*>::iterator fahrzeugIter = vFahzeuge.begin();
+		while (fahrzeugIter != vFahzeuge.end())
+		{
+			(*fahrzeugIter)->vAbfertigung();
+			fahrzeugIter++;
+		}
+
+		//Calling the output function 
+		fahrzeugIter = vFahzeuge.begin();
+		while (fahrzeugIter != vFahzeuge.end())
+		{
+			(*fahrzeugIter)->vAusgabe();
+			fahrzeugIter++;
+		}
+	}
+}
+
 int main()
 {
-	vAufgabe_1(); 
+	//vAufgabe_1(); 
     //vAufgabe_1_deb();
+	vAufgabe_2();
 }

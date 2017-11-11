@@ -7,8 +7,11 @@ class Fahrrad :
 {
 public:
 	Fahrrad();
+	Fahrrad(string sName);
+	Fahrrad(string sName, double dVelocity);
 	~Fahrrad();
-	double dTanken(double dMenge = -1);
+
+protected:
 	double dGeschwindigkeit();
 };
 
