@@ -1,22 +1,24 @@
 #include "Fahrrad.h"
-#define MIN_VELOCITY 12.0
-#define VELOCITY_DROP_MULTIPLIER 0.90
-#define VELOCITY_DROP_DIST 20.0
 
-Fahrrad::Fahrrad() : Fahrzeug()
+Fahrrad::Fahrrad()
+	:Fahrzeug(this->p_sName, this->p_dMaxGeschwindigkeit)
 {
 }
 
-Fahrrad::Fahrrad(string sName):Fahrzeug(this->p_sName)
+Fahrrad::Fahrrad(string sName, double dVelocity)
+	:Fahrzeug(sName, dVelocity)
 {
-}
-
-Fahrrad::Fahrrad(string sName, double dVelocity):Fahrzeug(this->p_sName, this->p_dMaxGeschwindigkeit)
-{
+	
 }
 
 Fahrrad::~Fahrrad()
 {
+}
+
+void Fahrrad::vAusgabe()
+{
+	Fahrzeug::vAusgabe();
+	cout << endl;
 }
 
 double Fahrrad::dGeschwindigkeit()

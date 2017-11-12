@@ -1,10 +1,12 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include "time.h"
 #include "Fahrzeug.h"
 #include "PKW.h"
 #include "Fahrrad.h"
 #define TIME_INCREMENT 0.1
+#define FUEL_UP_TIME 3
 
 using namespace std;
 
@@ -89,30 +91,47 @@ void vAufgabe_2()
 	int iAnzahlPKW = 0;
 	int iAnzahlFahrraeder = 0;
 	vector<Fahrzeug*> vFahzeuge;
+	vector<Fahrzeug*>::iterator fahrzeugIter = vFahzeuge.begin();
 
 	//inputs from the user
 	cout << "Wie viele PKWs sollen erzeugt werden?" << endl;
 	cin >> iAnzahlPKW;
 	cout << "Wie viele Fahrraeder sollen erzeugt werden?" << endl;
 	cin >> iAnzahlFahrraeder;
+	
+	//Fahrrad fahr1("FAHR11", 20);
+
+
+	//PKW Erzeugung
+	for (int i = 1; i <= iAnzahlPKW; i++)
+	{
+		PKW* pkw = new PKW("AUTO" + to_string(i), iRandom(120, 290), iRandom(1, 30), iRandom(30, 90));
+		vFahzeuge.push_back(pkw);
+	}
 
 	//Fahrrad Erzeugung
 	for (int i = 1; i <= iAnzahlFahrraeder; i++)
 	{
-		Fahrrad* fahrrad = new Fahrrad("FHRD" + to_string(i), iRandom(120, 350) / 10);
-		vFahzeuge.push_back(fahrrad);
+		Fahrrad* fhrd = new Fahrrad("FHRD" + to_string(i), iRandom(12, 35)/1);
+		vFahzeuge.push_back(fhrd);
 	}
-	//PKW Erzeugung
-	for (int i = 1; i <=iAnzahlPKW; i++)
-	{
-		PKW* pkw = new PKW("AUTO" + to_string(i), iRandom(1200, 2900)/10, iRandom(1, 30), iRandom(30, 90));
-		vFahzeuge.push_back(pkw);
-	}
-
 
 	//Hauptschleife
-	for (; dGlobaleZeit <= 3; dGlobaleZeit += TIME_INCREMENT)
+	for (; dGlobaleZeit <= 6; dGlobaleZeit += TIME_INCREMENT)
 	{
+		/*
+			Fueling up the cars
+		*/
+		if (fabs(dGlobaleZeit - 3.0) <= EPSILON) //If Global Time = 3 hours => fuel up all the cars
+		{
+			fahrzeugIter = vFahzeuge.begin();
+			while (fahrzeugIter != vFahzeuge.end())
+			{
+				(*fahrzeugIter)->dTanken();
+				fahrzeugIter++;
+			}
+		}
+
 		//Output characteristics of vehicles
 		cout << setiosflags(ios::left) << setw(4) << "\nID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
 			<< setiosflags(ios::right) << setw(8) << "MaxKmh" << setw(16) << "GesamtStrecke" << setw(16)
@@ -121,7 +140,7 @@ void vAufgabe_2()
 		cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 
 		//Updating positions of all vehicles
-		vector<Fahrzeug*>::iterator fahrzeugIter = vFahzeuge.begin();
+		fahrzeugIter = vFahzeuge.begin();
 		while (fahrzeugIter != vFahzeuge.end())
 		{
 			(*fahrzeugIter)->vAbfertigung();
@@ -140,6 +159,9 @@ void vAufgabe_2()
 
 int main()
 {
+	//Feeding a time seed for the iRandom function
+	srand(time(NULL));
+
 	//vAufgabe_1(); 
     //vAufgabe_1_deb();
 	vAufgabe_2();
