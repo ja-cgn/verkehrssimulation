@@ -17,9 +17,17 @@ Fahrzeug::Fahrzeug()
 
 	cout << "ID to add: " << p_iMaxID << endl;
 	cout << "ID added: " << this->p_iID << endl;
-
+		
 	cout << "\n------ Adding Name to the Vehicle ------" << endl;
 	*/
+}
+
+Fahrzeug::Fahrzeug(const Fahrzeug& fahrzeug)
+{
+	this->vInitialisierung();
+	this->p_sName = fahrzeug.p_sName;
+	this->p_dMaxGeschwindigkeit = fahrzeug.p_dMaxGeschwindigkeit;
+
 }
 
 /* Name constructor */
@@ -77,8 +85,8 @@ Fahrzeug::~Fahrzeug()
 /* Initializer function for all constructors */
 void Fahrzeug::vInitialisierung()
 {
-	p_iMaxID++;
-	this->p_iID = p_iMaxID;
+	this->p_iID = Fahrzeug::p_iMaxID + 1;
+	Fahrzeug::p_iMaxID = this->p_iID;
 	this->p_sName = "";
 	this->p_dMaxGeschwindigkeit = 0;
 	this->p_dGesamtStrecke = 0;

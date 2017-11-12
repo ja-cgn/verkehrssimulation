@@ -1,31 +1,37 @@
 #include "Fahrrad.h"
 
 Fahrrad::Fahrrad()
+	:Fahrzeug(this->p_sName, this->p_dMaxGeschwindigkeit)
 {
+}
+
+Fahrrad::Fahrrad(string sName, double dVelocity)
+	:Fahrzeug(sName, dVelocity)
+{
+	
 }
 
 Fahrrad::~Fahrrad()
 {
 }
 
-double Fahrrad::dTanken(double dMenge)
+void Fahrrad::vAusgabe()
 {
-	return 0.0;
+	Fahrzeug::vAusgabe();
+	cout << endl;
 }
 
 double Fahrrad::dGeschwindigkeit()
 {
 	// speed should descrease with time
 	// each 20 km decreases the speed to 90% of the previous speed
-	if (this->p_dMaxGeschwindigkeit > 12)
+
+	double dAktuelleGeschwindigkeit = this->p_dMaxGeschwindigkeit * pow(VELOCITY_DROP_MULTIPLIER,this->p_dGesamtStrecke / VELOCITY_DROP_DIST);
+	
+	if(dAktuelleGeschwindigkeit < MIN_VELOCITY)
 	{
-		
-		this->p_dMaxGeschwindigkeit *= 0.9;
-	}
-	else
-	{
-		this->p_dMaxGeschwindigkeit = 12;
+		dAktuelleGeschwindigkeit = MIN_VELOCITY;
 	}
 	
-	return this->p_dMaxGeschwindigkeit;
+	return dAktuelleGeschwindigkeit;
 }

@@ -5,6 +5,7 @@
 #include <iomanip>
 #define EPSILON 0.0001
 
+
 using namespace std;
 
 extern double dGlobaleZeit;
@@ -13,6 +14,7 @@ class Fahrzeug
 {
 public:
 	Fahrzeug();
+	Fahrzeug(const Fahrzeug& fahrzeug);
 	Fahrzeug(string sName);
 	Fahrzeug(string sName, double dVelocity);
 	~Fahrzeug();

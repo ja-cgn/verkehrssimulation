@@ -16,7 +16,6 @@ public:
 	void vAbfertigung();
 	void vAusgabe();
 
-
 private:
 	double p_dVerbrauch;
 	double p_dTankInhalt;
