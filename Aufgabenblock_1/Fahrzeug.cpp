@@ -127,6 +127,29 @@ double Fahrzeug::dGeschwindigkeit()
 	return 0.0;
 }
 
+bool Fahrzeug::operator<(const Fahrzeug & fhzg)
+{
+	if (this->p_dGesamtStrecke < fhzg.p_dGesamtStrecke)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+Fahrzeug & Fahrzeug::operator=(const Fahrzeug & fhzg)
+{
+	this->p_sName = fhzg.p_sName;
+	this->p_dMaxGeschwindigkeit = fhzg.p_dMaxGeschwindigkeit;
+	this->p_dGesamtStrecke = fhzg.p_dGesamtStrecke;
+	this->p_dZeit = fhzg.p_dZeit;
+	this->p_GesamteZeit = fhzg.p_GesamteZeit;
+
+	return *this;
+}
+
 void Fahrzeug::vAbfertigung()
 {
 	// excute only if the last update happened before the current global time

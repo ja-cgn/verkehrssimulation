@@ -177,8 +177,45 @@ void vAufgabe_3()
 	Fahrrad fhrd3("FHRD1", iRandom(12, 35));
 	
 	//Output the characteristics of vehicles
+	cout << "Die folgende Fahrzeuge waren erzeugt" << endl;
 	vTemplateHeader();
 	cout << pkw1 << pkw2 << pkw3 << fhrd1 << fhrd2 << fhrd3;
+
+	//Let the vehicles drive for a bit
+	cout << "Lasse die Fahzeuge 2 Stunden lang fahren" << endl;
+	for (; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
+	{
+		pkw1.vAbfertigung();
+		pkw2.vAbfertigung();
+		pkw3.vAbfertigung();
+		fhrd1.vAbfertigung();
+		fhrd2.vAbfertigung();
+		fhrd3.vAbfertigung();
+	}
+
+	cout << "Gebe die Fahrzeug Info nach dem Fahrt aus" << endl;
+	//Output vehicles after 2 hour drive
+	vTemplateHeader();
+	cout << pkw1 << pkw2 << pkw3 << fhrd1 << fhrd2 << fhrd3;
+
+	//Comparing the total distance
+	cout << endl << "Vergleiche AUTO1 und AUTO3 um zu erfahren, wer eine laengere Strecke hintergelegt hat..." << endl;
+	if (pkw1 < pkw3)
+	{
+		cout << "AUTO 3 ist weiter gefahren" << endl;
+	}
+	else if (pkw3 < pkw1)
+	{
+		cout << "AUTO1 ist weiter gefahren" << endl;
+	}
+	else
+	{
+		cout << "ERROR" << endl;
+	}
+
+	//TODO
+	//Copying a vehicle
+
 }
 
 int main()

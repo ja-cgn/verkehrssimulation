@@ -23,6 +23,8 @@ public:
 	void virtual ostreamAusgabe(ostream& output);
 	double virtual dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	double virtual dGeschwindigkeit();
+	bool operator<(const Fahrzeug& fhzg);
+	Fahrzeug& operator=(const Fahrzeug& fhzg);
 
 private:
 	static int p_iMaxID;
