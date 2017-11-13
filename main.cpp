@@ -5,6 +5,7 @@
 #include "Fahrzeug.h"
 #include "PKW.h"
 #include "Fahrrad.h"
+#define EPSILON 0.01
 #define TIME_INCREMENT 0.1
 #define FUEL_UP_TIME 3
 
@@ -122,7 +123,7 @@ void vAufgabe_2()
 		/*
 			Fueling up the cars
 		*/
-		if (fabs(dGlobaleZeit - 3.0) <= EPSILON) //If Global Time = 3 hours => fuel up all the cars
+		if (fabs(dGlobaleZeit - 3) <= EPSILON) //If Global Time = 3 hours => fuel up all the cars
 		{
 			fahrzeugIter = vFahzeuge.begin();
 			while (fahrzeugIter != vFahzeuge.end())
@@ -132,6 +133,7 @@ void vAufgabe_2()
 			}
 		}
 
+		cout << "\n" << setw(10) << setiosflags(ios::left) << "TIME: " << dGlobaleZeit << resetiosflags(ios::right);
 		//Output characteristics of vehicles
 		cout << setiosflags(ios::left) << setw(4) << "\nID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
 			<< setiosflags(ios::right) << setw(8) << "MaxKmh" << setw(16) << "GesamtStrecke" << setw(16)

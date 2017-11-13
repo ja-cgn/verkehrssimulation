@@ -3,7 +3,7 @@
 #include <string>
 #include <math.h>
 #include <iomanip>
-#define EPSILON 0.0001
+#define DEFAULT_TANK_VOLUME 55
 
 
 using namespace std;
@@ -20,7 +20,7 @@ public:
 	~Fahrzeug();
 	void virtual vAbfertigung();
 	void virtual vAusgabe();
-	double virtual dTanken(double dMenge = -1);
+	double virtual dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	double virtual dGeschwindigkeit();
 
 private:

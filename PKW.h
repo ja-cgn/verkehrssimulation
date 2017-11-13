@@ -1,6 +1,5 @@
 #pragma once
 #include "Fahrzeug.h"
-#define DEFAULT_TANK_VOLUME 55
 
 class PKW :
 	public Fahrzeug
@@ -11,7 +10,7 @@ public:
 	PKW(string sName, double dVelocity, double dConsumption, double dTankvolume);
 	~PKW();
 	
-	double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
+	double dTanken(double dMenge);
 	double dGeschwindigkeit();
 	void vAbfertigung();
 	void vAusgabe();

@@ -38,7 +38,7 @@ double PKW::dVerbrauch()
 }
 
 /* Function for refueling with default argument to fill up the tank full */
-double PKW::dTanken(double dMenge)
+double PKW::dTanken(double dMenge = DEFAULT_TANK_VOLUME)
 {
 	if (this->p_dTankInhalt < DEFAULT_TANK_VOLUME)
 	{
