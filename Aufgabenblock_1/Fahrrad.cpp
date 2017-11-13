@@ -21,6 +21,12 @@ void Fahrrad::vAusgabe()
 	cout << endl;
 }
 
+void Fahrrad::ostreamAusgabe(ostream & output)
+{
+	Fahrzeug::ostreamAusgabe(output);
+	cout << endl;
+}
+
 double Fahrrad::dGeschwindigkeit()
 {
 	// speed should descrease with time

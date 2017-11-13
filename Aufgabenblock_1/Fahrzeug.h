@@ -20,6 +20,7 @@ public:
 	~Fahrzeug();
 	void virtual vAbfertigung();
 	void virtual vAusgabe();
+	void virtual ostreamAusgabe(ostream& output);
 	double virtual dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	double virtual dGeschwindigkeit();
 
@@ -35,3 +36,5 @@ protected:
 	double p_GesamteZeit;
 	double p_dZeit;
 };
+
+ostream& operator <<(ostream& output, Fahrzeug& fhzg);

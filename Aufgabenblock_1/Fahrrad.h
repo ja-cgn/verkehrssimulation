@@ -13,7 +13,7 @@ public:
 	~Fahrrad();
 
 	void vAusgabe();
-
+	void ostreamAusgabe(ostream& output);
 protected:
 	double dGeschwindigkeit();
 };
