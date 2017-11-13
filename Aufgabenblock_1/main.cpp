@@ -29,7 +29,7 @@ void vAufgabe_1()
 	PKW f2("AUTO2", 190, 34);
 	PKW f3("AUTO3", 198.2, 29);
 		
-	for (; dGlobaleZeit <= 1; dGlobaleZeit += TIME_INCREMENT) // Double nie genau abfragen, die Toleranzgrenze ist durch += jedoch (sehr) groß und damit passend
+	for (; dGlobaleZeit <= 1; dGlobaleZeit += TIME_INCREMENT) // Double nie genau abfragen, die Toleranzgrenze ist durch += jedoch (sehr) groÃŸ und damit passend
 	{
 		//Output characteristics of vehicles
 		cout << setiosflags(ios::left) << setw(4) << "\nID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
