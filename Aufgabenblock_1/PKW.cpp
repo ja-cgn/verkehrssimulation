@@ -94,5 +94,16 @@ void PKW::vAbfertigung()
 void PKW::vAusgabe()
 {
 	Fahrzeug::vAusgabe();
-	cout << setiosflags(ios::right) << setw(12) << dVerbrauch() << setw(12) << this->p_dTankInhalt << resetiosflags(ios::right) << endl;
+	cout << setiosflags(ios::right) << setw(12) << dVerbrauch() << setw(15) << this->p_dTankInhalt << resetiosflags(ios::right) << endl;
+}
+
+void PKW::ostreamAusgabe(ostream & output)
+{
+	Fahrzeug::ostreamAusgabe(output);
+	output.flags(ios::right);
+	output.width(12);
+	output << this->dVerbrauch();
+	output.width(15);
+	output << this->p_dTankInhalt;
+	cout << endl;
 }

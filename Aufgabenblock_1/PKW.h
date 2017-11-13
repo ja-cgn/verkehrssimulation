@@ -14,6 +14,7 @@ public:
 	double dGeschwindigkeit();
 	void vAbfertigung();
 	void vAusgabe();
+	void ostreamAusgabe(ostream& output);
 
 private:
 	double p_dVerbrauch;

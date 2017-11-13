@@ -22,8 +22,19 @@ int iRandom(int min, int max)
 	return min + (rand() % (max - min + 1));
 }
 
+void vTemplateHeader()
+{
+	cout << "\n" << setw(10) << setiosflags(ios::left) << "TIME: " << dGlobaleZeit << resetiosflags(ios::right);
+	cout << endl << setiosflags(ios::left) << setw(4) << "ID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
+		<< setiosflags(ios::right) << setw(8) << "MaxKmh" << setw(16) << "GesamtStrecke" << setw(16)
+		<< "Gesamtverbrauch" << setw(12) << "Tankinhalt" << resetiosflags(ios::right) << endl;
+	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+}
+
 void vAufgabe_1()
 {
+	cout << "----------vAufgabe_1()----------" << endl;
+
 	//MaxGeschwindigkeit in km/h -> 1 Stunde fahren = Geschwindigkeit Wert als Kilometer
 	PKW f1("AUTO1", 200, 30, 90);
 	PKW f2("AUTO2", 190, 34);
@@ -32,11 +43,7 @@ void vAufgabe_1()
 	for (; dGlobaleZeit <= 1; dGlobaleZeit += TIME_INCREMENT) // Double nie genau abfragen, die Toleranzgrenze ist durch += jedoch (sehr) groß und damit passend
 	{
 		//Output characteristics of vehicles
-		cout << setiosflags(ios::left) << setw(4) << "\nID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
-			 << setiosflags(ios::right) << setw(8) << "MaxKmh" << setw(16) << "GesamtStrecke" << setw(16) 
-			 << "Gesamtverbrauch" << setw(12) << "Tankinhalt" << resetiosflags(ios::right) << endl;
-
-		cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+		vTemplateHeader();
 
 		//Updating positions of vehicles
 		f1.vAbfertigung();
@@ -52,7 +59,7 @@ void vAufgabe_1()
 
 void vAufgabe_1_deb()
 {
-	//TODO
+	cout << "----------vAufgabe_1_deb()----------" << endl;
 
 	// Creating 4 vehicles
 	Fahrzeug f4("AUTO1", 219.21);
@@ -89,6 +96,8 @@ void vAufgabe_1_deb()
 
 void vAufgabe_2()
 {
+	cout << "----------vAufgabe_2()----------" << endl;
+
 	int iAnzahlPKW = 0;
 	int iAnzahlFahrraeder = 0;
 	vector<Fahrzeug*> vFahzeuge;
@@ -133,13 +142,8 @@ void vAufgabe_2()
 			}
 		}
 
-		cout << "\n" << setw(10) << setiosflags(ios::left) << "TIME: " << dGlobaleZeit << resetiosflags(ios::right);
 		//Output characteristics of vehicles
-		cout << setiosflags(ios::left) << setw(4) << "\nID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
-			<< setiosflags(ios::right) << setw(8) << "MaxKmh" << setw(16) << "GesamtStrecke" << setw(16)
-			<< "Gesamtverbrauch" << setw(12) << "Tankinhalt" << resetiosflags(ios::right) << endl;
-
-		cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+		vTemplateHeader();
 
 		//Updating positions of all vehicles
 		fahrzeugIter = vFahzeuge.begin();
@@ -159,6 +163,61 @@ void vAufgabe_2()
 	}
 }
 
+void vAufgabe_3()
+{
+	cout << "----------vAufgabe_3()----------" << endl;
+	//PKW Erzeugung
+	PKW pkw1("AUTO1", iRandom(120, 290), iRandom(1, 30), iRandom(30, 90));
+	PKW pkw2("AUTO2", iRandom(120, 290), iRandom(1, 30), iRandom(30, 90));
+	PKW pkw3("AUTO3", iRandom(120, 290), iRandom(1, 30), iRandom(30, 90));
+
+	//Fahrrad Erzeugung
+	Fahrrad fhrd1("FHRD1", iRandom(12, 35));
+	Fahrrad fhrd2("FHRD1", iRandom(12, 35));
+	Fahrrad fhrd3("FHRD1", iRandom(12, 35));
+	
+	//Output the characteristics of vehicles
+	cout << "Die folgende Fahrzeuge waren erzeugt" << endl;
+	vTemplateHeader();
+	cout << pkw1 << pkw2 << pkw3 << fhrd1 << fhrd2 << fhrd3;
+
+	//Let the vehicles drive for a bit
+	cout << "Lasse die Fahzeuge 2 Stunden lang fahren" << endl;
+	for (; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
+	{
+		pkw1.vAbfertigung();
+		pkw2.vAbfertigung();
+		pkw3.vAbfertigung();
+		fhrd1.vAbfertigung();
+		fhrd2.vAbfertigung();
+		fhrd3.vAbfertigung();
+	}
+
+	cout << "Gebe die Fahrzeug Info nach dem Fahrt aus" << endl;
+	//Output vehicles after 2 hour drive
+	vTemplateHeader();
+	cout << pkw1 << pkw2 << pkw3 << fhrd1 << fhrd2 << fhrd3;
+
+	//Comparing the total distance
+	cout << endl << "Vergleiche AUTO1 und AUTO3 um zu erfahren, wer eine laengere Strecke hintergelegt hat..." << endl;
+	if (pkw1 < pkw3)
+	{
+		cout << "AUTO 3 ist weiter gefahren" << endl;
+	}
+	else if (pkw3 < pkw1)
+	{
+		cout << "AUTO1 ist weiter gefahren" << endl;
+	}
+	else
+	{
+		cout << "ERROR" << endl;
+	}
+
+	//TODO
+	//Copying a vehicle
+
+}
+
 int main()
 {
 	//Feeding a time seed for the iRandom function
@@ -166,5 +225,6 @@ int main()
 
 	//vAufgabe_1(); 
     //vAufgabe_1_deb();
-	vAufgabe_2();
+	//vAufgabe_2();
+	vAufgabe_3();
 }

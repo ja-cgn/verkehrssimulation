@@ -102,6 +102,21 @@ void Fahrzeug::vAusgabe()
 		<< setw(12) << resetiosflags(ios::right);
 }
 
+void Fahrzeug::ostreamAusgabe(ostream &output)
+{
+	output.flags(ios::left);
+	output.width(4);
+	output << this->p_iID;
+	output.width(7);
+	output << this->p_sName;
+	output << ":";
+	output.flags(ios::right);
+	output.width(8);
+	output << this->p_dMaxGeschwindigkeit;
+	output.width(12);
+	output << this->p_dGesamtStrecke;
+}
+
 double Fahrzeug::dTanken(double dMenge)
 {
 	return 0.0;
@@ -110,6 +125,29 @@ double Fahrzeug::dTanken(double dMenge)
 double Fahrzeug::dGeschwindigkeit()
 {
 	return 0.0;
+}
+
+bool Fahrzeug::operator<(const Fahrzeug & fhzg)
+{
+	if (this->p_dGesamtStrecke < fhzg.p_dGesamtStrecke)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+Fahrzeug & Fahrzeug::operator=(const Fahrzeug & fhzg)
+{
+	this->p_sName = fhzg.p_sName;
+	this->p_dMaxGeschwindigkeit = fhzg.p_dMaxGeschwindigkeit;
+	this->p_dGesamtStrecke = fhzg.p_dGesamtStrecke;
+	this->p_dZeit = fhzg.p_dZeit;
+	this->p_GesamteZeit = fhzg.p_GesamteZeit;
+
+	return *this;
 }
 
 void Fahrzeug::vAbfertigung()
@@ -124,4 +162,10 @@ void Fahrzeug::vAbfertigung()
 		// update clock
 		this->p_dZeit = dGlobaleZeit;
 	}
+}
+
+ostream& operator<<(ostream& output, Fahrzeug& fhzg)
+{
+	fhzg.ostreamAusgabe(output);
+	return output;
 }
