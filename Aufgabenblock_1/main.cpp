@@ -61,37 +61,37 @@ void vAufgabe_1_deb()
 {
 	cout << "----------vAufgabe_1_deb()----------" << endl;
 
-	// Creating 4 vehicles
-	Fahrzeug f4("AUTO1", 219.21);
-	Fahrzeug f5("AUTO2", 202.99);
-	Fahrzeug f6("AUTO3", 269.15);
-	Fahrzeug f7("Auto4", 200.00);
+	// Saving the vehicle pointers in an array
+	Fahrzeug* feld_name[4];
 
-	// Saving the vehicle pointers in an vector
-	vector<Fahrzeug> feld_name(4);
-	feld_name.push_back(f4);
-	feld_name.push_back(f5);
-	feld_name.push_back(f6);
-	feld_name.push_back(f7);
-
-	//printing the vector
-	for (int i = 0; i <= 3; i++) 
+	for (int i = 0; i < 4; i++)
 	{
-		feld_name[i].vAusgabe();
+		Fahrzeug* fhzg = new Fahrzeug("FHZG" + to_string(i), iRandom(120, 290));
+		feld_name[i] = fhzg;
 	}
 
-/*	int a = 0;
-	//setting one element as 0
-	feld_name.insert(next(begin(feld_name)), f4); */
-
-	feld_name.pop_back();
-	//printing the vector again and use the debugger
+	//printing the array
+	for (int i = 0; i < 4; i++) 
+	{
+		feld_name[i]->vAusgabe();
+		cout << endl;
+	}
 	
+	//setting the 3rd vehicle to zero
+	feld_name[2] = 0;
+
 	for (int i = 0; i <= 3; i++)
 	{
-		feld_name[i].vAusgabe();
+		feld_name[i]->vAusgabe();
+		cout << endl;
 	}
 
+	/*
+		The problem here is the setting of the 3rd element of the array to 0.
+		Because the elements of the array are pointers to the vehicles, not vehicles themselves, this operation
+		is equivalent to setting the pointer to a NULL pointer. Therefore the program crashes when it tries to
+		brute force the NULL->vAusgabe() operation, which is not defined.
+	*/
 }
 
 void vAufgabe_2()
