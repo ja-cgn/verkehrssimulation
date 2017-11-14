@@ -61,37 +61,37 @@ void vAufgabe_1_deb()
 {
 	cout << "----------vAufgabe_1_deb()----------" << endl;
 
-	// Creating 4 vehicles
-	Fahrzeug f4("AUTO1", 219.21);
-	Fahrzeug f5("AUTO2", 202.99);
-	Fahrzeug f6("AUTO3", 269.15);
-	Fahrzeug f7("Auto4", 200.00);
+	// Saving the vehicle pointers in an array
+	Fahrzeug* feld_name[4];
 
-	// Saving the vehicle pointers in an vector
-	vector<Fahrzeug> feld_name(4);
-	feld_name.push_back(f4);
-	feld_name.push_back(f5);
-	feld_name.push_back(f6);
-	feld_name.push_back(f7);
-
-	//printing the vector
-	for (int i = 0; i <= 3; i++) 
+	for (int i = 0; i < 4; i++)
 	{
-		feld_name[i].vAusgabe();
+		Fahrzeug* fhzg = new Fahrzeug("FHZG" + to_string(i), iRandom(120, 290));
+		feld_name[i] = fhzg;
 	}
 
-/*	int a = 0;
-	//setting one element as 0
-	feld_name.insert(next(begin(feld_name)), f4); */
-
-	feld_name.pop_back();
-	//printing the vector again and use the debugger
+	//printing the array
+	for (int i = 0; i < 4; i++) 
+	{
+		feld_name[i]->vAusgabe();
+		cout << endl;
+	}
 	
+	//setting the 3rd vehicle to zero
+	feld_name[2] = 0;
+
 	for (int i = 0; i <= 3; i++)
 	{
-		feld_name[i].vAusgabe();
+		feld_name[i]->vAusgabe();
+		cout << endl;
 	}
 
+	/*
+		The problem here is the setting of the 3rd element of the array to 0.
+		Because the elements of the array are pointers to the vehicles, not vehicles themselves, this operation
+		is equivalent to setting the pointer to a NULL pointer. Therefore the program crashes when it tries to
+		brute force the NULL->vAusgabe() operation, which is not defined.
+	*/
 }
 
 void vAufgabe_2()
@@ -122,7 +122,7 @@ void vAufgabe_2()
 	//Fahrrad Erzeugung
 	for (int i = 1; i <= iAnzahlFahrraeder; i++)
 	{
-		Fahrrad* fhrd = new Fahrrad("FHRD" + to_string(i), iRandom(12, 35)/1);
+		Fahrrad* fhrd = new Fahrrad("FHRD" + to_string(i), iRandom(12, 35));
 		vFahzeuge.push_back(fhrd);
 	}
 
@@ -175,7 +175,7 @@ void vAufgabe_3()
 	Fahrrad fhrd1("FHRD1", iRandom(12, 35));
 	Fahrrad fhrd2("FHRD1", iRandom(12, 35));
 	Fahrrad fhrd3("FHRD1", iRandom(12, 35));
-	
+
 	//Output the characteristics of vehicles
 	cout << "Die folgende Fahrzeuge waren erzeugt" << endl;
 	vTemplateHeader();
@@ -212,19 +212,44 @@ void vAufgabe_3()
 	{
 		cout << "ERROR" << endl;
 	}
-
-	//TODO
-	//Copying a vehicle
-
+	
+	cout << "\nErzeuge ein PKW" << endl;
+	PKW* origpkw = new PKW("PKWtocopy", 300, 20, 40);
+	cout << *origpkw << endl;
+	cout << "Kopiere die Eigenschaften in einen neuen PKW" << endl;
+	PKW* copypkw = new PKW(*origpkw);
+	*copypkw = *origpkw;
+	cout << *origpkw << *copypkw << endl;
 }
 
 int main()
 {
 	//Feeding a time seed for the iRandom function
 	srand(time(NULL));
+	int iInput = 0;
+
+	while (iInput != -1)
+	{
+		cout << "Welche Funktion moechten Sie aufrufen?" << endl;
+		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n3 - vAufgabe3()\n-1 - exit" << endl;
+		cin >> iInput;
+
+		if (iInput == 1)
+		{
+			vAufgabe_1_deb();
+		}
+		else if (iInput == 2)
+		{
+			vAufgabe_2();
+		}
+		else if (iInput == 3)
+		{
+			vAufgabe_3();
+		}
+	}
 
 	//vAufgabe_1(); 
     //vAufgabe_1_deb();
 	//vAufgabe_2();
-	vAufgabe_3();
+	//vAufgabe_3();
 }
