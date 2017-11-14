@@ -122,7 +122,7 @@ void vAufgabe_2()
 	//Fahrrad Erzeugung
 	for (int i = 1; i <= iAnzahlFahrraeder; i++)
 	{
-		Fahrrad* fhrd = new Fahrrad("FHRD" + to_string(i), iRandom(12, 35)/1);
+		Fahrrad* fhrd = new Fahrrad("FHRD" + to_string(i), iRandom(12, 35));
 		vFahzeuge.push_back(fhrd);
 	}
 
@@ -175,7 +175,7 @@ void vAufgabe_3()
 	Fahrrad fhrd1("FHRD1", iRandom(12, 35));
 	Fahrrad fhrd2("FHRD1", iRandom(12, 35));
 	Fahrrad fhrd3("FHRD1", iRandom(12, 35));
-	
+
 	//Output the characteristics of vehicles
 	cout << "Die folgende Fahrzeuge waren erzeugt" << endl;
 	vTemplateHeader();
@@ -212,19 +212,44 @@ void vAufgabe_3()
 	{
 		cout << "ERROR" << endl;
 	}
-
-	//TODO
-	//Copying a vehicle
-
+	
+	cout << "\nErzeuge ein PKW" << endl;
+	PKW* origpkw = new PKW("PKWtocopy", 300, 20, 40);
+	cout << *origpkw << endl;
+	cout << "Kopiere die Eigenschaften in einen neuen PKW" << endl;
+	PKW* copypkw = new PKW(*origpkw);
+	*copypkw = *origpkw;
+	cout << *origpkw << *copypkw << endl;
 }
 
 int main()
 {
 	//Feeding a time seed for the iRandom function
 	srand(time(NULL));
+	int iInput = 0;
+
+	while (iInput != -1)
+	{
+		cout << "Welche Funktion moechten Sie aufrufen?" << endl;
+		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n3 - vAufgabe3()\n-1 - exit" << endl;
+		cin >> iInput;
+
+		if (iInput == 1)
+		{
+			vAufgabe_1_deb();
+		}
+		else if (iInput == 2)
+		{
+			vAufgabe_2();
+		}
+		else if (iInput == 3)
+		{
+			vAufgabe_3();
+		}
+	}
 
 	//vAufgabe_1(); 
     //vAufgabe_1_deb();
 	//vAufgabe_2();
-	vAufgabe_3();
+	//vAufgabe_3();
 }

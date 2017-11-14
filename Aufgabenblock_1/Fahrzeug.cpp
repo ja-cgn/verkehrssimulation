@@ -140,13 +140,15 @@ bool Fahrzeug::operator<(const Fahrzeug & fhzg)
 }
 
 Fahrzeug & Fahrzeug::operator=(const Fahrzeug & fhzg)
-{
-	this->p_sName = fhzg.p_sName;
-	this->p_dMaxGeschwindigkeit = fhzg.p_dMaxGeschwindigkeit;
-	this->p_dGesamtStrecke = fhzg.p_dGesamtStrecke;
-	this->p_dZeit = fhzg.p_dZeit;
-	this->p_GesamteZeit = fhzg.p_GesamteZeit;
-
+{	
+	if (this != &fhzg)
+	{
+		this->p_sName = fhzg.p_sName;
+		this->p_dMaxGeschwindigkeit = fhzg.p_dMaxGeschwindigkeit;
+		this->p_dGesamtStrecke = fhzg.p_dGesamtStrecke;
+		this->p_dZeit = fhzg.p_dZeit;
+		this->p_GesamteZeit = fhzg.p_GesamteZeit;
+	}
 	return *this;
 }
 
