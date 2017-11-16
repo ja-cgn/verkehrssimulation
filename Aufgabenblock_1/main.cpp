@@ -40,7 +40,7 @@ void vAufgabe_1()
 	PKW f2("AUTO2", 190, 34);
 	PKW f3("AUTO3", 198.2, 29);
 		
-	for (; dGlobaleZeit <= 1; dGlobaleZeit += TIME_INCREMENT) // Double nie genau abfragen, die Toleranzgrenze ist durch += jedoch (sehr) groß und damit passend
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 1; dGlobaleZeit += TIME_INCREMENT) // Double nie genau abfragen, die Toleranzgrenze ist durch += jedoch (sehr) groÃŸ und damit passend
 	{
 		//Output characteristics of vehicles
 		vTemplateHeader();
@@ -127,7 +127,7 @@ void vAufgabe_2()
 	}
 
 	//Hauptschleife
-	for (; dGlobaleZeit <= 6; dGlobaleZeit += TIME_INCREMENT)
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 6; dGlobaleZeit += TIME_INCREMENT)
 	{
 		/*
 			Fueling up the cars
@@ -183,7 +183,7 @@ void vAufgabe_3()
 
 	//Let the vehicles drive for a bit
 	cout << "Lasse die Fahzeuge 2 Stunden lang fahren" << endl;
-	for (; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
 	{
 		pkw1.vAbfertigung();
 		pkw2.vAbfertigung();
