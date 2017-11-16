@@ -78,11 +78,15 @@ void PKW::vAbfertigung()
 		double dDeltaConsumption = this->dGeschwindigkeit() * (dGlobaleZeit - this->p_dZeit) * this->p_dVerbrauch / 100;
 		
 		//Nur abfertigen, wenn das Tank Inhalt nach der Verbrauch immer noch positiv ist
-		if(this->p_dTankInhalt - dDeltaConsumption > 0)
+		if(this->p_dTankInhalt /* - dDeltaConsumption > 0 */)
 		{
 			//update Tankinhalt
 			this->p_dTankInhalt -= dDeltaConsumption;
 			Fahrzeug::vAbfertigung();
+		}
+		if(this->p_dTankInhalt < 0)
+		{
+			this->p_dTankInhalt = 0;
 		}
 		else
 		{
