@@ -165,6 +165,7 @@ void vAufgabe_2()
 
 void vAufgabe_3()
 {
+	dGlobaleZeit = 0;
 	cout << "----------vAufgabe_3()----------" << endl;
 	//PKW Erzeugung
 	PKW pkw1("AUTO1", iRandom(120, 290), iRandom(1, 30), iRandom(30, 90));

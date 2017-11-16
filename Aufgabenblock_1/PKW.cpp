@@ -43,13 +43,13 @@ double PKW::dTanken(double dMenge = DEFAULT_TANK_VOLUME)
 	if (this->p_dTankInhalt < DEFAULT_TANK_VOLUME)
 	{
 		// New fuel level after refuel
-		double dNewFuel = this->p_dTankVolumen;
+		double dNewFuel = this->p_dTankvolumen;
 
-		if (dNewFuel > this->p_dTankVolumen)
+		if (dNewFuel > this->p_dTankvolumen)
 		{
 			// if new fuel level > tank volume, then fuel amount = tank volume
-			this->p_dTankInhalt = p_dTankVolumen;
-			return dMenge - (dNewFuel - p_dTankVolumen);
+			this->p_dTankInhalt = p_dTankvolumen;
+			return dMenge - (dNewFuel - p_dTankvolumen);
 		}
 		else
 		{
