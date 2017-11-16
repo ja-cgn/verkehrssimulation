@@ -124,7 +124,7 @@ double Fahrzeug::dTanken(double dMenge)
 
 double Fahrzeug::dGeschwindigkeit()
 {
-	return 0.0;
+	return this->p_dMaxGeschwindigkeit;
 }
 
 bool Fahrzeug::operator<(const Fahrzeug & fhzg)

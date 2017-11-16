@@ -36,9 +36,13 @@ void vAufgabe_1()
 	cout << "----------vAufgabe_1()----------" << endl;
 
 	//MaxGeschwindigkeit in km/h -> 1 Stunde fahren = Geschwindigkeit Wert als Kilometer
-	PKW f1("AUTO1", 200, 30, 90);
-	PKW f2("AUTO2", 190, 34);
-	PKW f3("AUTO3", 198.2, 29);
+	Fahrzeug f1("AUTO1", 200);
+	Fahrzeug f2("AUTO2", 190);
+	Fahrzeug f3("AUTO3", 198.2);
+	string sInput;
+	cout << "Geben Sie ein Name ein: " << endl;
+	cin >> sInput;
+	Fahrzeug* f4 = new Fahrzeug(sInput, 210);
 		
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 1; dGlobaleZeit += TIME_INCREMENT) // Double nie genau abfragen, die Toleranzgrenze ist durch += jedoch (sehr) groß und damit passend
 	{
@@ -49,12 +53,20 @@ void vAufgabe_1()
 		f1.vAbfertigung();
 		f2.vAbfertigung();
 		f3.vAbfertigung();
+		f4->vAbfertigung();
 
 		//Calling the output function 
 		f1.vAusgabe();
+		cout << endl;
 		f2.vAusgabe();
+		cout << endl;
 		f3.vAusgabe();
+		cout << endl;
+		f4->vAusgabe();
+		cout << endl;
 	}
+
+	delete f4;
 }
 
 void vAufgabe_1_deb()
