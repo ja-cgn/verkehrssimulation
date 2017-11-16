@@ -8,7 +8,7 @@
 #define EPSILON 0.01
 #define TIME_INCREMENT 0.1
 #define FUEL_UP_TIME 3
-
+//test
 using namespace std;
 
 //Global time var
