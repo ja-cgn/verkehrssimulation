@@ -1,4 +1,5 @@
 #pragma once
+#include "AktivesVO.h"
 #include <iostream>
 #include <string>
 #include <math.h>
@@ -10,7 +11,8 @@ using namespace std;
 
 extern double dGlobaleZeit;
 
-class Fahrzeug
+class Fahrzeug:
+	public AktivesVO
 {
 public:
 	Fahrzeug();
@@ -18,9 +20,11 @@ public:
 	Fahrzeug(string sName);
 	Fahrzeug(string sName, double dVelocity);
 	~Fahrzeug();
+	/* Implementiert in AktivesVO
 	void virtual vAbfertigung();
 	void virtual vAusgabe();
 	void virtual ostreamAusgabe(ostream& output);
+	*/
 	double virtual dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	double virtual dGeschwindigkeit();
 	bool operator<(const Fahrzeug& fhzg);

@@ -11,13 +11,14 @@ public:
 	virtual ~AktivesVO();
 
 	void virtual vAbfertigung();
-	void virtual vAusgabe();
 	void virtual ostreamAusgabe(ostream& output);
 
 protected:
-	string sName;
-	int iID;
-	int dZeit;
+	string p_sName;
+	int p_iID;
+	int p_dZeit;
 
 };
+
+ostream& operator <<(ostream& output, AktivesVO& vo);
 

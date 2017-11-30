@@ -152,19 +152,6 @@ Fahrzeug & Fahrzeug::operator=(const Fahrzeug & fhzg)
 	return *this;
 }
 
-void Fahrzeug::vAbfertigung()
-{
-	// excute only if the last update happened before the current global time
-	if (this->p_dZeit < dGlobaleZeit)
-	{
-		// update position
-		// delta(s) = v_max * delta(t) => s_new = s_old + delta(s)
-		this->p_dGesamtStrecke += this->p_dMaxGeschwindigkeit * (dGlobaleZeit - this->p_dZeit);
-
-		// update clock
-		this->p_dZeit = dGlobaleZeit;
-	}
-}
 
 ostream& operator<<(ostream& output, Fahrzeug& fhzg)
 {
