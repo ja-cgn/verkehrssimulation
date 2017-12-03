@@ -10,8 +10,12 @@ public:
 	AktivesVO();
 	virtual ~AktivesVO();
 
+	void virtual vInitialisierung();
 	void virtual vAbfertigung();
 	void virtual ostreamAusgabe(ostream& output);
+
+private:
+	static int p_iMaxID;
 
 protected:
 	string p_sName;

@@ -30,10 +30,6 @@ public:
 	bool operator<(const Fahrzeug& fhzg);
 	Fahrzeug& operator=(const Fahrzeug& fhzg);
 
-private:
-	static int p_iMaxID;
-	void vInitialisierung();
-
 protected:
 	int p_iID;
 	string p_sName;
