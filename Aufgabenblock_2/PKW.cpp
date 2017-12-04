@@ -1,4 +1,6 @@
 #include "PKW.h"
+#include <iostream>
+#include <iomanip>
 
 /* Default constructor */
 PKW::PKW()
@@ -43,13 +45,13 @@ double PKW::dTanken(double dMenge = DEFAULT_TANK_VOLUME)
 	if (this->p_dTankInhalt < DEFAULT_TANK_VOLUME)
 	{
 		// New fuel level after refuel
-		double dNewFuel = this->p_dTankvolumen;
+		double dNewFuel = this->p_dTankInhalt + dMenge;
 
-		if (dNewFuel > this->p_dTankvolumen)
+		if (dNewFuel > DEFAULT_TANK_VOLUME)
 		{
 			// if new fuel level > tank volume, then fuel amount = tank volume
-			this->p_dTankInhalt = p_dTankvolumen;
-			return dMenge - (dNewFuel - p_dTankvolumen);
+			this->p_dTankInhalt = DEFAULT_TANK_VOLUME;
+			return dMenge - (dNewFuel - DEFAULT_TANK_VOLUME);
 		}
 		else
 		{
@@ -78,15 +80,11 @@ void PKW::vAbfertigung()
 		double dDeltaConsumption = this->dGeschwindigkeit() * (dGlobaleZeit - this->p_dZeit) * this->p_dVerbrauch / 100;
 		
 		//Nur abfertigen, wenn das Tank Inhalt nach der Verbrauch immer noch positiv ist
-		if(this->p_dTankInhalt /* - dDeltaConsumption  */> 0)
+		if(this->p_dTankInhalt - dDeltaConsumption > 0)
 		{
 			//update Tankinhalt
 			this->p_dTankInhalt -= dDeltaConsumption;
 			Fahrzeug::vAbfertigung();
-		}
-		if(this->p_dTankInhalt < 0)
-		{
-			this->p_dTankInhalt = 0;
 		}
 		else
 		{
