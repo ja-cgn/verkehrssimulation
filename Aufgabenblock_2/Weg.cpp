@@ -41,3 +41,8 @@ void Weg::ostreamAusgabe(ostream & output)
 	output << this->p_dLaenge;
 	cout << endl;
 }
+
+double Weg::dGetLaenge()
+{
+	return this->p_dLaenge;
+}

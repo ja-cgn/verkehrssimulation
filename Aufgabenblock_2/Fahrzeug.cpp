@@ -1,4 +1,5 @@
 #include "Fahrzeug.h"
+#include "FzgVerhalten.h"
 #include <iostream>
 #include <iomanip>
 #include "Weg.h"
@@ -36,6 +37,11 @@ Fahrzeug::Fahrzeug(string sName, double dVelocity)
 
 Fahrzeug::~Fahrzeug()
 {
+}
+
+double Fahrzeug::dGetGesamtStrecke()
+{
+	return this->p_dGesamtStrecke;
 }
 
 
@@ -80,14 +86,25 @@ double Fahrzeug::dGeschwindigkeit()
 	return 0.0;
 }
 
+void Fahrzeug::vNeueStrecke(Weg * weg)
+{
+	//Erzeuge eine neue Instanz von FzgVerhalten
+	FzgVerhalten* pNeuVerhalten = new FzgVerhalten(weg);
+
+	//Speichere in Fahrzeug
+	this->p_pVerhalten = pNeuVerhalten;
+
+	//Garbage Collection
+	delete pNeuVerhalten;
+}
+
 void Fahrzeug::vAbfertigung()
 {
 	// excute only if the last update happened before the current global time
 	if (this->p_dZeit < dGlobaleZeit)
 	{
 		// update position
-		// delta(s) = v_max * delta(t) => s_new = s_old + delta(s)
-		this->p_dGesamtStrecke += this->p_dMaxGeschwindigkeit * (dGlobaleZeit - this->p_dZeit);
+		this->p_dGesamtStrecke += p_pVerhalten->dStrecke(this, dGlobaleZeit - this->p_dZeit);
 
 		// update clock
 		this->p_dZeit = dGlobaleZeit;

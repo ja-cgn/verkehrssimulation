@@ -2,6 +2,7 @@
 #include "AktivesVO.h"
 #include <string>
 #define DEFAULT_TANK_VOLUME 55
+#define EPSILON 0.01
 class FzgVerhalten;
 extern double dGlobaleZeit;
 using namespace std;
@@ -16,11 +17,14 @@ public:
 	Fahrzeug(string sName, double dVelocity);
 	~Fahrzeug();
 
+	double dGetGesamtStrecke();
+
 	virtual void vAbfertigung();
 	virtual void vAusgabe();
 	virtual void ostreamAusgabe(ostream& output);
 	virtual double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	virtual double dGeschwindigkeit();
+	virtual void vNeueStrecke(Weg* weg);
 
 	bool operator<(const Fahrzeug& fhzg);
 	Fahrzeug& operator=(const Fahrzeug& fhzg);

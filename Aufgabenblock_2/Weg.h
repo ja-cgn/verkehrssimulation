@@ -18,9 +18,11 @@ public:
 	Weg(string sName, double dLaenge, Begrenzung eTempolimit = Autobahn);
 	~Weg();
 
+	double dGetLaenge();
+
 	virtual void vAbfertigung();
 	virtual void ostreamAusgabe(ostream& output);
-
+	
 private:
 	double p_dLaenge;
 	list<Fahrzeug*> p_pFahrzeuge;
