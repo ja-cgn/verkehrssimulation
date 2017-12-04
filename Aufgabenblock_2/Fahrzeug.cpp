@@ -1,35 +1,36 @@
 #include "Fahrzeug.h"
-
-using namespace std;
+#include <iostream>
+#include <iomanip>
+#include "Weg.h"
 
 /* Default constructor */
 Fahrzeug::Fahrzeug()
+	:AktivesVO()
 {
 	vInitialisierung();
 }
 
+/* Copy Constructor */
 Fahrzeug::Fahrzeug(const Fahrzeug& fahrzeug)
+	:AktivesVO(fahrzeug)
 {
-	this->vInitialisierung();
+	vInitialisierung();
 
-	this->p_sName = fahrzeug.p_sName;
 	this->p_dMaxGeschwindigkeit = fahrzeug.p_dMaxGeschwindigkeit;
 }
 
 /* Name constructor */
 Fahrzeug::Fahrzeug(string sName)
+	:AktivesVO(sName)
 {
 	vInitialisierung();
-
-	this->p_sName = sName;
 }
 
 /* Name and velocity constructor */
 Fahrzeug::Fahrzeug(string sName, double dVelocity)
+	:AktivesVO(sName)
 {
 	vInitialisierung();
-
-	this->p_sName = sName;
 	this->p_dMaxGeschwindigkeit = dVelocity;
 }
 
@@ -44,7 +45,7 @@ void Fahrzeug::vInitialisierung()
 	this->p_dMaxGeschwindigkeit = 0;
 	this->p_dGesamtStrecke = 0;
 	this->p_GesamteZeit = 0;
-	this->p_dZeit = 0;
+	this->p_pVerhalten = NULL;
 }
 
 void Fahrzeug::vAusgabe()
@@ -57,11 +58,10 @@ void Fahrzeug::vAusgabe()
 
 void Fahrzeug::ostreamAusgabe(ostream &output)
 {
-	output.flags(ios::left);
-	output.width(4);
-	output << this->p_iID;
-	output.width(7);
-	output << this->p_sName;
+	//Call the Abstract parent class output
+	AktivesVO::ostreamAusgabe(output);
+
+	//Output unique parameters
 	output << ":";
 	output.flags(ios::right);
 	output.width(8);
@@ -78,6 +78,20 @@ double Fahrzeug::dTanken(double dMenge)
 double Fahrzeug::dGeschwindigkeit()
 {
 	return 0.0;
+}
+
+void Fahrzeug::vAbfertigung()
+{
+	// excute only if the last update happened before the current global time
+	if (this->p_dZeit < dGlobaleZeit)
+	{
+		// update position
+		// delta(s) = v_max * delta(t) => s_new = s_old + delta(s)
+		this->p_dGesamtStrecke += this->p_dMaxGeschwindigkeit * (dGlobaleZeit - this->p_dZeit);
+
+		// update clock
+		this->p_dZeit = dGlobaleZeit;
+	}
 }
 
 bool Fahrzeug::operator<(const Fahrzeug & fhzg)
@@ -99,15 +113,9 @@ Fahrzeug & Fahrzeug::operator=(const Fahrzeug & fhzg)
 		this->p_sName = fhzg.p_sName;
 		this->p_dMaxGeschwindigkeit = fhzg.p_dMaxGeschwindigkeit;
 		this->p_dGesamtStrecke = fhzg.p_dGesamtStrecke;
+		this->p_dAbschnittStrecke = fhzg.p_dAbschnittStrecke;
 		this->p_dZeit = fhzg.p_dZeit;
 		this->p_GesamteZeit = fhzg.p_GesamteZeit;
 	}
 	return *this;
-}
-
-
-ostream& operator<<(ostream& output, Fahrzeug& fhzg)
-{
-	fhzg.ostreamAusgabe(output);
-	return output;
 }

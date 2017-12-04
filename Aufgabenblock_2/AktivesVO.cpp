@@ -1,8 +1,5 @@
 #include "AktivesVO.h"
-#include <iostream>
-#include <iomanip>
 
-using namespace std;
 //Global scope definition of the ID var to start off increments correctly
 int AktivesVO::p_iMaxID = 0;
 
@@ -10,6 +7,22 @@ int AktivesVO::p_iMaxID = 0;
 AktivesVO::AktivesVO()
 {
 	vInitialisierung();
+}
+
+/* Name constructor */
+AktivesVO::AktivesVO(string sName)
+{
+	vInitialisierung();
+
+	this->p_sName = sName;
+}
+
+/* Copy Constructor */
+AktivesVO::AktivesVO(const AktivesVO & vo)
+{
+	vInitialisierung();
+
+	this->p_sName = vo.p_sName;
 }
 
 /* Default destructor */
@@ -34,11 +47,16 @@ void AktivesVO::vAbfertigung()
 
 void AktivesVO::ostreamAusgabe(ostream & output)
 {
+	//Output only the name and the ID
+	output.flags(ios::left);
+	output.width(4);
+	output << this->p_iID;
+	output.width(7);
+	output << this->p_sName;
 }
 
 ostream& operator<<(ostream& output, AktivesVO & vo)
 {
-	// TODO: hier Rückgabeanweisung eingeben
 	vo.ostreamAusgabe(output);
 	return output;
 }

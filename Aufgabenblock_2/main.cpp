@@ -3,6 +3,7 @@
 #include <vector>
 #include "time.h"
 #include "Fahrzeug.h"
+#include "Weg.h"
 #include "PKW.h"
 #include "Fahrrad.h"
 #define EPSILON 0.01
@@ -127,7 +128,7 @@ void vAufgabe_2()
 	}
 
 	//Hauptschleife
-	for (; dGlobaleZeit <= 6; dGlobaleZeit += TIME_INCREMENT)
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 6; dGlobaleZeit += TIME_INCREMENT)
 	{
 		/*
 			Fueling up the cars
@@ -183,7 +184,7 @@ void vAufgabe_3()
 
 	//Let the vehicles drive for a bit
 	cout << "Lasse die Fahzeuge 2 Stunden lang fahren" << endl;
-	for (; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
 	{
 		pkw1.vAbfertigung();
 		pkw2.vAbfertigung();
@@ -222,6 +223,18 @@ void vAufgabe_3()
 	cout << *origpkw << *copypkw << endl;
 }
 
+void vAufgabe_4()
+{
+	vTemplateHeader();
+
+	// Erzeuge Weg Instanzen und gebe die aus
+	for (int i = 1; i < 3; i++)
+	{
+		Weg* weg = new Weg("WEG"+to_string(i), double(iRandom(0,40)));
+		cout << *weg;
+	}	
+}
+
 int main()
 {
 	//Feeding a time seed for the iRandom function
@@ -231,7 +244,7 @@ int main()
 	while (iInput != -1)
 	{
 		cout << "Welche Funktion moechten Sie aufrufen?" << endl;
-		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n3 - vAufgabe3()\n-1 - exit" << endl;
+		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n3 - vAufgabe_3()\n4 - vAufgabe_4()\n-1 - exit" << endl;
 		cin >> iInput;
 
 		if (iInput == 1)
@@ -246,10 +259,9 @@ int main()
 		{
 			vAufgabe_3();
 		}
+		else if (iInput == 4)
+		{
+			vAufgabe_4();
+		}
 	}
-
-	//vAufgabe_1(); 
-    //vAufgabe_1_deb();
-	//vAufgabe_2();
-	//vAufgabe_3();
 }

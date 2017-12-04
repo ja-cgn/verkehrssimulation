@@ -1,15 +1,10 @@
 #pragma once
 #include "AktivesVO.h"
-#include <iostream>
 #include <string>
-#include <math.h>
-#include <iomanip>
 #define DEFAULT_TANK_VOLUME 55
-
-
-using namespace std;
-
+class FzgVerhalten;
 extern double dGlobaleZeit;
+using namespace std;
 
 class Fahrzeug:
 	public AktivesVO
@@ -20,23 +15,23 @@ public:
 	Fahrzeug(string sName);
 	Fahrzeug(string sName, double dVelocity);
 	~Fahrzeug();
-	/* Implementiert in AktivesVO
-	void virtual vAbfertigung();
-	void virtual vAusgabe();
-	void virtual ostreamAusgabe(ostream& output);
-	*/
-	double virtual dTanken(double dMenge = DEFAULT_TANK_VOLUME);
-	double virtual dGeschwindigkeit();
+
+	virtual void vAbfertigung();
+	virtual void vAusgabe();
+	virtual void ostreamAusgabe(ostream& output);
+	virtual double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
+	virtual double dGeschwindigkeit();
+
 	bool operator<(const Fahrzeug& fhzg);
 	Fahrzeug& operator=(const Fahrzeug& fhzg);
 
+private:
+	void vInitialisierung();
+
 protected:
-	int p_iID;
-	string p_sName;
 	double p_dMaxGeschwindigkeit;
 	double p_dGesamtStrecke;
+	double p_dAbschnittStrecke;
 	double p_GesamteZeit;
-	double p_dZeit;
+	FzgVerhalten* p_pVerhalten;
 };
-
-ostream& operator <<(ostream& output, Fahrzeug& fhzg);

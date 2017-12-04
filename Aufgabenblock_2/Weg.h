@@ -1,9 +1,8 @@
 #pragma once
 #include "AktivesVO.h"
-#include "Fahrzeug.h"
 #include <list>
+class Fahrzeug;
 
-typedef list<Fahrzeug*> FahrzeugeList;
 enum Begrenzung
 {
 	Innenort = 50,
@@ -16,14 +15,15 @@ class Weg :
 {
 public:
 	Weg();
-	Weg(string sName, double dLaenge, Begrenzung eTempolimit);
+	Weg(string sName, double dLaenge, Begrenzung eTempolimit = Autobahn);
 	~Weg();
 
-	void vAbfertigung();
+	virtual void vAbfertigung();
+	virtual void ostreamAusgabe(ostream& output);
 
 private:
 	double p_dLaenge;
-	FahrzeugeList p_pFahrzeuge;
+	list<Fahrzeug*> p_pFahrzeuge;
 	static Begrenzung p_eLimit;
 
 protected:

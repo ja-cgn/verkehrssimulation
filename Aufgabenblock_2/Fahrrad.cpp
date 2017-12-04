@@ -1,4 +1,5 @@
 #include "Fahrrad.h"
+#include <iostream>
 
 Fahrrad::Fahrrad()
 	:Fahrzeug(this->p_sName, this->p_dMaxGeschwindigkeit)

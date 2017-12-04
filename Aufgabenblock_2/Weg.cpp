@@ -1,11 +1,17 @@
 #include "Weg.h"
-FahrzeugeList::iterator FahrzeugeListIter;
+#include <iostream>
+#include <list>
+#include "Fahrzeug.h"
+
+list<Fahrzeug*>::iterator FahrzeugeListIter;
 
 Weg::Weg()
+	:AktivesVO()
 {
 }
 
-Weg::Weg(string sName, double dLaenge, Begrenzung eTempolimit = Autobahn)
+Weg::Weg(string sName, double dLaenge, Begrenzung eTempolimit)
+	:AktivesVO(sName)
 {
 }
 
@@ -16,9 +22,22 @@ Weg::~Weg()
 void Weg::vAbfertigung()
 {
 	//alle auf dem Weg befindlichen Fahzeuge abfertigen
-	for (FahrzeugeListIter = p_pFahrzeuge.begin; FahrzeugeListIter != p_pFahrzeuge.end; FahrzeugeListIter++)
+	FahrzeugeListIter = (this->p_pFahrzeuge).begin();
+	while (FahrzeugeListIter != p_pFahrzeuge.end())
 	{
-		//TODO abfertigen
+		(*FahrzeugeListIter)->vAbfertigung();
 	}
 }
 
+void Weg::ostreamAusgabe(ostream & output)
+{
+	//Call the Abstract parent class output
+	AktivesVO::ostreamAusgabe(output);
+
+	//Output unique parameters
+	output << ":";
+	output.flags(ios::right);
+	output.width(8);
+	output << this->p_dLaenge;
+	cout << endl;
+}

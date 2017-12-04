@@ -1,18 +1,19 @@
 #pragma once
-#include <iostream>
 #include <string>
-#include <math.h>
-#include <iomanip>
+
+using namespace std;
 
 class AktivesVO
 {
 public:
 	AktivesVO();
+	AktivesVO(string sName);
+	AktivesVO(const AktivesVO& vo);
 	virtual ~AktivesVO();
 
-	void virtual vInitialisierung();
-	void virtual vAbfertigung();
-	void virtual ostreamAusgabe(ostream& output);
+	virtual void vInitialisierung();
+	virtual void vAbfertigung();
+	virtual void ostreamAusgabe(ostream& output);
 
 private:
 	static int p_iMaxID;
