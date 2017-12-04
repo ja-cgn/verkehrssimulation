@@ -32,7 +32,7 @@ double Fahrrad::dGeschwindigkeit()
 	// speed should descrease with time
 	// each 20 km decreases the speed to 90% of the previous speed
 
-	double dAktuelleGeschwindigkeit = this->p_dMaxGeschwindigkeit * pow(VELOCITY_DROP_MULTIPLIER,this->p_dGesamtStrecke / VELOCITY_DROP_DIST);
+	double dAktuelleGeschwindigkeit = this->p_dMaxGeschwindigkeit * pow(VELOCITY_DROP_MULTIPLIER,int(this->p_dGesamtStrecke / VELOCITY_DROP_DIST));
 	
 	if(dAktuelleGeschwindigkeit < MIN_VELOCITY)
 	{

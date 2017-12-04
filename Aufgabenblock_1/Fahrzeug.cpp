@@ -124,7 +124,7 @@ double Fahrzeug::dTanken(double dMenge)
 
 double Fahrzeug::dGeschwindigkeit()
 {
-	return 0.0;
+	return this->p_dMaxGeschwindigkeit;
 }
 
 bool Fahrzeug::operator<(const Fahrzeug & fhzg)
@@ -159,7 +159,7 @@ void Fahrzeug::vAbfertigung()
 	{
 		// update position
 		// delta(s) = v_max * delta(t) => s_new = s_old + delta(s)
-		this->p_dGesamtStrecke += this->p_dMaxGeschwindigkeit * (dGlobaleZeit - this->p_dZeit);
+		this->p_dGesamtStrecke += this->dGeschwindigkeit() * (dGlobaleZeit - this->p_dZeit);
 
 		// update clock
 		this->p_dZeit = dGlobaleZeit;
