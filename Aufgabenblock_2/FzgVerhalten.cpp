@@ -29,7 +29,14 @@ double FzgVerhalten::dStrecke(Fahrzeug * fhzg, double dTimeInterval)
 	//Doubles um Epsilon testen
 	if ((dNeueGesamtStrecke - dMaxStrecke) > EPSILON)
 	{
-		return dFahrbareStrecke - (dNeueGesamtStrecke - dMaxStrecke);
+		if (fabs(fhzg->dGetGesamtStrecke() - dMaxStrecke) < EPSILON)
+		{
+			exit(1);
+		}
+		else
+		{
+			return dFahrbareStrecke - (dNeueGesamtStrecke - dMaxStrecke);
+		}
 	}
 	else
 	{

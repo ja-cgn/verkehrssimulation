@@ -7,6 +7,8 @@ class FzgVerhalten;
 extern double dGlobaleZeit;
 using namespace std;
 
+class Weg;
+
 class Fahrzeug:
 	public AktivesVO
 {
@@ -24,7 +26,7 @@ public:
 	virtual void ostreamAusgabe(ostream& output);
 	virtual double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	virtual double dGeschwindigkeit();
-	virtual void vNeueStrecke(Weg* weg);
+	void vNeueStrecke(Weg* weg);
 
 	bool operator<(const Fahrzeug& fhzg);
 	Fahrzeug& operator=(const Fahrzeug& fhzg);

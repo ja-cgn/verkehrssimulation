@@ -21,7 +21,7 @@ private:
 protected:
 	string p_sName;
 	int p_iID;
-	int p_dZeit;
+	double p_dZeit;
 
 };
 
