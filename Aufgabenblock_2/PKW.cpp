@@ -1,4 +1,5 @@
 #include "PKW.h"
+#include "FzgVerhalten.h"
 #include <iostream>
 #include <iomanip>
 
@@ -67,7 +68,7 @@ double PKW::dTanken(double dMenge = DEFAULT_TANK_VOLUME)
 
 double PKW::dGeschwindigkeit()
 {
-	// PKWs sollen immer mit Max Geschwindigkeit fahren
+	if( ((this->p_pVerhalten) -> getWeg() )->)
 	return this->p_dMaxGeschwindigkeit;
 }
 

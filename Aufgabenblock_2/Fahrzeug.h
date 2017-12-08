@@ -20,6 +20,7 @@ public:
 	~Fahrzeug();
 
 	double dGetGesamtStrecke();
+	string sGetName();
 
 	virtual void vAbfertigung();
 	virtual void vAusgabe();
@@ -27,6 +28,7 @@ public:
 	virtual double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	virtual double dGeschwindigkeit();
 	void vNeueStrecke(Weg* weg);
+	void vNeueStrecke(Weg* weg, double dStartZeit);
 
 	bool operator<(const Fahrzeug& fhzg);
 	Fahrzeug& operator=(const Fahrzeug& fhzg);

@@ -44,6 +44,11 @@ double Fahrzeug::dGetGesamtStrecke()
 	return this->p_dGesamtStrecke;
 }
 
+string Fahrzeug::sGetName()
+{
+	return this->p_sName;
+}
+
 
 /* Initializer function for all constructors */
 void Fahrzeug::vInitialisierung()
@@ -88,14 +93,18 @@ double Fahrzeug::dGeschwindigkeit()
 
 void Fahrzeug::vNeueStrecke(Weg * weg)
 {
+	//Garbage Collection
+	delete this->p_pVerhalten;
+
 	//Erzeuge eine neue Instanz von FzgVerhalten
 	FzgVerhalten* pNeuVerhalten = new FzgVerhalten(weg);
 
 	//Speichere in Fahrzeug
 	this->p_pVerhalten = pNeuVerhalten;
+}
 
-	//Garbage Collection
-	delete pNeuVerhalten;
+void Fahrzeug::vNeueStrecke(Weg * weg, double dStartZeit)
+{
 }
 
 void Fahrzeug::vAbfertigung()

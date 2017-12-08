@@ -32,6 +32,13 @@ void vTemplateHeader()
 	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 }
 
+void vTemplateHeaderWeg()
+{
+	cout << endl << setiosflags(ios::left) << setw(4) << "ID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
+		<< setiosflags(ios::right) << setw(8) << "Laenge" << setw(16) << "Fahrzeuge" << resetiosflags(ios::right) << endl;
+	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+}
+
 void vAufgabe_1()
 {
 	cout << "----------vAufgabe_1()----------" << endl;
@@ -225,14 +232,26 @@ void vAufgabe_3()
 
 void vAufgabe_4()
 {
-	vTemplateHeader();
+	vTemplateHeaderWeg();
 
-	// Erzeuge Weg Instanzen und gebe die aus
-	for (int i = 1; i < 3; i++)
+	// Erzeuge einen Weg und gebe den aus
+	Weg weg1("WEG1", 40);
+
+	//Erzeuge zwei Fahrzeuge
+	for (int i = 1; i <= 2; i++)
 	{
-		Weg* weg = new Weg("WEG"+to_string(i), double(iRandom(0,40)));
-		cout << *weg;
-	}	
+		PKW* pkw = new PKW("AUTO" + to_string(i), iRandom(120, 290), iRandom(1, 30), iRandom(30, 90));
+		weg1.vAnnahme(pkw);
+	}
+
+	//Gebe die Weg Informationen aus
+	cout << weg1;
+
+	//Fertige den Weg ab
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
+	{
+		weg1.vAbfertigung();
+	}
 }
 
 int main()

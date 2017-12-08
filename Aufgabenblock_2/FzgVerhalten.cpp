@@ -15,6 +15,11 @@ FzgVerhalten::~FzgVerhalten()
 {
 }
 
+Weg * FzgVerhalten::getWeg()
+{
+	return this->p_pAktuellerWeg;
+}
+
 /* Erfahre wie weit ein Fahrzeug innerhalb des übergebenen Zeitraums noch fahren kann*/
 double FzgVerhalten::dStrecke(Fahrzeug * fhzg, double dTimeInterval)
 {

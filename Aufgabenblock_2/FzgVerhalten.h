@@ -7,9 +7,12 @@ class FzgVerhalten
 public:
 	FzgVerhalten();
 	FzgVerhalten(Weg* weg);
-	~FzgVerhalten();
+	virtual ~FzgVerhalten();
+
+	Weg* getWeg();
 
 	virtual double dStrecke(Fahrzeug* fhzg, double dDistance);
+
 private:
 
 protected:

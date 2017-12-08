@@ -19,14 +19,17 @@ public:
 	~Weg();
 
 	double dGetLaenge();
+	double dGetLimit();
 
 	virtual void vAbfertigung();
 	virtual void ostreamAusgabe(ostream& output);
-	
+	virtual void vAnnahme(Fahrzeug* fhzg); //fahrendes Fahrzeug
+	virtual void vAnnahme(Fahrzeug* fhzg, double dStartZeit); //parkendes Fahrzeug
+
 private:
 	double p_dLaenge;
 	list<Fahrzeug*> p_pFahrzeuge;
-	static Begrenzung p_eLimit;
+	Begrenzung p_eLimit;
 
 protected:
 
