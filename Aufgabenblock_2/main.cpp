@@ -116,9 +116,6 @@ void vAufgabe_2()
 	cin >> iAnzahlPKW;
 	cout << "Wie viele Fahrraeder sollen erzeugt werden?" << endl;
 	cin >> iAnzahlFahrraeder;
-	
-	//Fahrrad fahr1("FAHR11", 20);
-
 
 	//PKW Erzeugung
 	for (int i = 1; i <= iAnzahlPKW; i++)
