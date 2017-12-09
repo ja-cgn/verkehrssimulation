@@ -83,3 +83,8 @@ double Weg::dGetLaenge()
 {
 	return this->p_dLaenge;
 }
+
+double Weg::dGetLimit()
+{
+	return 0.0;
+}

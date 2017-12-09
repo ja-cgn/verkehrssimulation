@@ -1,4 +1,5 @@
 #include "PKW.h"
+#include "Weg.h"
 #include "FzgVerhalten.h"
 #include <iostream>
 #include <iomanip>
@@ -68,8 +69,15 @@ double PKW::dTanken(double dMenge = DEFAULT_TANK_VOLUME)
 
 double PKW::dGeschwindigkeit()
 {
-	if( ((this->p_pVerhalten) -> getWeg() )->)
-	return this->p_dMaxGeschwindigkeit;
+	double dAktuellerLimit = this->p_pVerhalten->getWeg()->dGetLimit();
+	if (dAktuellerLimit > this->p_dMaxGeschwindigkeit)
+	{
+		return this->p_dMaxGeschwindigkeit;
+	}
+	else
+	{
+		return dAktuellerLimit;
+	}
 }
 
 void PKW::vAbfertigung()
