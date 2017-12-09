@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include "Fahrzeug.h"
+#include "FahrAusnahme.h"
 
 list<Fahrzeug*>::iterator FahrzeugeListIter;
 
@@ -25,7 +26,16 @@ void Weg::vAbfertigung()
 	FahrzeugeListIter = (this->p_pFahrzeuge).begin();
 	while (FahrzeugeListIter != p_pFahrzeuge.end())
 	{
-		(*FahrzeugeListIter)->vAbfertigung();
+		//Exception handling
+		try
+		{
+			(*FahrzeugeListIter)->vAbfertigung();
+		}
+		catch (FahrAusnahme& exception)
+		{
+			exception.vBearbeiten();
+		}
+
 		FahrzeugeListIter++;
 	}
 }

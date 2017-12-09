@@ -1,6 +1,6 @@
 #include "FzgParken.h"
 #include "Fahrzeug.h"
-
+#include "Losfahren.h"
 
 FzgParken::FzgParken()
 {
@@ -20,7 +20,7 @@ double FzgParken::dStrecke(Fahrzeug* fhzg, double dZeit)
 {
 	if (p_dStartZeit - dZeit < EPSILON)
 	{
-		exit(2);
+		throw Losfahren(fhzg, this->p_pAktuellerWeg);
 	}
 	else
 	{
