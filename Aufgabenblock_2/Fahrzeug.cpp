@@ -92,11 +92,6 @@ double Fahrzeug::dTanken(double dMenge)
 	return 0.0;
 }
 
-double Fahrzeug::dGeschwindigkeit()
-{
-	return 0.0;
-}
-
 /* FzgFahren */
 void Fahrzeug::vNeueStrecke(Weg * weg)
 {
@@ -126,7 +121,7 @@ void Fahrzeug::vNeueStrecke(Weg * weg, double dStartZeit)
 void Fahrzeug::vAbfertigung()
 {
 	// excute only if the last update happened before the current global time
-	if (this->p_dZeit < dGlobaleZeit)
+	if (fabs(dGlobaleZeit-this->p_dZeit) > 0.00001)
 	{
 		// update GesamtStrecke
 		this->p_dGesamtStrecke += this->p_pVerhalten->dStrecke(this, dGlobaleZeit - this->p_dZeit);

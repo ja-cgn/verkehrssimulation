@@ -30,7 +30,7 @@ public:
 	virtual void vAusgabe();
 	virtual void ostreamAusgabe(ostream& output);
 	virtual double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
-	virtual double dGeschwindigkeit();
+	virtual double dGeschwindigkeit() = 0;
 	void vNeueStrecke(Weg* weg);
 	void vNeueStrecke(Weg* weg, double dStartZeit);
 

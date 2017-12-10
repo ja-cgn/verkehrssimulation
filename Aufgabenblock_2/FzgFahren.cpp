@@ -1,5 +1,7 @@
 #include "FzgFahren.h"
 #include "Fahrzeug.h"
+#include "PKW.h"
+#include "Fahrrad.h"
 #include "Weg.h"
 #include "Streckenende.h"
 

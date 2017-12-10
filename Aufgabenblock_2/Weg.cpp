@@ -94,7 +94,7 @@ double Weg::dGetLaenge()
 
 double Weg::dGetLimit()
 {
-	return 0.0;
+	return this->p_eLimit;
 }
 
 list<Fahrzeug*> Weg::getFahrzeuge()

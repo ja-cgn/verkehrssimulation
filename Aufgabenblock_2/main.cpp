@@ -74,7 +74,7 @@ void vAufgabe_1_deb()
 
 	for (int i = 0; i < 4; i++)
 	{
-		Fahrzeug* fhzg = new Fahrzeug("FHZG" + to_string(i), iRandom(120, 290));
+		PKW* fhzg = new PKW("FHZG" + to_string(i), iRandom(120, 290), 30);
 		feld_name[i] = fhzg;
 	}
 
@@ -276,10 +276,13 @@ void vAufgabe_5()
 	//Fertige den Weg ab
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
 	{
-		vTemplateHeaderFhzg();
-		cout << fhzg1 << fhzg2;
 		//Fertige ab
 		weg.vAbfertigung();
+
+		//Gebe aus
+		vTemplateHeaderFhzg();
+		cout << fhzg1 << fhzg2;
+
 	}
 }
 
@@ -287,31 +290,31 @@ int main()
 {
 	//Feeding a time seed for the iRandom function
 	srand(time(NULL));
-	int iInput = 0;
+	string sInput = "";
 
-	while (iInput != -1)
+	while (sInput != "-1")
 	{
 		cout << "Welche Funktion moechten Sie aufrufen?" << endl;
 		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n3 - vAufgabe_3()\n4 - vAufgabe_4()\n5 - vAufgabe_5()\n-1 - exit\nIhre Eingabe: " << endl;
-		cin >> iInput;
+		cin >> sInput;
 
-		if (iInput == 1)
+		if (sInput == "1")
 		{
 			vAufgabe_1_deb();
 		}
-		else if (iInput == 2)
+		else if (sInput == "2")
 		{
 			vAufgabe_2();
 		}
-		else if (iInput == 3)
+		else if (sInput == "3")
 		{
 			vAufgabe_3();
 		}
-		else if (iInput == 4)
+		else if (sInput == "4")
 		{
 			vAufgabe_4();
 		}
-		else if (iInput == 5)
+		else if (sInput == "5")
 		{
 			vAufgabe_5();
 		}
