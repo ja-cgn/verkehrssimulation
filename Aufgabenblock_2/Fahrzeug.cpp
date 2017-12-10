@@ -1,5 +1,7 @@
 #include "Fahrzeug.h"
 #include "FzgVerhalten.h"
+#include "FzgParken.h"
+#include "FzgFahren.h"
 #include <iostream>
 #include <iomanip>
 #include "Weg.h"
@@ -44,18 +46,22 @@ double Fahrzeug::dGetGesamtStrecke()
 	return this->p_dGesamtStrecke;
 }
 
+double Fahrzeug::dGetAbschnittStrecke()
+{
+	return this->p_dAbschnittStrecke;
+}
+
 string Fahrzeug::sGetName()
 {
 	return this->p_sName;
 }
-
 
 /* Initializer function for all constructors */
 void Fahrzeug::vInitialisierung()
 {
 	this->p_dMaxGeschwindigkeit = 0;
 	this->p_dGesamtStrecke = 0;
-	this->p_GesamteZeit = 0;
+	this->p_dGesamteZeit = 0;
 	this->p_pVerhalten = NULL;
 }
 
@@ -91,20 +97,30 @@ double Fahrzeug::dGeschwindigkeit()
 	return 0.0;
 }
 
+/* FzgFahren */
 void Fahrzeug::vNeueStrecke(Weg * weg)
 {
 	//Garbage Collection
 	delete this->p_pVerhalten;
 
 	//Erzeuge eine neue Instanz von FzgVerhalten
-	FzgVerhalten* pNeuVerhalten = new FzgVerhalten(weg);
+	FzgFahren* pNeuVerhalten = new FzgFahren(weg);
 
 	//Speichere in Fahrzeug
 	this->p_pVerhalten = pNeuVerhalten;
 }
 
+/* FzgParken */
 void Fahrzeug::vNeueStrecke(Weg * weg, double dStartZeit)
 {
+	//Garbage Collection
+	delete this->p_pVerhalten;
+
+	//Erzeuge eine neue Instanz von FzgVerhalten
+	FzgParken* pNeuVerhalten = new FzgParken(weg, dStartZeit);
+
+	//Speichere in Fahrzeug
+	this->p_pVerhalten = pNeuVerhalten;
 }
 
 void Fahrzeug::vAbfertigung()
@@ -112,10 +128,14 @@ void Fahrzeug::vAbfertigung()
 	// excute only if the last update happened before the current global time
 	if (this->p_dZeit < dGlobaleZeit)
 	{
-		// update position
-		this->p_dGesamtStrecke += p_pVerhalten->dStrecke(this, dGlobaleZeit - this->p_dZeit);
+		// update GesamtStrecke
+		this->p_dGesamtStrecke += this->p_pVerhalten->dStrecke(this, dGlobaleZeit - this->p_dZeit);
 
-		// update clock
+		// update Abschnittstrecke
+		this->p_dAbschnittStrecke += this->p_pVerhalten->dStrecke(this, dGlobaleZeit - this->p_dZeit);
+
+		// update clocks
+		this->p_dGesamteZeit += dGlobaleZeit - this->p_dZeit;
 		this->p_dZeit = dGlobaleZeit;
 	}
 }
@@ -141,7 +161,7 @@ Fahrzeug & Fahrzeug::operator=(const Fahrzeug & fhzg)
 		this->p_dGesamtStrecke = fhzg.p_dGesamtStrecke;
 		this->p_dAbschnittStrecke = fhzg.p_dAbschnittStrecke;
 		this->p_dZeit = fhzg.p_dZeit;
-		this->p_GesamteZeit = fhzg.p_GesamteZeit;
+		this->p_dGesamteZeit = fhzg.p_dGesamteZeit;
 	}
 	return *this;
 }

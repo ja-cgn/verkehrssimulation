@@ -23,7 +23,7 @@ int iRandom(int min, int max)
 	return min + (rand() % (max - min + 1));
 }
 
-void vTemplateHeader()
+void vTemplateHeaderFhzg()
 {
 	cout << "\n" << setw(10) << setiosflags(ios::left) << "TIME: " << dGlobaleZeit << resetiosflags(ios::right);
 	cout << endl << setiosflags(ios::left) << setw(4) << "ID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
@@ -51,7 +51,7 @@ void vAufgabe_1()
 	for (; dGlobaleZeit <= 1; dGlobaleZeit += TIME_INCREMENT) // Double nie genau abfragen, die Toleranzgrenze ist durch += jedoch (sehr) groß und damit passend
 	{
 		//Output characteristics of vehicles
-		vTemplateHeader();
+		vTemplateHeaderFhzg();
 
 		//Updating positions of vehicles
 		f1.vAbfertigung();
@@ -148,7 +148,7 @@ void vAufgabe_2()
 		}
 
 		//Output characteristics of vehicles
-		vTemplateHeader();
+		vTemplateHeaderFhzg();
 
 		//Updating positions of all vehicles
 		fahrzeugIter = vFahzeuge.begin();
@@ -183,7 +183,7 @@ void vAufgabe_3()
 
 	//Output the characteristics of vehicles
 	cout << "Die folgende Fahrzeuge waren erzeugt" << endl;
-	vTemplateHeader();
+	vTemplateHeaderFhzg();
 	cout << pkw1 << pkw2 << pkw3 << fhrd1 << fhrd2 << fhrd3;
 
 	//Let the vehicles drive for a bit
@@ -200,7 +200,7 @@ void vAufgabe_3()
 
 	cout << "Gebe die Fahrzeug Info nach dem Fahrt aus" << endl;
 	//Output vehicles after 2 hour drive
-	vTemplateHeader();
+	vTemplateHeaderFhzg();
 	cout << pkw1 << pkw2 << pkw3 << fhrd1 << fhrd2 << fhrd3;
 
 	//Comparing the total distance
@@ -251,6 +251,38 @@ void vAufgabe_4()
 	}
 }
 
+/* Testing the exceptions implementation */
+void vAufgabe_5()
+{
+	//Erzeuge einen Weg Instanz
+	Weg weg("WEG1", 200);
+
+	//Erzeuge Fahzeuge
+	PKW fhzg1("AUDI", 210.1, 10, 60);
+	PKW fhzg2("TESLA", 250.12, 4, 15);
+
+	//Fuege die Fahrzeuge zu den Weg hinzu
+	fhzg1.vNeueStrecke(&weg);
+	fhzg2.vNeueStrecke(&weg);
+	weg.vAnnahme(&fhzg1);
+	weg.vAnnahme(&fhzg2);
+
+	//Gebe den Weg Info aus
+	cout << "Aktuelle Strecken: " << endl;
+	vTemplateHeaderWeg();
+	cout << weg;
+
+	cout << "\nRufe vAbfertigung() auf...\n";
+	//Fertige den Weg ab
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
+	{
+		vTemplateHeaderFhzg();
+		cout << fhzg1 << fhzg2;
+		//Fertige ab
+		weg.vAbfertigung();
+	}
+}
+
 int main()
 {
 	//Feeding a time seed for the iRandom function
@@ -260,7 +292,7 @@ int main()
 	while (iInput != -1)
 	{
 		cout << "Welche Funktion moechten Sie aufrufen?" << endl;
-		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n3 - vAufgabe_3()\n4 - vAufgabe_4()\n-1 - exit" << endl;
+		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n3 - vAufgabe_3()\n4 - vAufgabe_4()\n5 - vAufgabe_5()\n-1 - exit\nIhre Eingabe: " << endl;
 		cin >> iInput;
 
 		if (iInput == 1)
@@ -278,6 +310,14 @@ int main()
 		else if (iInput == 4)
 		{
 			vAufgabe_4();
+		}
+		else if (iInput == 5)
+		{
+			vAufgabe_5();
+		}
+		else
+		{
+			cout << "Falsche Eingabe. Probieren Sie noch mal" << endl;
 		}
 	}
 }

@@ -42,7 +42,6 @@ void Weg::vAbfertigung()
 
 void Weg::ostreamAusgabe(ostream & output)
 {
-	string sNameToOutput;
 	//Call the Abstract parent class output
 	AktivesVO::ostreamAusgabe(output);
 
@@ -58,8 +57,7 @@ void Weg::ostreamAusgabe(ostream & output)
 	FahrzeugeListIter = (this->p_pFahrzeuge).begin();
 	while (FahrzeugeListIter != p_pFahrzeuge.end())
 	{
-		string sNameToOutput = (*FahrzeugeListIter)->sGetName();
-		output << sNameToOutput;
+		output << (*FahrzeugeListIter)->sGetName();
 		output << " ";
 
 		FahrzeugeListIter++;
@@ -97,4 +95,9 @@ double Weg::dGetLaenge()
 double Weg::dGetLimit()
 {
 	return 0.0;
+}
+
+list<Fahrzeug*> Weg::getFahrzeuge()
+{
+	return this->p_pFahrzeuge;
 }

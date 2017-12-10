@@ -20,6 +20,7 @@ public:
 
 	double dGetLaenge();
 	double dGetLimit();
+	list<Fahrzeug*> getFahrzeuge();
 
 	virtual void vAbfertigung();
 	virtual void ostreamAusgabe(ostream& output);

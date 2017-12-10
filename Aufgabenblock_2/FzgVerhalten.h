@@ -11,7 +11,7 @@ public:
 
 	Weg* getWeg();
 
-	virtual double dStrecke(Fahrzeug* fhzg, double dDistance);
+	virtual double dStrecke(Fahrzeug* fhzg, double dDistance) = 0;
 
 private:
 

@@ -22,28 +22,23 @@ FzgFahren::~FzgFahren()
 /* Erfahre wie weit ein Fahrzeug innerhalb des übergebenen Zeitraums noch fahren kann*/
 double FzgFahren::dStrecke(Fahrzeug * fhzg, double dTimeInterval)
 {
-	//Max Strecke abhaengig von dem Weg
-	double dMaxStrecke = this->p_pAktuellerWeg->dGetLaenge();
+	//Speichere die Laenge des Weges
+	double dWegLaenge = this->getWeg()->dGetLaenge();
+	//Speichere max Fahrbare Strecke
+	double dMaxFahr = fhzg->dGeschwindigkeit()*dTimeInterval;
 
-	//Berechne fahrbare Strecke in diesem Zeitraum
-	double dFahrbareStrecke = fhzg->dGeschwindigkeit() * dTimeInterval;
-	double dNeueGesamtStrecke = fhzg->dGetGesamtStrecke() + dFahrbareStrecke;
-
-	//Wenn fahrbare Strecke > max uebrige Strecke => berechne max fahrbare Strecke
-	//Doubles um Epsilon testen
-	if ((dNeueGesamtStrecke - dMaxStrecke) > EPSILON)
+	//Streckende Ausnahme
+	if (fabs(dMaxFahr - dWegLaenge) < EPSILON)
 	{
-		if (fabs(fhzg->dGetGesamtStrecke() - dMaxStrecke) < EPSILON)
-		{
-			throw Streckenende(fhzg, this->p_pAktuellerWeg);
-		}
-		else
-		{
-			return dFahrbareStrecke - (dNeueGesamtStrecke - dMaxStrecke);
-		}
+		throw Streckenende(fhzg, this->getWeg());
+	}
+	// Wenn max Fahrbare Strecke groesser als uebrig gebliebene Strecke
+	if (fhzg->dGetAbschnittStrecke() + dMaxFahr > dWegLaenge)
+	{
+		return dWegLaenge - fhzg->dGetAbschnittStrecke();
 	}
 	else
 	{
-		return dFahrbareStrecke;
+		return dMaxFahr;
 	}
 }

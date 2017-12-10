@@ -9,7 +9,7 @@ Losfahren::Losfahren()
 }
 
 Losfahren::Losfahren(Fahrzeug * fhzg, Weg * weg)
-	:Losfahren(fhzg, weg)
+	:FahrAusnahme(fhzg, weg)
 {
 }
 
@@ -20,6 +20,6 @@ Losfahren::~Losfahren()
 
 void Losfahren::vBearbeiten()
 {
-	cout << "LOSFAHREN EXCEPTION! vBearbeiten() wurde aufgerufem!\n";
+	cout << "LOSFAHREN EXCEPTION! vBearbeiten() wurde aufgerufen!\n";
 	cout << "Fahzeug: " << this->p_pFhzg << "\nWeg: " << this->p_pWeg;
 }

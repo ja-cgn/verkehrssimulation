@@ -18,7 +18,7 @@ FzgParken::~FzgParken()
 
 double FzgParken::dStrecke(Fahrzeug* fhzg, double dZeit)
 {
-	if (p_dStartZeit - dZeit < EPSILON)
+	if (dGlobaleZeit + dZeit > this->p_dStartZeit)
 	{
 		throw Losfahren(fhzg, this->p_pAktuellerWeg);
 	}
