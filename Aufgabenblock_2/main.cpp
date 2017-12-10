@@ -255,11 +255,11 @@ void vAufgabe_4()
 void vAufgabe_5()
 {
 	//Erzeuge einen Weg Instanz
-	Weg weg("WEG1", 200);
+	Weg weg("WEG1", 30);
 
 	//Erzeuge Fahzeuge
-	PKW fhzg1("AUDI", 210.1, 10, 60);
-	PKW fhzg2("TESLA", 250.12, 4, 15);
+	PKW fhzg1("AUDI", 210.1, 10, 120);
+	PKW fhzg2("TESLA", 250.12, 4, 40);
 
 	//Fuege die Fahrzeuge zu den Weg hinzu
 	fhzg1.vNeueStrecke(&weg);

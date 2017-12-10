@@ -30,7 +30,7 @@ double FzgFahren::dStrecke(Fahrzeug * fhzg, double dTimeInterval)
 	double dMaxFahr = fhzg->dGeschwindigkeit()*dTimeInterval;
 
 	//Streckende Ausnahme
-	if (fabs(dMaxFahr - dWegLaenge) < EPSILON)
+	if (fabs(fhzg->dGetAbschnittStrecke() - dWegLaenge) < EPSILON)
 	{
 		throw Streckenende(fhzg, this->getWeg());
 	}

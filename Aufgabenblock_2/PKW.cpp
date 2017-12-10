@@ -70,7 +70,7 @@ double PKW::dTanken(double dMenge = DEFAULT_TANK_VOLUME)
 double PKW::dGeschwindigkeit()
 {
 	double dAktuellerLimit = this->p_pVerhalten->getWeg()->dGetLimit();
-	if (dAktuellerLimit > this->p_dMaxGeschwindigkeit)
+	if (dAktuellerLimit > this->p_dMaxGeschwindigkeit || dAktuellerLimit == -1)
 	{
 		return this->p_dMaxGeschwindigkeit;
 	}
