@@ -14,6 +14,8 @@ public:
 
 	void vAusgabe();
 	void ostreamAusgabe(ostream& output);
+	void vZeichnen(Weg* weg);
+
 protected:
 	double dGeschwindigkeit();
 };

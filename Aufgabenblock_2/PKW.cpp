@@ -1,6 +1,7 @@
 #include "PKW.h"
 #include "Weg.h"
 #include "FzgVerhalten.h"
+#include "SimuClient.h"
 #include <iostream>
 #include <iomanip>
 
@@ -113,4 +114,9 @@ void PKW::ostreamAusgabe(ostream & output)
 	output.width(15);
 	output << this->p_dTankInhalt;
 	cout << endl;
+}
+
+void PKW::vZeichnen(Weg * weg)
+{
+	bZeichnePKW(p_sName, weg->sGetName(), this->dGetAbschnittStrecke() / weg->dGetLaenge(), this->dGeschwindigkeit(), p_dTankInhalt);
 }

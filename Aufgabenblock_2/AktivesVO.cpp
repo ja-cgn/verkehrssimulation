@@ -30,6 +30,11 @@ AktivesVO::~AktivesVO()
 {
 }
 
+string AktivesVO::sGetName()
+{
+	return this->p_sName;
+}
+
 void AktivesVO::vInitialisierung()
 {
 	//Assign a unique ID and increment the max ID

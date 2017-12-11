@@ -23,12 +23,12 @@ public:
 	//Getter functions
 	double dGetGesamtStrecke();
 	double dGetAbschnittStrecke();
-	string sGetName();
 
 	//Methods
 	virtual void vAbfertigung();
 	virtual void vAusgabe();
 	virtual void ostreamAusgabe(ostream& output);
+	virtual void vZeichnen(Weg* weg) = 0;
 	virtual double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	virtual double dGeschwindigkeit() = 0;
 	void vNeueStrecke(Weg* weg);

@@ -11,6 +11,8 @@ public:
 	AktivesVO(const AktivesVO& vo);
 	virtual ~AktivesVO();
 
+	string sGetName();
+
 	virtual void vInitialisierung();
 	virtual void vAbfertigung();
 	virtual void ostreamAusgabe(ostream& output);

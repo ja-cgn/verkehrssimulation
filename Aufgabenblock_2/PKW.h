@@ -5,16 +5,20 @@ class PKW :
 	public Fahrzeug
 {
 public:
+	//Constructors & Destructors
 	PKW();
 	PKW(string sName, double dVelocity, double dConsumption);
 	PKW(string sName, double dVelocity, double dConsumption, double dTankvolume);
 	~PKW();
-	
-	double dTanken(double dMenge);
-	double dGeschwindigkeit();
+
+	//Methods
 	void vAbfertigung();
 	void vAusgabe();
 	void ostreamAusgabe(ostream& output);
+	void vZeichnen(Weg* weg);
+	double dTanken(double dMenge);
+	double dGeschwindigkeit();
+
 
 private:
 	double p_dVerbrauch;

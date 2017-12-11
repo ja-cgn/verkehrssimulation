@@ -1,4 +1,6 @@
 #include "Fahrrad.h"
+#include "SimuClient.h"
+#include "Weg.h"
 #include <iostream>
 
 Fahrrad::Fahrrad()
@@ -26,6 +28,11 @@ void Fahrrad::ostreamAusgabe(ostream & output)
 {
 	Fahrzeug::ostreamAusgabe(output);
 	cout << endl;
+}
+
+void Fahrrad::vZeichnen(Weg * weg)
+{
+	bZeichneFahrrad(p_sName, weg->sGetName(), this->dGetAbschnittStrecke()/weg->dGetLaenge(), this->dGeschwindigkeit());
 }
 
 double Fahrrad::dGeschwindigkeit()

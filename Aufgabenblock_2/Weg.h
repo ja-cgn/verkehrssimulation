@@ -14,10 +14,12 @@ class Weg :
 	public AktivesVO
 {
 public:
+	//Constructors & Destructor
 	Weg();
 	Weg(string sName, double dLaenge, Begrenzung eTempolimit = Autobahn);
 	~Weg();
 
+	//Getter functions
 	double dGetLaenge();
 	double dGetLimit();
 	list<Fahrzeug*> getFahrzeuge();

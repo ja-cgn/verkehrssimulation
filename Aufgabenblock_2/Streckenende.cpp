@@ -20,6 +20,6 @@ Streckenende::~Streckenende()
 
 void Streckenende::vBearbeiten()
 {
-	cout << "STRECKENDE EXCEPTION! vBearbeiten() wurde aufgerufem!\n";
-	cout << "Fahzeug: " << this->p_pFhzg << "\nWeg: " << this->p_pWeg;
+	cout << "\nSTRECKENDE EXCEPTION! vBearbeiten() wurde aufgerufem!\n";
+	cout << "Fahzeug: " << &this->p_pFhzg << "\nWeg: " << &this->p_pWeg;
 }	

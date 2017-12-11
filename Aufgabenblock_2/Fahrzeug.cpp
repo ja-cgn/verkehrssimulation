@@ -51,11 +51,6 @@ double Fahrzeug::dGetAbschnittStrecke()
 	return this->p_dAbschnittStrecke;
 }
 
-string Fahrzeug::sGetName()
-{
-	return this->p_sName;
-}
-
 /* Initializer function for all constructors */
 void Fahrzeug::vInitialisierung()
 {
