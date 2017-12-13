@@ -51,6 +51,12 @@
     <ClInclude Include="SimuClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LazyAktion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LazyListe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AktivesVO.cpp">

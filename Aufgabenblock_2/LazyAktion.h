@@ -1,7 +1,7 @@
 /*** LAZYAKTION.H ***/
 
-//#ifndef __LazyAktion_h
-//#define __LazyAktion_h
+#ifndef __LazyAktion_h
+#define __LazyAktion_h
 
 #pragma once
 #include <list>
@@ -15,7 +15,7 @@ class LazyAktion
       LazyAktion( list<T>* ptListe )
                    : p_ptListe( ptListe ) {}
       virtual ~LazyAktion() {}
-      virtual void vAusfuehren() = 0;
+	  virtual void vAusfuehren() = 0;
    protected:
       list<T>*	p_ptListe;	// Zeiger auf Liste der Objekte
 };
@@ -42,14 +42,14 @@ template <class T>
 class LazyPushBack : public LazyAktion<T>
 {
 public:
-	LazyPushBack(const T& anObjekt, list<T*> ptListe)
-		:LazyAktion<T>(ptListe), p_tObjekt(anObjekt) {}
+	LazyPushBack(const T& anObjekt, list<T>* ptListe)
+		:LazyAktion<T>(ptListe), p_tObjekt(anObjekt){}
 
-	virtual ~LazyPushBack() {}
+	~LazyPushBack() {}
 
-	void vAusfueren()
+	void vAusfuehren()
 	{
-		p_ptListe->push.back(p_tObjekt);
+		p_ptListe->push_back(p_tObjekt);
 	}
 
 private:
@@ -66,7 +66,7 @@ class LazyErase : public LazyAktion<T>
    typedef typename list<T>::const_iterator const_iterator;
 
    public:
-      LazyErase( itetrator iter, list<T> ptListe)
+      LazyErase( iterator iter, list<T>* ptListe)
 		  :LazyAktion<T>(ptListe), p_itObjekt(iter) {}
 
       virtual ~LazyErase() {}
@@ -80,4 +80,4 @@ class LazyErase : public LazyAktion<T>
 };
 
 
-//#endif
+#endif

@@ -1,7 +1,7 @@
 /*** LAZYLISTE.H ***/
 
-//#ifndef __LazyListe_h
-//#define __LazyListe_h
+#ifndef __LazyListe_h
+#define __LazyListe_h
 
 #pragma once
 #include <list>
@@ -55,7 +55,7 @@ class LazyListe
 
       void erase( iterator itObjekt )
       {
-		  p_ListeAktionen.erase(new LazyPushFront<T>(itObjekt, &this->p_ListeObjekte));
+		  p_ListeAktionen.push_back(new LazyErase<T>(itObjekt, &this->p_ListeObjekte));
 		  bChanged = true;
 		  return;
       }
@@ -88,4 +88,4 @@ class LazyListe
       bool					bChanged;
 };
 
-//#endif
+#endif

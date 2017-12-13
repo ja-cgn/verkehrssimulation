@@ -7,6 +7,8 @@
 #include "PKW.h"
 #include "Fahrrad.h"
 #include "SimuClient.h"
+#include "LazyListe.h"
+#include "LazyAktion.h"
 #define EPSILON 0.01
 #define TIME_INCREMENT 0.1
 #define FUEL_UP_TIME 3
@@ -19,7 +21,7 @@ double dGlobaleZeit = 0.0;
 /*
 	iRandom function creates a random integer value between the fed minumum and maximum value arguments.
 */
-int iRandom(int min, int max)
+int iRandom(int min = 0, int max = 10)
 {
 	return min + (rand() % (max - min + 1));
 }
@@ -291,17 +293,17 @@ void vAufgabe_5_graf()
 {
 	//Weg Erzeugung
 	Weg weg1("Hin", 50, Innenort);
-	Weg weg2("Zurueck", 100, Landstrasse);
+	Weg weg2("Zurueck", 50, Landstrasse);
 
 	//Fahzeug Erzeugung
 	PKW pkw1("BMWi8", 250, 2.1);
-	PKW pkw2("AUDIA4", 240, 6.5);
+	//PKW pkw2("AUDIA4", 240, 6.5);
 
 	//Fuege die Fahrzeuge hinzu
 	weg1.vAnnahme(&pkw1);
-	weg1.vAnnahme(&pkw2);
+	//weg1.vAnnahme(&pkw2);
 	weg2.vAnnahme(&pkw1);
-	weg2.vAnnahme(&pkw2);
+	//weg2.vAnnahme(&pkw2);
 	
 	//Init gragische Oberflaeche
 	bInitialisiereGrafik(800, 500);
@@ -312,7 +314,7 @@ void vAufgabe_5_graf()
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 100; dGlobaleZeit += TIME_INCREMENT)
 	{
 		pkw1.vZeichnen(&weg1);
-		//pkw1.vZeichnen(&weg2);
+		pkw1.vZeichnen(&weg2);
 		//pkw2.vZeichnen(&weg1);
 		//pkw2.vZeichnen(&weg2);
 
@@ -325,11 +327,87 @@ void vAufgabe_5_graf()
 
 		//Debug console
 		vTemplateHeaderFhzg();
-		cout << pkw1 << pkw2;
+		cout << pkw1;//<< pkw2;
 	}
 
 	bLoescheFahrzeug(pkw1.sGetName());
-	bLoescheFahrzeug(pkw2.sGetName());
+	//bLoescheFahrzeug(pkw2.sGetName());
+}
+
+/* Testing Lazy Liste implementation */
+void vAufgabe_6a()
+{
+	cout << "=== Teste die Implementation von Lazy Liste... ===" << endl;
+	LazyListe<int>* lazyList = new LazyListe<int>();
+	LazyListe<int>::iterator lazyListIter = lazyList->begin();
+
+
+	cout << "Fuege zufaellige int Objekte hinzu" << endl;
+	for (int i = 1; i <= 10; i++)
+	{
+		lazyList->push_back(int(iRandom()));
+	}
+
+	//Uebertrage die Aenderungen
+	lazyList->vAktualisieren();
+
+	//Gebe die Liste aus
+	cout << "\nDie Liste ist fertig: " << endl;
+	lazyListIter = lazyList->begin();
+	while (lazyListIter != lazyList->end())
+	{
+		cout << *lazyListIter << endl;
+		lazyListIter++;
+	}
+
+	cout << "\nLoesche alle Elemente > 5" << endl;
+	lazyListIter = lazyList->begin();
+	while (lazyListIter != lazyList->end())
+	{
+		if (*lazyListIter > 5)
+		{
+			lazyList->erase(lazyListIter);
+		}
+
+		lazyListIter++;
+	}
+
+	//Gebe die Liste aus ohne Aktualisierung
+	cout << "\nDie Ausgabe ohne Aktualisierung: " << endl;
+	lazyListIter = lazyList->begin();
+	while (lazyListIter != lazyList->end())
+	{
+		cout << *lazyListIter << endl;
+		lazyListIter++;
+	}
+
+	//Uebertrage die Aenderungen
+	lazyList->vAktualisieren();
+
+	//Gebe die Liste nach eine Aktualisierung
+	cout << "\nDie Ausgabe nach der Aktualisierung: " << endl;
+	lazyListIter = lazyList->begin();
+	while (lazyListIter != lazyList->end())
+	{
+		cout << *lazyListIter << endl;
+		lazyListIter++;
+	}
+
+	//Fuege am Anfang und am Ende der Liste noch zwei Zahlen
+	lazyList->push_back(iRandom());
+	lazyList->push_front(iRandom());
+
+	//Uebertrage die Aenderungen
+	lazyList->vAktualisieren();
+
+	//Gebe die Liste aus ohne Aktualisierung
+	cout << "\nDie Ausgabe nach dem Hinzufuegen von zwei belibigen Zahlen am Anfang und am Ende: " << endl;
+	lazyListIter = lazyList->begin();
+	while (lazyListIter != lazyList->end())
+	{
+		cout << *lazyListIter << endl;
+		lazyListIter++;
+	}
 }
 
 int main()
@@ -339,11 +417,13 @@ int main()
 	string sInput = "";
 
 	while (sInput != "-1")
-	{
+	{	
 		cout << "Welche Funktion moechten Sie aufrufen?" << endl;
 		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n";
 		cout << "3 - vAufgabe_3()\n4 - vAufgabe_4()\n";
-		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n-1 - exit\nIhre Eingabe: ";
+		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n";
+		cout << "61 - vAufgabe_6a()";
+		cout << "\n-1 - exit\nIhre Eingabe:";
 		cin >> sInput;
 
 		if (sInput == "1")
@@ -369,6 +449,14 @@ int main()
 		else if (sInput == "51")
 		{
 			vAufgabe_5_graf();
+		}
+		else if (sInput == "61")
+		{
+			vAufgabe_6a();
+		}
+		else if (sInput == "-1")
+		{
+			cout << "Exiting..." << endl;
 		}
 		else
 		{
