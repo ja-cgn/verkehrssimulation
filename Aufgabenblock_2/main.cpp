@@ -261,7 +261,7 @@ void vAufgabe_5()
 {
 	cout << "----------vAufgabe_5()----------" << endl;
 	//Erzeuge einen Weg Instanz
-	Weg weg("WEG1", 70, Landstrasse);
+	Weg weg("WEG1", 250, Landstrasse);
 
 	//Erzeuge Fahzeuge
 	PKW fhzg1("AUDI", 210.1, 10, 120);
@@ -269,55 +269,48 @@ void vAufgabe_5()
 
 	//Fuege die Fahrzeuge zu den Weg hinzu
 	fhzg1.vNeueStrecke(&weg);
-	fhzg2.vNeueStrecke(&weg, 0.5);
+	fhzg2.vNeueStrecke(&weg, 3.0);
 	weg.vAnnahme(&fhzg1);
-	weg.vAnnahme(&fhzg2, 0.5);
+	weg.vAnnahme(&fhzg2, 3.0);
 
 	cout << "\nRufe vAbfertigung() auf...\n";
 	//Fertige den Weg ab
-	for (dGlobaleZeit = 0; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 5; dGlobaleZeit += TIME_INCREMENT)
 	{
-		//Gebe den Weg Info aus
-		cout << "\nAktuelle Strecken: ";
-		vTemplateHeaderWeg();
-		cout << weg;
-
 		//Fertige ab
 		weg.vAbfertigung();
 
 		//Gebe die Fahzeuge aus
 		vTemplateHeaderFhzg();
 		cout << fhzg1 << fhzg2;
-
+		vTemplateHeaderWeg();
+		cout << weg;
 	}
 }
 
 void vAufgabe_5_graf()
 {
 	cout << "----------vAufgabe_5_graf()----------" << endl;
-	//Weg Erzeugung
-	Weg weg1("Hin", 230, Landstrasse);
-	Weg weg2("Zurueck", 400, Autobahn);
+	//Zwei Wege laenge 500
+	Weg weg1("Hin", 500, Landstrasse);
+	Weg weg2("Zurueck", 500, Landstrasse);
 
 	//Fahzeug Erzeugung
-	PKW pkw1("BMWi8", 250, 2.1);
-	PKW pkw2("AUDIA4", 240, 6.5);
+	PKW pkw1("BMWi8", 250, 2.1, 30);
+	PKW pkw2("AUDIA4", 240, 6.5, 58);
+	PKW pkw3("FOCUS", 137, 5.3, 62);
+	Fahrrad fhrd("BIKE", 18);
 
 	//Fuege die Fahrzeuge hinzu
 	weg1.vAnnahme(&pkw1);
 	weg1.vAnnahme(&pkw2, 3.0);
-	weg2.vAnnahme(&pkw1);
-	weg2.vAnnahme(&pkw2, 3.0);
+	weg2.vAnnahme(&pkw3);
+	weg2.vAnnahme(&fhrd, 2.5);
 	
 	//Init gragische Oberflaeche
 	bInitialisiereGrafik(800, 500);
 	int iStrassenKoor[] = {700, 250, 100, 250};
 	bZeichneStrasse(weg1.sGetName(), weg2.sGetName(), 500, 2, iStrassenKoor);
-
-	pkw1.vZeichnen(&weg1);
-	pkw1.vZeichnen(&weg2);
-	pkw2.vZeichnen(&weg1);
-	pkw2.vZeichnen(&weg2);
 
 	//Hauptschleife
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 100; dGlobaleZeit += TIME_INCREMENT)
@@ -329,23 +322,77 @@ void vAufgabe_5_graf()
 		weg1.vAbfertigung();
 		weg2.vAbfertigung();
 
+		//Zeichne die neue Positionen
 		pkw1.vZeichnen(&weg1);
-		pkw1.vZeichnen(&weg2);
-		pkw2.vZeichnen(&weg1);
 		pkw2.vZeichnen(&weg2);
+		pkw3.vZeichnen(&weg1);
+		fhrd.vZeichnen(&weg2);
 
 		//Debug console
 		vTemplateHeaderFhzg();
-		cout << pkw1 << pkw2;
+		cout << pkw1 << pkw2 << pkw3 << fhrd;
+		vTemplateHeaderWeg();
+		cout << weg1 << weg2;
 	}
 
 	bLoescheFahrzeug(pkw1.sGetName());
 	bLoescheFahrzeug(pkw2.sGetName());
+	bLoescheFahrzeug(pkw3.sGetName());
+	bLoescheFahrzeug(fhrd.sGetName());
 }
 
 void vAufgabe_6()
 {
 	cout << "----------vAufgabe_6()----------" << endl;
+
+	//Zwei Wege laenge 500
+	Weg weg1("Hin", 500, Innenort);
+	Weg weg2("Zurueck", 500, Innenort);
+
+	//Fahzeug Erzeugung
+	PKW pkw1("BMWi8", 250, 2.1, 30);
+	PKW pkw2("AUDIA4", 240, 6.5, 58);
+	PKW pkw3("FOCUS", 137, 5.3, 62);
+	Fahrrad fhrd("BIKE", 18);
+
+	//Fuege die Fahrzeuge hinzu
+	weg1.vAnnahme(&pkw1);
+	weg2.vAnnahme(&pkw2, 3.0);
+	weg1.vAnnahme(&pkw3);
+	weg2.vAnnahme(&fhrd, 2.5);
+
+	//Init gragische Oberflaeche
+	bInitialisiereGrafik(800, 500);
+	int iStrassenKoor[] = { 700, 250, 100, 250 };
+	bZeichneStrasse(weg1.sGetName(), weg2.sGetName(), 500, 2, iStrassenKoor);
+
+	//Hauptschleife
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 100; dGlobaleZeit += TIME_INCREMENT)
+	{
+		vSetzeZeit(dGlobaleZeit);
+		vSleep(500);
+
+		//Fertige ab
+		weg1.vAbfertigung();
+		weg2.vAbfertigung();
+
+		//Zeichne die neue Positionen
+		pkw1.vZeichnen(&weg1);
+		pkw2.vZeichnen(&weg2);
+		pkw3.vZeichnen(&weg1);
+		fhrd.vZeichnen(&weg2);
+
+		//Debug console
+		vTemplateHeaderFhzg();
+		cout << pkw1 << pkw2 << pkw3 << fhrd;
+		vTemplateHeaderWeg();
+		cout << weg1 << weg2;
+	}
+
+	bLoescheFahrzeug(pkw1.sGetName());
+	bLoescheFahrzeug(pkw2.sGetName());
+	bLoescheFahrzeug(pkw3.sGetName());
+	bLoescheFahrzeug(fhrd.sGetName());
 }
 
 /* Testing Lazy Liste implementation */
@@ -437,7 +484,7 @@ int main()
 		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n";
 		cout << "3 - vAufgabe_3()\n4 - vAufgabe_4()\n";
 		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n";
-		cout << "61 - vAufgabe_6a()";
+		cout << "6 - vAufgabe_6()\n61 - vAufgabe_6a()";
 		cout << "\n-1 - exit\nIhre Eingabe: ";
 		cin >> sInput;
 
@@ -464,6 +511,10 @@ int main()
 		else if (sInput == "51")
 		{
 			vAufgabe_5_graf();
+		}
+		else if (sInput == "6")
+		{
+			vAufgabe_6();
 		}
 		else if (sInput == "61")
 		{
