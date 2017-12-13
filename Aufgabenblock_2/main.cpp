@@ -266,11 +266,9 @@ void vAufgabe_5()
 
 	//Fuege die Fahrzeuge zu den Weg hinzu
 	fhzg1.vNeueStrecke(&weg);
-	fhzg2.vNeueStrecke(&weg, 1.0);
+	fhzg2.vNeueStrecke(&weg, 0.5);
 	weg.vAnnahme(&fhzg1);
-	weg.vAnnahme(&fhzg2);
-
-
+	weg.vAnnahme(&fhzg2, 0.5);
 
 	cout << "\nRufe vAbfertigung() auf...\n";
 	//Fertige den Weg ab

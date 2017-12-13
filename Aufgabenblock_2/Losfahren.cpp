@@ -21,7 +21,7 @@ Losfahren::~Losfahren()
 void Losfahren::vBearbeiten()
 {
 	cout << "LOSFAHREN EXCEPTION! vBearbeiten() wurde aufgerufen!\n";
-	cout << "Fahzeug: " << this->p_pFhzg << "\nWeg: " << this->p_pWeg;
+	cout << "Fahzeug: " << this->p_pFhzg->sGetName() << "\nWeg: " << this->p_pWeg->sGetName();
 
 	//Aus der liste entrefren
 	p_pWeg->vAbgabe(p_pFhzg);

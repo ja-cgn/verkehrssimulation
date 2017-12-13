@@ -81,7 +81,7 @@ void Weg::vAnnahme(Fahrzeug * fhzg)
 void Weg::vAnnahme(Fahrzeug * fhzg, double dStartZeit)
 {
 	//Bei jeder Annahme soll vNeueStrecke() aufgerufen werden
-	fhzg->vNeueStrecke(this);
+	fhzg->vNeueStrecke(this, dStartZeit);
 
 	//Nehme das Fahrzeug an
 	(this->p_pFahrzeuge).push_front(fhzg);
