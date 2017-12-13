@@ -86,12 +86,21 @@ void PKW::vAbfertigung()
 	// Verbrauch auf Teilstrecke = v_max * delta t * verbrauch_pro_km
 	double dDeltaConsumption = this->dGeschwindigkeit() * (dGlobaleZeit - this->p_dZeit) * this->p_dVerbrauch / 100;
 	
-	//Nur abfertigen, wenn das Tank Inhalt nach der Verbrauch immer noch positiv ist
-	if(this->p_dTankInhalt - dDeltaConsumption > 0)
+	//Nur abfertigen, wenn das Tank Inhalt immer noch positiv ist
+	if(this->p_dTankInhalt > 0)
 	{
-		//update Tankinhalt
-		this->p_dTankInhalt -= dDeltaConsumption;
+		//update Tankinhalt nur wenn das Fahrzeug gefahren ist
 		Fahrzeug::vAbfertigung();
+		if (this->dGetGesamtStrecke() > 0)
+		{
+			this->p_dTankInhalt -= dDeltaConsumption;
+
+			//Falls das Tankinhalt nach der Verbrauch negativ, setze = 0
+			if (p_dTankInhalt < 0)
+			{
+				p_dTankInhalt = 0;
+			}
+		}
 	}
 	else
 	{

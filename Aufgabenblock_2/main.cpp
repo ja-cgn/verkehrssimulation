@@ -21,7 +21,7 @@ double dGlobaleZeit = 0.0;
 /*
 	iRandom function creates a random integer value between the fed minumum and maximum value arguments.
 */
-int iRandom(int min = 0, int max = 10)
+int iRandom(int min = 1, int max = 10)
 {
 	return min + (rand() % (max - min + 1));
 }
@@ -268,8 +268,6 @@ void vAufgabe_5()
 	PKW fhzg2("TESLA", 212.12, 4, 40);
 
 	//Fuege die Fahrzeuge zu den Weg hinzu
-	fhzg1.vNeueStrecke(&weg);
-	fhzg2.vNeueStrecke(&weg, 3.0);
 	weg.vAnnahme(&fhzg1);
 	weg.vAnnahme(&fhzg2, 3.0);
 
@@ -370,7 +368,7 @@ void vAufgabe_6()
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 100; dGlobaleZeit += TIME_INCREMENT)
 	{
 		vSetzeZeit(dGlobaleZeit);
-		vSleep(500);
+		vSleep(1);
 
 		//Fertige ab
 		weg1.vAbfertigung();
