@@ -38,7 +38,23 @@ class LazyPushFront : public LazyAktion<T>
 
 // LazyPushBack
 
-...
+template <class T>
+class LazyPushBack : public LazyAktion<T>
+{
+public:
+	LazyPushBack(const T& anObjekt, list<T*> ptListe)
+		:LazyAktion<T>(ptListe), p_tObjekt(anObjekt) {}
+
+	virtual ~LazyPushBack() {}
+
+	void vAusfueren()
+	{
+		p_ptListe->push.back(p_tObjekt);
+	}
+
+private:
+	T p_tObjekt;
+};
 
 
 // LazyErase
@@ -50,9 +66,15 @@ class LazyErase : public LazyAktion<T>
    typedef typename list<T>::const_iterator const_iterator;
 
    public:
-      LazyErase( ... ) : ... {}
+      LazyErase( itetrator iter, list<T> ptListe)
+		  :LazyAktion<T>(ptListe), p_itObjekt(iter) {}
+
       virtual ~LazyErase() {}
-      void vAusfuehren() { ... }
+
+      void vAusfuehren()
+	  {
+		  p_ptListe->erase(p_itObjekt);
+	  }
    private:
       iterator	p_itObjekt;	// bei erase Iterator speichern
 };

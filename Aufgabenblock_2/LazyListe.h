@@ -33,10 +33,10 @@ class LazyListe
 
       // Lesefunktionen
       const_iterator begin() const {return p_ListeObjekte.begin();}
-      const_iterator end() const {...}
+	  const_iterator end() const { return p_ListeObjekte.end(); }
       iterator begin() {return p_ListeObjekte.begin();}
-      iterator end() {...}
-      bool empty() const {...}
+	  iterator end() { return p_ListeObjekte.end(); }
+	  bool empty() const { return p_ListeObjekte.empty(); }
 
       // Schreibfunktionen
       void push_back( const T einObjekt )
@@ -68,12 +68,12 @@ class LazyListe
          if ( bChanged )
          {
 	         // ausstehende Aktionen durchfuehren
-			 for (itL = p_ListeAktionen.begin(); itL != p_ListeAktionen.end())
+			 for (itL = p_ListeAktionen.begin(); itL != p_ListeAktionen.end(); itL++)
 	         {
 	         // Aktion ausführen
-		         ...
+				 (*itL)->vAusfuehren();
              // Action-Element löschen
-                 ...
+				 delete *itL;
 	         }
 	         // Liste der Aktionen leeren
              p_ListeAktionen.clear();
