@@ -258,31 +258,33 @@ void vAufgabe_4()
 void vAufgabe_5()
 {
 	//Erzeuge einen Weg Instanz
-	Weg weg("WEG1", 30);
+	Weg weg("WEG1", 70, Innenort);
 
 	//Erzeuge Fahzeuge
 	PKW fhzg1("AUDI", 210.1, 10, 120);
-	PKW fhzg2("TESLA", 250.12, 4, 40);
+	PKW fhzg2("TESLA", 212.12, 4, 40);
 
 	//Fuege die Fahrzeuge zu den Weg hinzu
 	fhzg1.vNeueStrecke(&weg);
-	fhzg2.vNeueStrecke(&weg);
+	fhzg2.vNeueStrecke(&weg, 1.0);
 	weg.vAnnahme(&fhzg1);
 	weg.vAnnahme(&fhzg2);
 
-	//Gebe den Weg Info aus
-	cout << "Aktuelle Strecken: " << endl;
-	vTemplateHeaderWeg();
-	cout << weg;
+
 
 	cout << "\nRufe vAbfertigung() auf...\n";
 	//Fertige den Weg ab
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
 	{
+		//Gebe den Weg Info aus
+		cout << "\nAktuelle Strecken: ";
+		vTemplateHeaderWeg();
+		cout << weg;
+
 		//Fertige ab
 		weg.vAbfertigung();
 
-		//Gebe aus
+		//Gebe die Fahzeuge aus
 		vTemplateHeaderFhzg();
 		cout << fhzg1 << fhzg2;
 

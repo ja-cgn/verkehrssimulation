@@ -1,6 +1,7 @@
 #pragma once
 #include "AktivesVO.h"
-#include <list>
+#include "LazyAktion.h"
+#include "LazyListe.h"
 class Fahrzeug;
 
 enum Begrenzung
@@ -22,7 +23,7 @@ public:
 	//Getter functions
 	double dGetLaenge();
 	double dGetLimit();
-	list<Fahrzeug*> getFahrzeuge();
+	LazyListe<Fahrzeug*> getFahrzeuge();
 
 	//Methods
 	virtual void vAbfertigung();
@@ -33,7 +34,7 @@ public:
 
 private:
 	double p_dLaenge;
-	list<Fahrzeug*> p_pFahrzeuge;
+	LazyListe<Fahrzeug*> p_pFahrzeuge;
 	Begrenzung p_eLimit;
 
 protected:

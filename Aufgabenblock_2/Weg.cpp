@@ -4,7 +4,7 @@
 #include "Fahrzeug.h"
 #include "FahrAusnahme.h"
 
-list<Fahrzeug*>::iterator FahrzeugeListIter;
+LazyListe<Fahrzeug*>::iterator FahrzeugeListIter;
 
 Weg::Weg()
 	:AktivesVO()
@@ -22,22 +22,22 @@ Weg::~Weg()
 
 void Weg::vAbfertigung()
 {
+	//Aktualisiere die Lazy Liste um die Aenderungen zu uebertragen
+	this->p_pFahrzeuge.vAktualisieren();
 	//alle auf dem Weg befindlichen Fahzeuge abfertigen
-	FahrzeugeListIter = (this->p_pFahrzeuge).begin();
-	while (FahrzeugeListIter != p_pFahrzeuge.end())
+	for (LazyListe<Fahrzeug*>::iterator iter = p_pFahrzeuge.begin(); iter != p_pFahrzeuge.end(); iter++)
 	{
 		//Exception handling
 		try
 		{
-			(*FahrzeugeListIter)->vAbfertigung();
+			(*iter)->vAbfertigung();
 		}
 		catch (FahrAusnahme& exception)
 		{
 			exception.vBearbeiten();
 		}
-
-		FahrzeugeListIter++;
 	}
+
 }
 
 void Weg::ostreamAusgabe(ostream & output)
@@ -116,7 +116,7 @@ double Weg::dGetLimit()
 	return this->p_eLimit;
 }
 
-list<Fahrzeug*> Weg::getFahrzeuge()
+LazyListe<Fahrzeug*> Weg::getFahrzeuge()
 {
 	return this->p_pFahrzeuge;
 }
