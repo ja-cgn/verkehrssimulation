@@ -32,7 +32,7 @@ void Fahrrad::ostreamAusgabe(ostream & output)
 
 void Fahrrad::vZeichnen(Weg * weg)
 {
-	bZeichneFahrrad(p_sName, weg->sGetName(), this->dGetAbschnittStrecke()/weg->dGetLaenge(), this->dGeschwindigkeit());
+	bZeichneFahrrad(p_sName, weg->sGetName(), this->dRelPos(weg), this->dGeschwindigkeit());
 }
 
 double Fahrrad::dGeschwindigkeit()

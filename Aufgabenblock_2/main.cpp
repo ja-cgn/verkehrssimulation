@@ -27,8 +27,9 @@ int iRandom(int min = 0, int max = 10)
 }
 
 void vTemplateHeaderFhzg()
-{
-	cout << "\n" << setw(10) << setiosflags(ios::left) << "TIME: " << dGlobaleZeit << resetiosflags(ios::right);
+{	
+
+	cout << resetiosflags(ios::right) << setw(10) << setiosflags(ios::left) << "TIME: " << dGlobaleZeit;
 	cout << endl << setiosflags(ios::left) << setw(4) << "ID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
 		<< setiosflags(ios::right) << setw(8) << "MaxKmh" << setw(16) << "GesamtStrecke" << setw(16)
 		<< "Gesamtverbrauch" << setw(12) << "Tankinhalt" << resetiosflags(ios::right) << endl;
@@ -37,7 +38,8 @@ void vTemplateHeaderFhzg()
 
 void vTemplateHeaderWeg()
 {
-	cout << endl << setiosflags(ios::left) << setw(4) << "ID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
+	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+	cout << resetiosflags(ios::right) << setiosflags(ios::left) << setw(4) << "ID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
 		<< setiosflags(ios::right) << setw(8) << "Laenge" << setw(16) << "Fahrzeuge" << resetiosflags(ios::right) << endl;
 	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 }
@@ -232,33 +234,34 @@ void vAufgabe_3()
 
 void vAufgabe_4()
 {
-	vTemplateHeaderWeg();
-
-	// Erzeuge einen Weg und gebe den aus
-	Weg weg1("WEG1", 40);
+	cout << "----------vAufgabe_4()----------" << endl;
+	// Erzeuge einen Weg
+	Weg weg1("WEG1", 100);
 
 	//Erzeuge zwei Fahrzeuge
-	for (int i = 1; i <= 2; i++)
-	{
-		PKW* pkw = new PKW("AUTO" + to_string(i), iRandom(120, 290), iRandom(1, 30), iRandom(30, 90));
-		weg1.vAnnahme(pkw);
-	}
+	PKW pkw("SLSAMG", 317, 13, 85);
+	Fahrrad fhrd("BIKE", 12);
 
-	//Gebe die Weg Informationen aus
-	cout << weg1;
+	weg1.vAnnahme(&pkw);
+	weg1.vAnnahme(&fhrd);
 
 	//Fertige den Weg ab
-	for (dGlobaleZeit = 0; dGlobaleZeit <= 2; dGlobaleZeit += TIME_INCREMENT)
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 5; dGlobaleZeit += TIME_INCREMENT)
 	{
 		weg1.vAbfertigung();
+		vTemplateHeaderFhzg();
+		cout << pkw << fhrd;
+		vTemplateHeaderWeg();
+		cout << weg1;
 	}
 }
 
 /* Testing the exceptions implementation */
 void vAufgabe_5()
 {
+	cout << "----------vAufgabe_5()----------" << endl;
 	//Erzeuge einen Weg Instanz
-	Weg weg("WEG1", 70, Innenort);
+	Weg weg("WEG1", 70, Landstrasse);
 
 	//Erzeuge Fahzeuge
 	PKW fhzg1("AUDI", 210.1, 10, 120);
@@ -291,33 +294,34 @@ void vAufgabe_5()
 
 void vAufgabe_5_graf()
 {
+	cout << "----------vAufgabe_5_graf()----------" << endl;
 	//Weg Erzeugung
-	Weg weg1("Hin", 50, Innenort);
-	Weg weg2("Zurueck", 50, Landstrasse);
+	Weg weg1("Hin", 230, Landstrasse);
+	Weg weg2("Zurueck", 400, Autobahn);
 
 	//Fahzeug Erzeugung
 	PKW pkw1("BMWi8", 250, 2.1);
-	//PKW pkw2("AUDIA4", 240, 6.5);
+	PKW pkw2("AUDIA4", 240, 6.5);
 
 	//Fuege die Fahrzeuge hinzu
 	weg1.vAnnahme(&pkw1);
-	//weg1.vAnnahme(&pkw2);
+	weg1.vAnnahme(&pkw2, 3.0);
 	weg2.vAnnahme(&pkw1);
-	//weg2.vAnnahme(&pkw2);
+	weg2.vAnnahme(&pkw2, 3.0);
 	
 	//Init gragische Oberflaeche
 	bInitialisiereGrafik(800, 500);
 	int iStrassenKoor[] = {700, 250, 100, 250};
 	bZeichneStrasse(weg1.sGetName(), weg2.sGetName(), 500, 2, iStrassenKoor);
 
+	pkw1.vZeichnen(&weg1);
+	pkw1.vZeichnen(&weg2);
+	pkw2.vZeichnen(&weg1);
+	pkw2.vZeichnen(&weg2);
+
 	//Hauptschleife
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 100; dGlobaleZeit += TIME_INCREMENT)
 	{
-		pkw1.vZeichnen(&weg1);
-		pkw1.vZeichnen(&weg2);
-		//pkw2.vZeichnen(&weg1);
-		//pkw2.vZeichnen(&weg2);
-
 		vSetzeZeit(dGlobaleZeit);
 		vSleep(500);
 		
@@ -325,18 +329,29 @@ void vAufgabe_5_graf()
 		weg1.vAbfertigung();
 		weg2.vAbfertigung();
 
+		pkw1.vZeichnen(&weg1);
+		pkw1.vZeichnen(&weg2);
+		pkw2.vZeichnen(&weg1);
+		pkw2.vZeichnen(&weg2);
+
 		//Debug console
 		vTemplateHeaderFhzg();
-		cout << pkw1;//<< pkw2;
+		cout << pkw1 << pkw2;
 	}
 
 	bLoescheFahrzeug(pkw1.sGetName());
-	//bLoescheFahrzeug(pkw2.sGetName());
+	bLoescheFahrzeug(pkw2.sGetName());
+}
+
+void vAufgabe_6()
+{
+	cout << "----------vAufgabe_6()----------" << endl;
 }
 
 /* Testing Lazy Liste implementation */
 void vAufgabe_6a()
 {
+	cout << "----------vAufgabe_6a()----------" << endl;
 	cout << "=== Teste die Implementation von Lazy Liste... ===" << endl;
 	LazyListe<int>* lazyList = new LazyListe<int>();
 	LazyListe<int>::iterator lazyListIter = lazyList->begin();
@@ -423,7 +438,7 @@ int main()
 		cout << "3 - vAufgabe_3()\n4 - vAufgabe_4()\n";
 		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n";
 		cout << "61 - vAufgabe_6a()";
-		cout << "\n-1 - exit\nIhre Eingabe:";
+		cout << "\n-1 - exit\nIhre Eingabe: ";
 		cin >> sInput;
 
 		if (sInput == "1")

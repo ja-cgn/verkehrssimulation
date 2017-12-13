@@ -19,7 +19,6 @@ public:
 	double dTanken(double dMenge);
 	double dGeschwindigkeit();
 
-
 private:
 	double p_dVerbrauch;
 	double p_dTankInhalt;

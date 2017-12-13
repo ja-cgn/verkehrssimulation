@@ -118,5 +118,5 @@ void PKW::ostreamAusgabe(ostream & output)
 
 void PKW::vZeichnen(Weg * weg)
 {
-	bZeichnePKW(p_sName, weg->sGetName(), this->dGetAbschnittStrecke() / weg->dGetLaenge(), this->dGeschwindigkeit(), p_dTankInhalt);
+	bZeichnePKW(p_sName, weg->sGetName(), this->dRelPos(weg), this->dGeschwindigkeit(), p_dTankInhalt);
 }

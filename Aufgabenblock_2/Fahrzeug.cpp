@@ -130,6 +130,20 @@ void Fahrzeug::vAbfertigung()
 	}
 }
 
+double Fahrzeug::dRelPos(Weg* weg)
+{
+	double dRelPosition = this->dGetAbschnittStrecke() / weg->dGetLaenge();
+
+	if (dRelPosition > 1)
+	{
+		return 1;
+	}
+	else
+	{
+		return dRelPosition;
+	}
+}
+
 bool Fahrzeug::operator<(const Fahrzeug & fhzg)
 {
 	if (this->p_dGesamtStrecke < fhzg.p_dGesamtStrecke)

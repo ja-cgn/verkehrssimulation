@@ -31,6 +31,7 @@ public:
 	virtual void vZeichnen(Weg* weg) = 0;
 	virtual double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	virtual double dGeschwindigkeit() = 0;
+	virtual double dRelPos(Weg* weg);
 	void vNeueStrecke(Weg* weg);
 	void vNeueStrecke(Weg* weg, double dStartZeit);
 
