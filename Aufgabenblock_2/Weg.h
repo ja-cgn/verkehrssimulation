@@ -24,10 +24,12 @@ public:
 	double dGetLimit();
 	list<Fahrzeug*> getFahrzeuge();
 
+	//Methods
 	virtual void vAbfertigung();
 	virtual void ostreamAusgabe(ostream& output);
 	virtual void vAnnahme(Fahrzeug* fhzg); //fahrendes Fahrzeug
 	virtual void vAnnahme(Fahrzeug* fhzg, double dStartZeit); //parkendes Fahrzeug
+	virtual void vAbgabe(Fahrzeug* fhzg);
 
 private:
 	double p_dLaenge;

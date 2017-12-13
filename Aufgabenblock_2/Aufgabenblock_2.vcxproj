@@ -155,6 +155,7 @@
     <ClInclude Include="FzgVerhalten.h" />
     <ClInclude Include="Losfahren.h" />
     <ClInclude Include="PKW.h" />
+    <ClInclude Include="SimuClient.h" />
     <ClInclude Include="Streckenende.h" />
     <ClInclude Include="Weg.h" />
   </ItemGroup>
@@ -171,6 +172,12 @@
     <ClCompile Include="PKW.cpp" />
     <ClCompile Include="Streckenende.cpp" />
     <ClCompile Include="Weg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimuServer.jar" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="SimuClient.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

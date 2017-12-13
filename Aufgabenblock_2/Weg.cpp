@@ -87,6 +87,25 @@ void Weg::vAnnahme(Fahrzeug * fhzg, double dStartZeit)
 	(this->p_pFahrzeuge).push_front(fhzg);
 }
 
+void Weg::vAbgabe(Fahrzeug * fhzg)
+{
+	//Nur ausfuehren wenn die Liste nicht leer ist
+	if (!this->p_pFahrzeuge.empty())
+	{
+		FahrzeugeListIter = this->p_pFahrzeuge.begin();
+		while (FahrzeugeListIter != this->p_pFahrzeuge.end())
+		{
+			//loesche das Fahrzeug, bei dem die Ausnahme aufgetreten ist 
+			if (*FahrzeugeListIter == fhzg)
+			{
+				p_pFahrzeuge.erase(FahrzeugeListIter);
+			}
+
+			FahrzeugeListIter++;
+		}
+	}
+}
+
 double Weg::dGetLaenge()
 {
 	return this->p_dLaenge;

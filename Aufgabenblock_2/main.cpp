@@ -6,6 +6,7 @@
 #include "Weg.h"
 #include "PKW.h"
 #include "Fahrrad.h"
+#include "SimuClient.h"
 #define EPSILON 0.01
 #define TIME_INCREMENT 0.1
 #define FUEL_UP_TIME 3
@@ -286,6 +287,51 @@ void vAufgabe_5()
 	}
 }
 
+void vAufgabe_5_graf()
+{
+	//Weg Erzeugung
+	Weg weg1("Hin", 50, Innenort);
+	Weg weg2("Zurueck", 100, Landstrasse);
+
+	//Fahzeug Erzeugung
+	PKW pkw1("BMWi8", 250, 2.1);
+	PKW pkw2("AUDIA4", 240, 6.5);
+
+	//Fuege die Fahrzeuge hinzu
+	weg1.vAnnahme(&pkw1);
+	weg1.vAnnahme(&pkw2);
+	weg2.vAnnahme(&pkw1);
+	weg2.vAnnahme(&pkw2);
+	
+	//Init gragische Oberflaeche
+	bInitialisiereGrafik(800, 500);
+	int iStrassenKoor[] = {700, 250, 100, 250};
+	bZeichneStrasse(weg1.sGetName(), weg2.sGetName(), 500, 2, iStrassenKoor);
+
+	//Hauptschleife
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 100; dGlobaleZeit += TIME_INCREMENT)
+	{
+		pkw1.vZeichnen(&weg1);
+		//pkw1.vZeichnen(&weg2);
+		//pkw2.vZeichnen(&weg1);
+		//pkw2.vZeichnen(&weg2);
+
+		vSetzeZeit(dGlobaleZeit);
+		vSleep(500);
+		
+		//Fertige ab
+		weg1.vAbfertigung();
+		weg2.vAbfertigung();
+
+		//Debug console
+		vTemplateHeaderFhzg();
+		cout << pkw1 << pkw2;
+	}
+
+	bLoescheFahrzeug(pkw1.sGetName());
+	bLoescheFahrzeug(pkw2.sGetName());
+}
+
 int main()
 {
 	//Feeding a time seed for the iRandom function
@@ -295,7 +341,9 @@ int main()
 	while (sInput != "-1")
 	{
 		cout << "Welche Funktion moechten Sie aufrufen?" << endl;
-		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n3 - vAufgabe_3()\n4 - vAufgabe_4()\n5 - vAufgabe_5()\n-1 - exit\nIhre Eingabe: " << endl;
+		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n";
+		cout << "3 - vAufgabe_3()\n4 - vAufgabe_4()\n";
+		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n-1 - exit\nIhre Eingabe: ";
 		cin >> sInput;
 
 		if (sInput == "1")
@@ -317,6 +365,10 @@ int main()
 		else if (sInput == "5")
 		{
 			vAufgabe_5();
+		}
+		else if (sInput == "51")
+		{
+			vAufgabe_5_graf();
 		}
 		else
 		{

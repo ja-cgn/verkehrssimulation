@@ -2,7 +2,7 @@
 #include "Losfahren.h"
 #include "FahrAusnahme.h"
 #include "Fahrzeug.h"
-
+#include "Weg.h"
 
 Losfahren::Losfahren()
 {
@@ -22,4 +22,10 @@ void Losfahren::vBearbeiten()
 {
 	cout << "LOSFAHREN EXCEPTION! vBearbeiten() wurde aufgerufen!\n";
 	cout << "Fahzeug: " << this->p_pFhzg << "\nWeg: " << this->p_pWeg;
+
+	//Aus der liste entrefren
+	p_pWeg->vAbgabe(p_pFhzg);
+
+	//Wieder speichern, diesmal aber als Fahrendes Fahzeug
+	p_pWeg->vAnnahme(p_pFhzg);
 }
