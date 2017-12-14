@@ -322,8 +322,8 @@ void vAufgabe_5_graf()
 
 		//Zeichne die neue Positionen
 		pkw1.vZeichnen(&weg1);
-		pkw2.vZeichnen(&weg2);
-		pkw3.vZeichnen(&weg1);
+		pkw2.vZeichnen(&weg1);
+		pkw3.vZeichnen(&weg2);
 		fhrd.vZeichnen(&weg2);
 
 		//Debug console
