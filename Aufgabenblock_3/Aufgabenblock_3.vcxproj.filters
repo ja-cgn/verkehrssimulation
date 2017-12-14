@@ -14,4 +14,92 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AktivesVO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FahrAusnahme.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fahrrad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fahrzeug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FzgFahren.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FzgParken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FzgVerhalten.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Losfahren.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PKW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Streckenende.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Weg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AktivesVO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FahrAusnahme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fahrrad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fahrzeug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FzgFahren.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FzgParken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FzgVerhalten.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LazyAktion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LazyListe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Losfahren.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PKW.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimuClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Streckenende.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Weg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="SimuClient.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimuServer.jar" />
+  </ItemGroup>
 </Project>
