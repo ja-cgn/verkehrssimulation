@@ -11,9 +11,11 @@ Weg::Weg()
 {
 }
 
-Weg::Weg(string sName, double dLaenge, Begrenzung eTempolimit)
-	:AktivesVO(sName), p_dLaenge(dLaenge), p_eLimit(eTempolimit)
+Weg::Weg(string sName, double dLaenge, Begrenzung eTempolimit, bool bUeverbot)
+	:AktivesVO(sName), p_dLaenge(dLaenge), p_eLimit(eTempolimit), p_bUeberholverbot(bUeverbot),
+	p_dVirtSchranke(dLaenge), p_pRueckweg(NULL), p_pZiel(NULL)
 {
+
 }
 
 Weg::~Weg()
@@ -67,6 +69,13 @@ void Weg::ostreamAusgabe(ostream & output)
 	cout << endl;
 }
 
+/* Verbinde Hin- und Rueckweg mit der Kreuzung */
+void Weg::vVerbinde(Weg * rueckweg, Kreuzung * ziel)
+{
+	p_pRueckweg = rueckweg;
+	p_pZiel = ziel;
+}
+
 /* FzgFahren */
 void Weg::vAnnahme(Fahrzeug * fhzg)
 {
@@ -116,7 +125,22 @@ double Weg::dGetLimit()
 	return this->p_eLimit;
 }
 
+double Weg::dGetVirtSchranke()
+{
+	return p_dVirtSchranke;
+}
+
 LazyListe<Fahrzeug*> Weg::getFahrzeuge()
 {
 	return this->p_pFahrzeuge;
+}
+
+bool Weg::bGetVerbot()
+{
+	return p_bUeberholverbot;
+}
+
+void Weg::vSetVirtSchranke(double dSchranke)
+{
+	p_dVirtSchranke = dSchranke;
 }

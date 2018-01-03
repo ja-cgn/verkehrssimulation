@@ -24,6 +24,7 @@ FzgFahren::~FzgFahren()
 /* Erfahre wie weit ein Fahrzeug innerhalb des übergebenen Zeitraums noch fahren kann*/
 double FzgFahren::dStrecke(Fahrzeug * fhzg, double dTimeInterval)
 {
+
 	//Speichere die Laenge des Weges
 	double dWegLaenge = this->getWeg()->dGetLaenge();
 	//Speichere max Fahrbare Strecke
@@ -34,6 +35,16 @@ double FzgFahren::dStrecke(Fahrzeug * fhzg, double dTimeInterval)
 	{
 		throw Streckenende(fhzg, this->getWeg());
 	}
+
+	//Frage ob den Weg einen Ueberholverbot besitzt
+	if (this->getWeg()->bGetVerbot())
+	{
+		//Wenn fahrbare Strecke > als virtuelle Schranke
+		if (fhzg->dGetAbschnittStrecke() + dMaxFahr > this->getWeg()->dGetVirtSchranke())
+		{
+			return this->getWeg()->dGetVirtSchranke();
+		}
+	}
 	// Wenn max Fahrbare Strecke groesser als uebrig gebliebene Strecke
 	if (fhzg->dGetAbschnittStrecke() + dMaxFahr > dWegLaenge)
 	{
@@ -43,4 +54,8 @@ double FzgFahren::dStrecke(Fahrzeug * fhzg, double dTimeInterval)
 	{
 		return dMaxFahr;
 	}
+
+	//Setze virtuelle Schranke gleich zu Position dieses Farhzeuges
+	this->getWeg()->vSetVirtSchranke(fhzg->dGetAbschnittStrecke());
+
 }

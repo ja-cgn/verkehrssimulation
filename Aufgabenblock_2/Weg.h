@@ -4,13 +4,6 @@
 #include "LazyListe.h"
 class Fahrzeug;
 
-enum Begrenzung
-{
-	Innenort = 50,
-	Landstrasse = 100,
-	Autobahn = -1
-};
-
 class Weg :
 	public AktivesVO
 {

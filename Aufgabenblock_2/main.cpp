@@ -474,9 +474,9 @@ int main()
 {
 	//Feeding a time seed for the iRandom function
 	srand(time(NULL));
-	string sInput = "";
+	string iInput = 0;
 
-	while (sInput != "-1")
+	while (iInput != "-1")
 	{	
 		cout << "Welche Funktion moechten Sie aufrufen?" << endl;
 		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n";
@@ -484,7 +484,14 @@ int main()
 		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n";
 		cout << "6 - vAufgabe_6()\n61 - vAufgabe_6a()";
 		cout << "\n-1 - exit\nIhre Eingabe: ";
-		cin >> sInput;
+		cin >> iInput;
+
+		switch (iInput)
+		{
+		case "1": 
+		default:
+			break;
+		}
 
 		if (sInput == "1")
 		{

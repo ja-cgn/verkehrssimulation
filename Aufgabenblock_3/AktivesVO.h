@@ -3,6 +3,13 @@
 
 using namespace std;
 
+enum Begrenzung
+{
+	Innenort = 50,
+	Landstrasse = 100,
+	Autobahn = -1
+};
+
 class AktivesVO
 {
 public:

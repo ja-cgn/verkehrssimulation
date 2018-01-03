@@ -470,6 +470,33 @@ void vAufgabe_6a()
 	}
 }
 
+void vAufgabe_7()
+{
+	cout << "----------vAufgabe_7()----------" << endl;
+
+	//Zwei Wege laenge 500
+	Weg weg1("Hin", 500, Autobahn);
+	Weg weg2("Zurueck", 500, Autobahn);
+
+	//Erzeuge ein PKW und ein Fahrrad
+	PKW pkw1("FOCUS", 137, 5.3, 62);
+	PKW pkw2("AUDIA4", 240, 6.5, 58);
+	Fahrrad fhrd("BIKE", 23);
+	
+	weg1.vAnnahme(&pkw1, 2.0);
+	weg1.vAnnahme(&fhrd, 4.0);
+
+	//Hauptschleife
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 4; dGlobaleZeit += TIME_INCREMENT)
+	{
+		//Nach der haelfte der Zeit ein weiterer parkender PKW annehmen
+		if (dGlobaleZeit > 2.0)
+		{
+			weg1.vAnnahme(&pkw2, 3.0);
+		}
+	}
+}
+
 int main()
 {
 	//Feeding a time seed for the iRandom function
