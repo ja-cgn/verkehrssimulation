@@ -33,6 +33,7 @@ void Weg::vAbfertigung()
 		try
 		{
 			(*iter)->vAbfertigung();
+			this->vSetVirtSchranke(this->dGetLaenge());
 		}
 		catch (FahrAusnahme& exception)
 		{

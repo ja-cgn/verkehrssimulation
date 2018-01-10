@@ -1,6 +1,7 @@
 #pragma once
 #include "AktivesVO.h"
 #include "LazyListe.h"
+#include <list>
 class Fahrzeug;
 class Weg;
 
@@ -11,6 +12,7 @@ class Kreuzung :
 {
 public:
 	Kreuzung();
+	Kreuzung(string sName, double dTankvolumen = 0);
 	~Kreuzung();
 
 	//Methods
@@ -21,7 +23,7 @@ public:
 	void vAbfertigung();
 
 private:
-	LazyListe<Weg*> p_pWegListe;
+	list<Weg*> p_pWegListe;
 	double p_dTankstelle;
 };
 

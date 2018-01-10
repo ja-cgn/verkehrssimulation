@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include "AktivesVO.h"
 #include "time.h"
 #include "Fahrzeug.h"
 #include "Weg.h"
@@ -9,6 +10,7 @@
 #include "SimuClient.h"
 #include "LazyListe.h"
 #include "LazyAktion.h"
+#include "Kreuzung.h"
 #define EPSILON 0.01
 #define TIME_INCREMENT 0.1
 #define FUEL_UP_TIME 3
@@ -344,11 +346,11 @@ void vAufgabe_6()
 	cout << "----------vAufgabe_6()----------" << endl;
 
 	//Zwei Wege laenge 500
-	Weg weg1("Hin", 500, Innenort);
-	Weg weg2("Zurueck", 500, Innenort);
+	Weg weg1("Hin", 500);
+	Weg weg2("Zurueck", 500);
 
 	//Fahzeug Erzeugung
-	PKW pkw1("BMWi8", 250, 2.1, 30);
+	PKW pkw1("BMWi8", 299, 2.1, 30);
 	PKW pkw2("AUDIA4", 240, 6.5, 58);
 	PKW pkw3("FOCUS", 137, 5.3, 62);
 	Fahrrad fhrd("BIKE", 18);
@@ -473,28 +475,96 @@ void vAufgabe_6a()
 void vAufgabe_7()
 {
 	cout << "----------vAufgabe_7()----------" << endl;
-
+	
 	//Zwei Wege laenge 500
-	Weg weg1("Hin", 500, Autobahn);
-	Weg weg2("Zurueck", 500, Autobahn);
+	Weg weg1("Hin", 500, Autobahn, true);
+	Weg weg2("Zurueck", 500, Autobahn, true);
+
+	//Graphische Oberflaeche
+	bInitialisiereGrafik(800, 500);
+	int iStrassenKoor[] = { 700, 250, 100, 250 };
+	bZeichneStrasse(weg1.sGetName(), weg2.sGetName(), 500, 2, iStrassenKoor);
+
+	//Erzeuge ein PKW und ein Fahrrad
+	PKW pkw1("FOCUS", 67, 5.3, 62);
+	PKW pkw2("AUDIA4", 240, 6.5, 58);
+	Fahrrad fhrd("BIKE", 23);
+	
+	weg1.vAnnahme(&pkw1, 0.8);
+	weg1.vAnnahme(&fhrd, 0.9);
+	weg1.vAnnahme(&pkw2, 1.6);
+
+	int max = 10;
+	//Hauptschleife
+	for (dGlobaleZeit = 0; dGlobaleZeit <= max; dGlobaleZeit += TIME_INCREMENT)
+	{
+		vSetzeZeit(dGlobaleZeit);
+		vSleep(500);
+
+		//Nach der haelfte der Zeit ein weiterer parkender PKW annehmen
+		if (dGlobaleZeit == floor(max / 2))
+		{
+			weg1.vAnnahme(&pkw2, max/2 + TIME_INCREMENT);
+		}
+
+		//Fertige ab
+		weg1.vAbfertigung();
+		weg2.vAbfertigung();
+
+		//Zeichne die neue Positionen
+		pkw1.vZeichnen(&weg1);
+		pkw2.vZeichnen(&weg1);
+		fhrd.vZeichnen(&weg1);
+		
+		//Debug console
+		vTemplateHeaderFhzg();
+		cout << pkw1 << pkw2 << fhrd;
+		vTemplateHeaderWeg();
+		cout << weg1;
+	}
+}
+
+void vAufgabe_8()
+{
+	cout << "----------vAufgabe_8()----------" << endl;
 
 	//Erzeuge ein PKW und ein Fahrrad
 	PKW pkw1("FOCUS", 137, 5.3, 62);
 	PKW pkw2("AUDIA4", 240, 6.5, 58);
 	Fahrrad fhrd("BIKE", 23);
-	
-	weg1.vAnnahme(&pkw1, 2.0);
-	weg1.vAnnahme(&fhrd, 4.0);
 
-	//Hauptschleife
-	for (dGlobaleZeit = 0; dGlobaleZeit <= 4; dGlobaleZeit += TIME_INCREMENT)
-	{
-		//Nach der haelfte der Zeit ein weiterer parkender PKW annehmen
-		if (dGlobaleZeit > 2.0)
-		{
-			weg1.vAnnahme(&pkw2, 3.0);
-		}
-	}
+	//Graphische Initialisierungen
+	bInitialisiereGrafik(1200, 800);
+	Kreuzung Kreuzung1("Kr1");
+	Kreuzung Kreuzung2("Kr2", 1000);
+	Kreuzung Kreuzung3("Kr3");
+	Kreuzung Kreuzung4("Kr4");
+
+	Kreuzung1.vVerbinde("Strasse1_s", "Strasse1_n", 40, &Kreuzung2, Innenort);
+	Kreuzung2.vVerbinde("Strasse2_s", "Strasse2_n", 115, &Kreuzung3, Autobahn, false);
+	Kreuzung2.vVerbinde("Strasse3_s", "Strasse3_n", 40, &Kreuzung3, Innenort);
+	Kreuzung2.vVerbinde("Strasse4_w", "Strasse4_e", 55, &Kreuzung4, Innenort);
+	Kreuzung3.vVerbinde("Strasse5_w", "Strasse5_e", 85, &Kreuzung4, Autobahn, false);
+	Kreuzung4.vVerbinde("Strasse6_w", "Strasse6_e", 130, &Kreuzung4, Landstrasse, false);
+
+	bZeichneKreuzung(680, 40);
+	bZeichneKreuzung(680, 300);
+	bZeichneKreuzung(680, 570);
+	bZeichneKreuzung(320, 300);
+
+	int strasse1[] = { 680, 40, 680, 300 };
+	int strasse2[] = { 680, 300, 850, 300, 970, 390, 970, 500, 850, 570, 680, 570 };
+	int strasse3[] = { 680, 300, 680, 570 };
+	int strasse4[] = { 680, 300, 320, 300 };
+	int strasse5[] = { 680, 570, 500, 570, 350, 510, 320, 420, 320, 300 };
+	int strasse6[] = { 320, 300, 170, 300, 70, 250, 80, 90, 200, 60, 320, 150, 320, 300 };
+	bZeichneStrasse("Strasse1_s", "Strasse1_n", 40, 2, strasse1);
+	bZeichneStrasse("Strasse2_s", "Strasse2_n", 115, 6, strasse2);
+	bZeichneStrasse("Strasse3_s", "Strasse3_n", 40, 2, strasse3);
+	bZeichneStrasse("Strasse4_w", "Strasse4_e", 55, 2, strasse4);
+	bZeichneStrasse("Strasse5_w", "Strasse5_e", 85, 5, strasse5);
+	bZeichneStrasse("Strasse6_w", "Strasse6_e", 130, 7, strasse6);
+
 }
 
 int main()
@@ -509,7 +579,8 @@ int main()
 		cout << "1 - vAufgabe_1_deb()\n2 - vAufgabe_2\n";
 		cout << "3 - vAufgabe_3()\n4 - vAufgabe_4()\n";
 		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n";
-		cout << "6 - vAufgabe_6()\n61 - vAufgabe_6a()";
+		cout << "6 - vAufgabe_6()\n61 - vAufgabe_6a()\n";
+		cout << "7 - vAufgabe_7()\n8 - vAufgabe_8()";
 		cout << "\n-1 - exit\nIhre Eingabe: ";
 		cin >> sInput;
 
@@ -544,6 +615,14 @@ int main()
 		else if (sInput == "61")
 		{
 			vAufgabe_6a();
+		}
+		else if (sInput == "7")
+		{
+			vAufgabe_7();
+		}
+		else if (sInput == "8")
+		{
+			vAufgabe_8();
 		}
 		else if (sInput == "-1")
 		{

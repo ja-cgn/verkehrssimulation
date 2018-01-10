@@ -2,7 +2,15 @@
 #include "Fahrzeug.h"
 #include "Weg.h"
 
+list<Weg*>::iterator WeglistIter;
+
 Kreuzung::Kreuzung()
+	:AktivesVO()
+{
+}
+
+Kreuzung::Kreuzung(string sName, double dTankvolumen)
+	:AktivesVO(sName), p_dTankstelle(dTankvolumen)
 {
 }
 
@@ -37,6 +45,11 @@ void Kreuzung::vTanken(Fahrzeug * fhzg)
 
 void Kreuzung::vAnnahme(Fahrzeug * fhzg, double dStartzeit)
 {
+	if (!p_pWegListe.empty())
+	{
+		this->vTanken(fhzg);
+		p_pWegListe.front()->vAnnahme(fhzg, dStartzeit);
+	}
 }
 
 void Kreuzung::vAnnahme(Weg * weg)
@@ -46,4 +59,13 @@ void Kreuzung::vAnnahme(Weg * weg)
 
 void Kreuzung::vAbfertigung()
 {
+	WeglistIter = p_pWegListe.begin();
+	if (!p_pWegListe.empty())
+	{
+		while (WeglistIter != p_pWegListe.end())
+		{
+			(*WeglistIter)->vAbfertigung();
+			WeglistIter++;
+		}
+	}
 }
