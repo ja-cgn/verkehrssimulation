@@ -37,7 +37,7 @@ void Weg::vAbfertigung()
 		{
 			(*iter)->vAbfertigung();
 
-			//Zeichne den abgefertigten Fahrzeug
+			//Zeichne das Fahrzeug
 			(*iter)->vZeichnen(this);
 		}
 		catch (FahrAusnahme& exception)
@@ -45,7 +45,6 @@ void Weg::vAbfertigung()
 			exception.vBearbeiten();
 		}
 	}
-
 }
 
 void Weg::ostreamAusgabe(ostream & output)

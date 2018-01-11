@@ -46,6 +46,14 @@ void vTemplateHeaderWeg()
 	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 }
 
+void vTemplateHeaderKreuzung()
+{
+	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+	cout << resetiosflags(ios::right) << setiosflags(ios::left) << setw(4) << "ID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
+		<< setiosflags(ios::right) << setw(8) << "Weg Liste" << resetiosflags(ios::right) << endl;
+	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+}
+
 void vAufgabe_1()
 {
 	cout << "----------vAufgabe_1()----------" << endl;
@@ -561,7 +569,7 @@ void vAufgabe_8()
 	bZeichneStrasse("Strasse6_w", "Strasse6_e", 130, 7, strasse6);
 
 	Kreuzung1.vAnnahme(&pkw1, 0);
-	
+
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 25; dGlobaleZeit += TIME_INCREMENT)
 	{
 		vSetzeZeit(dGlobaleZeit);
@@ -570,17 +578,11 @@ void vAufgabe_8()
 		//Fertige ab
 		Kreuzung1.vAbfertigung();
 
-		//Zeichne die neue Positionen
-		/*
-		pkw1.vZeichnen(&weg1);
-		pkw2.vZeichnen(&weg1);
-		fhrd.vZeichnen(&weg1);
-		*/
 		//Debug console
 		vTemplateHeaderFhzg();
 		cout << pkw1 << pkw2 << fhrd;
-		vTemplateHeaderWeg();
-		//cout << weg1;
+		vTemplateHeaderKreuzung();
+		cout << Kreuzung1 << Kreuzung2 << Kreuzung3 << Kreuzung4;
 	}
 }
 

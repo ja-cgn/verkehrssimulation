@@ -2,6 +2,7 @@
 #include "SimuClient.h"
 #include "Fahrzeug.h"
 #include "Weg.h"
+#include <iostream>
 
 list<Weg*>::iterator WeglistIter;
 
@@ -69,4 +70,28 @@ void Kreuzung::vAbfertigung()
 			WeglistIter++;
 		}
 	}
+}
+
+void Kreuzung::ostreamAusgabe(ostream & output)
+{
+	//Call the Abstract parent class output
+	AktivesVO::ostreamAusgabe(output);
+
+	//Output unique parameters
+	output << ":";
+	output.flags(ios::right);
+	output.width(8);
+
+	//Output all the roads leading to the intersection
+	WeglistIter = p_pWegListe.begin();
+	if (!p_pWegListe.empty())
+	{
+		while (WeglistIter != p_pWegListe.end())
+		{
+			output << (*WeglistIter)->sGetName();
+			output << " ";
+			WeglistIter++;
+		}
+	}
+	cout << endl;
 }

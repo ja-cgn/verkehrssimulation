@@ -21,6 +21,7 @@ public:
 	void vAnnahme(Fahrzeug* fhzg, double dStartzeit);
 	void vAnnahme(Weg* weg);
 	void vAbfertigung();
+	void ostreamAusgabe(ostream& output);
 
 private:
 	list<Weg*> p_pWegListe;
