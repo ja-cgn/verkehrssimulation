@@ -3,6 +3,7 @@
 #include "FahrAusnahme.h"
 #include "Fahrzeug.h"
 #include "Weg.h"
+#include "Kreuzung.h"
 
 
 Streckenende::Streckenende()
@@ -26,4 +27,7 @@ void Streckenende::vBearbeiten()
 
 	//Rufe die Abgabe Fkt, wenn diese Ausnahme aufgetreten ist, um gezielt dieses Fahrzeug zu loeschen
 	p_pWeg->vAbgabe(p_pFhzg);
+
+	//Setze das Fahzeug auf einem neuem Weg
+	p_pWeg->getZiel()->vWeiterleiten(p_pFhzg, p_pWeg);
 }	

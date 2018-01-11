@@ -1,3 +1,4 @@
+#include "Random.h"
 #include "Kreuzung.h"
 #include "SimuClient.h"
 #include "Fahrzeug.h"
@@ -94,4 +95,31 @@ void Kreuzung::ostreamAusgabe(ostream & output)
 		}
 	}
 	cout << endl;
+}
+
+/* Leitet das Fahrzeug auf eine neue Kreuzung weiter */
+void Kreuzung::vWeiterleiten(Fahrzeug * fhzg, Weg * origin)
+{
+	Weg* destination = this->ptZufaelligerWeg(origin->getRueckweg());
+}
+
+/* Liefert eine zufaellige Zielkreuzung */
+Kreuzung* Kreuzung::ptZufaelligerWeg(Weg* origin)
+{
+	WeglistIter = p_pWegListe.begin();
+	int WeglistLength = p_pWegListe.size();
+
+	// Randomly choose a number between 0 and the size of the p_pWegListe
+	int iRandWegNum = iRandom(0, WeglistLength);
+	
+	int iCounter = 0;
+	while (WeglistIter != p_pWegListe.end())
+	{
+		if (iRandWegNum == iCounter && (*WeglistIter) != origin)
+		{
+			return (*WeglistIter)->getZiel();
+		}
+		iCounter++;
+		WeglistIter++;
+	}
 }

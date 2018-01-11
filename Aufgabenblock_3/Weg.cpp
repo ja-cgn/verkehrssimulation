@@ -153,6 +153,16 @@ bool Weg::bGetVerbot()
 	return p_bUeberholverbot;
 }
 
+Kreuzung * Weg::getZiel()
+{
+	return p_pZiel;
+}
+
+Weg * Weg::getRueckweg()
+{
+	return p_pRueckweg;
+}
+
 void Weg::vSetVirtSchranke(double dSchranke)
 {
 	p_dVirtSchranke = dSchranke;

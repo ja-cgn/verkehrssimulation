@@ -20,6 +20,8 @@ public:
 	double dGetVirtSchranke();
 	LazyListe<Fahrzeug*> getFahrzeuge();
 	bool bGetVerbot();
+	Kreuzung* getZiel();
+	Weg* getRueckweg();
 
 	//Setter functions
 	void vSetVirtSchranke(double dSchranke);

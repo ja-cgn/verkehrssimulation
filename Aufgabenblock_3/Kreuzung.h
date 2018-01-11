@@ -22,6 +22,9 @@ public:
 	void vAnnahme(Weg* weg);
 	void vAbfertigung();
 	void ostreamAusgabe(ostream& output);
+	void vWeiterleiten(Fahrzeug* fhzg, Weg* origin);
+	Kreuzung* ptZufaelligerWeg(Weg* origin);
+
 
 private:
 	list<Weg*> p_pWegListe;
