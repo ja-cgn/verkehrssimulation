@@ -3,6 +3,7 @@
 #include <list>
 #include "Fahrzeug.h"
 #include "FahrAusnahme.h"
+#include "SimuClient.h"
 
 LazyListe<Fahrzeug*>::iterator FahrzeugeListIter;
 
@@ -35,7 +36,9 @@ void Weg::vAbfertigung()
 		try
 		{
 			(*iter)->vAbfertigung();
-			
+
+			//Zeichne den abgefertigten Fahrzeug
+			(*iter)->vZeichnen(this);
 		}
 		catch (FahrAusnahme& exception)
 		{

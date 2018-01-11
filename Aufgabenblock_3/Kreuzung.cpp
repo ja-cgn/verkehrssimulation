@@ -1,4 +1,5 @@
 #include "Kreuzung.h"
+#include "SimuClient.h"
 #include "Fahrzeug.h"
 #include "Weg.h"
 
@@ -32,7 +33,6 @@ void Kreuzung::vVerbinde(string sWeg1, string sWeg2, double dLaenge, Kreuzung * 
 	//Wege in Kreuzungen speichern
 	p_pWegListe.push_back(hin);
 	ziel->vAnnahme(rueck);
-	
 }
 
 void Kreuzung::vTanken(Fahrzeug * fhzg)
@@ -65,6 +65,7 @@ void Kreuzung::vAbfertigung()
 		while (WeglistIter != p_pWegListe.end())
 		{
 			(*WeglistIter)->vAbfertigung();
+
 			WeglistIter++;
 		}
 	}

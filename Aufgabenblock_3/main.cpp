@@ -507,15 +507,10 @@ void vAufgabe_7()
 			weg1.vAnnahme(&pkw2, max/2 + TIME_INCREMENT);
 		}
 
-		//Fertige ab
+		//Fertige ab und zeichne
 		weg1.vAbfertigung();
 		weg2.vAbfertigung();
 
-		//Zeichne die neue Positionen
-		pkw1.vZeichnen(&weg1);
-		pkw2.vZeichnen(&weg1);
-		fhrd.vZeichnen(&weg1);
-		
 		//Debug console
 		vTemplateHeaderFhzg();
 		cout << pkw1 << pkw2 << fhrd;
@@ -564,6 +559,29 @@ void vAufgabe_8()
 	bZeichneStrasse("Strasse4_w", "Strasse4_e", 55, 2, strasse4);
 	bZeichneStrasse("Strasse5_w", "Strasse5_e", 85, 5, strasse5);
 	bZeichneStrasse("Strasse6_w", "Strasse6_e", 130, 7, strasse6);
+
+	Kreuzung1.vAnnahme(&pkw1, 0);
+	
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 25; dGlobaleZeit += TIME_INCREMENT)
+	{
+		vSetzeZeit(dGlobaleZeit);
+		vSleep(500);
+
+		//Fertige ab
+		Kreuzung1.vAbfertigung();
+
+		//Zeichne die neue Positionen
+		/*
+		pkw1.vZeichnen(&weg1);
+		pkw2.vZeichnen(&weg1);
+		fhrd.vZeichnen(&weg1);
+		*/
+		//Debug console
+		vTemplateHeaderFhzg();
+		cout << pkw1 << pkw2 << fhrd;
+		vTemplateHeaderWeg();
+		//cout << weg1;
+	}
 }
 
 int main()
