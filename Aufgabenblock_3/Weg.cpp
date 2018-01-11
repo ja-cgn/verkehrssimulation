@@ -27,13 +27,15 @@ void Weg::vAbfertigung()
 	//Aktualisiere die Lazy Liste um die Aenderungen zu uebertragen
 	this->p_pFahrzeuge.vAktualisieren();
 	//alle auf dem Weg befindlichen Fahzeuge abfertigen
+
+	this->vSetVirtSchranke(this->dGetLaenge());
 	for (LazyListe<Fahrzeug*>::iterator iter = p_pFahrzeuge.begin(); iter != p_pFahrzeuge.end(); iter++)
 	{
 		//Exception handling
 		try
 		{
 			(*iter)->vAbfertigung();
-			this->vSetVirtSchranke(this->dGetLaenge());
+			
 		}
 		catch (FahrAusnahme& exception)
 		{
@@ -128,7 +130,15 @@ double Weg::dGetLimit()
 
 double Weg::dGetVirtSchranke()
 {
-	return p_dVirtSchranke;
+	//Beruecksichtigen ob den Weg einen Ueberholverbot besitzt
+	if (this->bGetVerbot())
+	{
+		return p_dVirtSchranke;
+	}
+	else
+	{
+		return this->dGetLaenge();
+	}
 }
 
 LazyListe<Fahrzeug*> Weg::getFahrzeuge()

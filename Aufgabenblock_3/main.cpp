@@ -564,7 +564,6 @@ void vAufgabe_8()
 	bZeichneStrasse("Strasse4_w", "Strasse4_e", 55, 2, strasse4);
 	bZeichneStrasse("Strasse5_w", "Strasse5_e", 85, 5, strasse5);
 	bZeichneStrasse("Strasse6_w", "Strasse6_e", 130, 7, strasse6);
-
 }
 
 int main()
