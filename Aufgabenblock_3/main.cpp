@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
-#include "Random.h"
 #include "AktivesVO.h"
 #include "time.h"
 #include "Fahrzeug.h"
@@ -13,7 +12,7 @@
 #include "LazyAktion.h"
 #include "Kreuzung.h"
 #define EPSILON 0.01
-#define TIME_INCREMENT 0.1
+#define TIME_INCREMENT 0.05
 #define FUEL_UP_TIME 3
 
 using namespace std;
@@ -45,6 +44,14 @@ void vTemplateHeaderKreuzung()
 	cout << resetiosflags(ios::right) << setiosflags(ios::left) << setw(4) << "ID" << setw(7) << "Name" << ":" << resetiosflags(ios::left)
 		<< setiosflags(ios::right) << setw(8) << "Weg Liste" << resetiosflags(ios::right) << endl;
 	cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+}
+
+/*
+iRandom function creates a random integer value between the fed minumum and maximum value arguments.
+*/
+int iRandom(int min = 1, int max = 10)
+{
+	return min + (rand() % (max - min + 1));
 }
 
 void vAufgabe_1()
@@ -526,7 +533,7 @@ void vAufgabe_8()
 
 	//Erzeuge ein PKW und ein Fahrrad
 	PKW pkw1("FOCUS", 137, 5.3, 62);
-	PKW pkw2("AUDIA4", 240, 6.5, 58);
+	PKW pkw2("AUDIA4", 180, 6.5, 58);
 	Fahrrad fhrd("BIKE", 23);
 
 	//Graphische Initialisierungen
@@ -562,6 +569,7 @@ void vAufgabe_8()
 	bZeichneStrasse("Strasse6_w", "Strasse6_e", 130, 7, strasse6);
 
 	Kreuzung1.vAnnahme(&pkw1, 0);
+	Kreuzung2.vAnnahme(&pkw2, 0);
 
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 25; dGlobaleZeit += TIME_INCREMENT)
 	{
@@ -570,6 +578,9 @@ void vAufgabe_8()
 
 		//Fertige ab
 		Kreuzung1.vAbfertigung();
+		Kreuzung2.vAbfertigung();
+		Kreuzung3.vAbfertigung();
+		Kreuzung4.vAbfertigung();
 
 		//Debug console
 		vTemplateHeaderFhzg();

@@ -1,11 +1,11 @@
-#include "Random.h"
 #include "Kreuzung.h"
 #include "SimuClient.h"
 #include "Fahrzeug.h"
 #include "Weg.h"
 #include <iostream>
+#include <iomanip>
 
-list<Weg*>::iterator WeglistIter;
+vector<Weg*>::iterator WeglistIter;
 
 Kreuzung::Kreuzung()
 	:AktivesVO()
@@ -99,27 +99,47 @@ void Kreuzung::ostreamAusgabe(ostream & output)
 
 /* Leitet das Fahrzeug auf eine neue Kreuzung weiter */
 void Kreuzung::vWeiterleiten(Fahrzeug * fhzg, Weg * origin)
-{
+{	
 	Weg* destination = this->ptZufaelligerWeg(origin->getRueckweg());
+	this->vTanken(fhzg);
+	destination->vAnnahme(fhzg);
+
+	//Umsetzung outputs
+	cout << "\nSETZE DAS FAHRZEUG UM! vWeiterleiten() wurde aufgerufen!\n";
+	cout << resetiosflags(ios::right) << setiosflags(ios::left)
+		<< setw(10) << "ZEIT" << ":" << dGlobaleZeit << endl
+		<< setw(10) << "KREUZUNG" << ":" << this->sGetName() << endl
+		<< setw(10) << "WECHSEL" << ":" << origin->sGetName() << "->" << destination->sGetName() << endl
+		<< setw(10) << "FAHRZEUG" << ":" << &fhzg << endl;
 }
 
 /* Liefert eine zufaellige Zielkreuzung */
-Kreuzung* Kreuzung::ptZufaelligerWeg(Weg* origin)
+Weg* Kreuzung::ptZufaelligerWeg(Weg* origin)
 {
-	WeglistIter = p_pWegListe.begin();
 	int WeglistLength = p_pWegListe.size();
-
-	// Randomly choose a number between 0 and the size of the p_pWegListe
-	int iRandWegNum = iRandom(0, WeglistLength);
 	
-	int iCounter = 0;
-	while (WeglistIter != p_pWegListe.end())
+	if (!p_pWegListe.empty())
 	{
-		if (iRandWegNum == iCounter && (*WeglistIter) != origin)
+		if (WeglistLength == 1)
 		{
-			return (*WeglistIter)->getZiel();
+			return p_pWegListe[0];
 		}
-		iCounter++;
-		WeglistIter++;
+		else
+		{
+			while (1)
+			{
+				int iRandWegNum = rand() % WeglistLength;
+				Weg* destination = p_pWegListe[iRandWegNum];
+				if (destination != origin)
+				{
+					return destination;
+				}
+			}
+		}
 	}
+	else
+	{
+		return nullptr;
+	}
+	
 }

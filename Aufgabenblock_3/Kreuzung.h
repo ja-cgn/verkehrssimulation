@@ -1,7 +1,7 @@
 #pragma once
 #include "AktivesVO.h"
 #include "LazyListe.h"
-#include <list>
+#include <vector>
 class Fahrzeug;
 class Weg;
 
@@ -23,11 +23,11 @@ public:
 	void vAbfertigung();
 	void ostreamAusgabe(ostream& output);
 	void vWeiterleiten(Fahrzeug* fhzg, Weg* origin);
-	Kreuzung* ptZufaelligerWeg(Weg* origin);
+	Weg* ptZufaelligerWeg(Weg* origin);
 
 
 private:
-	list<Weg*> p_pWegListe;
+	vector<Weg*> p_pWegListe;
 	double p_dTankstelle;
 };
 
