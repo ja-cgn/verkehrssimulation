@@ -590,6 +590,14 @@ void vAufgabe_8()
 	}
 }
 
+void vAufgabe_9()
+{
+	//Einlesen
+	cout << "----------vAufgabe_9()----------" << endl;
+
+	
+}
+
 int main()
 {
 	//Feeding a time seed for the iRandom function
@@ -646,6 +654,10 @@ int main()
 		else if (sInput == "8")
 		{
 			vAufgabe_8();
+		}
+		else if (sInput == "9")
+		{
+		
 		}
 		else if (sInput == "-1")
 		{

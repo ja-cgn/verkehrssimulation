@@ -28,6 +28,7 @@ public:
 	virtual void vAbfertigung();
 	virtual void vAusgabe();
 	virtual void ostreamAusgabe(ostream& output);
+	virtual istream& istreamEingabe(istream& input);
 	virtual void vZeichnen(Weg* weg) = 0;
 	virtual double dTanken(double dMenge = DEFAULT_TANK_VOLUME);
 	virtual double dGeschwindigkeit() = 0;

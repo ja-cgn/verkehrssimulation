@@ -82,6 +82,16 @@ void Fahrzeug::ostreamAusgabe(ostream &output)
 	output << this->p_dGesamtStrecke;
 }
 
+istream & Fahrzeug::istreamEingabe(istream & input)
+{
+	//Call the Abstract parent class input
+	AktivesVO::istreamEingabe(input);
+
+	//Input the unique parameters
+	input >> p_dMaxGeschwindigkeit;
+	return input;
+}
+
 double Fahrzeug::dTanken(double dMenge)
 {
 	return 0.0;

@@ -60,8 +60,26 @@ void AktivesVO::ostreamAusgabe(ostream & output)
 	output << this->p_sName;
 }
 
+istream & AktivesVO::istreamEingabe(istream & input)
+{
+	if (p_sName == "")
+	{
+		input >> p_sName;
+	}
+	else
+	{
+		throw exception("Error: AktivesVO wurde frueher schon erzeugt");
+	}
+}
+
 ostream& operator<<(ostream& output, AktivesVO & vo)
 {
 	vo.ostreamAusgabe(output);
 	return output;
+}
+
+istream & operator >> (istream & input, AktivesVO & vo)
+{
+	vo.istreamEingabe(input);
+	return input;
 }

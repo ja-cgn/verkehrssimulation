@@ -125,6 +125,17 @@ void PKW::ostreamAusgabe(ostream & output)
 	cout << endl;
 }
 
+istream & PKW::istreamEingabe(istream & input)
+{
+	//Call the Abstract parent class input
+	Fahrzeug::istreamEingabe(input);
+
+	//Input the unique parameters
+	input >> p_dVerbrauch;
+	input >> p_dTankvolumen;
+	return input;
+}
+
 void PKW::vZeichnen(Weg * weg)
 {
 	bZeichnePKW(p_sName, weg->sGetName(), this->dRelPos(weg), this->dGeschwindigkeit(), p_dTankInhalt);

@@ -97,6 +97,16 @@ void Kreuzung::ostreamAusgabe(ostream & output)
 	cout << endl;
 }
 
+istream & Kreuzung::istreamEingabe(istream & input)
+{
+	//Call the Abstract parent class input
+	AktivesVO::istreamEingabe(input);
+
+	//Input the unique parameters
+	input >> p_dTankstelle;
+	return input;
+}
+
 /* Leitet das Fahrzeug auf eine neue Kreuzung weiter */
 void Kreuzung::vWeiterleiten(Fahrzeug * fhzg, Weg * origin)
 {	

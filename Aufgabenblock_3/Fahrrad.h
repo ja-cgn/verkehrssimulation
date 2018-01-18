@@ -14,6 +14,7 @@ public:
 
 	void vAusgabe();
 	void ostreamAusgabe(ostream& output);
+	istream& istreamEingabe(istream& input);
 	void vZeichnen(Weg* weg);
 
 protected:

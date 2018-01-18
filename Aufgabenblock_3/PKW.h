@@ -15,6 +15,7 @@ public:
 	void vAbfertigung();
 	void vAusgabe();
 	void ostreamAusgabe(ostream& output);
+	istream& istreamEingabe(istream& input);
 	void vZeichnen(Weg* weg);
 	double dTanken(double dMenge);
 	double dGeschwindigkeit();

@@ -22,6 +22,7 @@ public:
 	void vAnnahme(Weg* weg);
 	void vAbfertigung();
 	void ostreamAusgabe(ostream& output);
+	istream& istreamEingabe(istream& input);
 	void vWeiterleiten(Fahrzeug* fhzg, Weg* origin);
 	Weg* ptZufaelligerWeg(Weg* origin);
 

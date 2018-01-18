@@ -30,6 +30,13 @@ void Fahrrad::ostreamAusgabe(ostream & output)
 	cout << endl;
 }
 
+istream & Fahrrad::istreamEingabe(istream & input)
+{
+	Fahrzeug::istreamEingabe(input);
+
+	return input;
+}
+
 void Fahrrad::vZeichnen(Weg * weg)
 {
 	bZeichneFahrrad(p_sName, weg->sGetName(), this->dRelPos(weg), this->dGeschwindigkeit());

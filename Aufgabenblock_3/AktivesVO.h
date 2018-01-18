@@ -23,6 +23,7 @@ public:
 	virtual void vInitialisierung();
 	virtual void vAbfertigung();
 	virtual void ostreamAusgabe(ostream& output);
+	virtual istream& istreamEingabe(istream& input);
 
 private:
 	static int p_iMaxID;
@@ -35,4 +36,5 @@ protected:
 };
 
 ostream& operator <<(ostream& output, AktivesVO& vo);
+istream& operator >> (istream& input, AktivesVO& vo);
 
