@@ -21,11 +21,11 @@ public:
 	void vAnnahme(Fahrzeug* fhzg, double dStartzeit);
 	void vAnnahme(Weg* weg);
 	void vAbfertigung();
+	void vZeichnen();
 	void ostreamAusgabe(ostream& output);
 	istream& istreamEingabe(istream& input);
 	void vWeiterleiten(Fahrzeug* fhzg, Weg* origin);
 	Weg* ptZufaelligerWeg(Weg* origin);
-
 
 private:
 	vector<Weg*> p_pWegListe;

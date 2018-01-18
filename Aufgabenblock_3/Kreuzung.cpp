@@ -73,6 +73,18 @@ void Kreuzung::vAbfertigung()
 	}
 }
 
+void Kreuzung::vZeichnen()
+{
+	WeglistIter = p_pWegListe.begin();
+
+	while (WeglistIter != p_pWegListe.end())
+	{
+		(*WeglistIter)->vZeichnen();
+
+		WeglistIter++;
+	}
+}
+
 void Kreuzung::ostreamAusgabe(ostream & output)
 {
 	//Call the Abstract parent class output

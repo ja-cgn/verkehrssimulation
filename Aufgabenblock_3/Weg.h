@@ -33,6 +33,7 @@ public:
 	virtual void vAnnahme(Fahrzeug* fhzg); //fahrendes Fahrzeug
 	virtual void vAnnahme(Fahrzeug* fhzg, double dStartZeit); //parkendes Fahrzeug
 	virtual void vAbgabe(Fahrzeug* fhzg);
+	virtual void vZeichnen();
 
 private:
 	double p_dLaenge;

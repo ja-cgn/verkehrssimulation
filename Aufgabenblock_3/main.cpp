@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <fstream>
 #include "AktivesVO.h"
 #include "time.h"
 #include "Fahrzeug.h"
@@ -571,6 +572,13 @@ void vAufgabe_8()
 	Kreuzung1.vAnnahme(&pkw1, 0);
 	Kreuzung2.vAnnahme(&pkw2, 0);
 
+	/*
+	vTemplateHeaderFhzg();
+	cout << pkw1 << pkw2 << fhrd;
+	vTemplateHeaderKreuzung();
+	cout << Kreuzung1 << Kreuzung2 << Kreuzung3 << Kreuzung4;
+	*/
+
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 25; dGlobaleZeit += TIME_INCREMENT)
 	{
 		vSetzeZeit(dGlobaleZeit);
@@ -581,6 +589,12 @@ void vAufgabe_8()
 		Kreuzung2.vAbfertigung();
 		Kreuzung3.vAbfertigung();
 		Kreuzung4.vAbfertigung();
+
+		//Zeichne
+		Kreuzung1.vZeichnen();
+		Kreuzung2.vZeichnen();
+		Kreuzung3.vZeichnen();
+		Kreuzung4.vZeichnen();
 
 		//Debug console
 		vTemplateHeaderFhzg();
@@ -595,7 +609,37 @@ void vAufgabe_9()
 	//Einlesen
 	cout << "----------vAufgabe_9()----------" << endl;
 
-	
+	ifstream infile("VO.dat");
+
+	PKW pkw1;
+	PKW pkw2;
+	Kreuzung krzg;
+
+	try
+	{
+		//Einlesen
+		infile >> pkw1;
+		infile >> pkw2;
+		infile >> krzg;
+
+		//Gebe die eingelesene Fahzeuge aus
+		vTemplateHeaderFhzg();
+		cout << pkw1 << pkw2;
+
+		//Gebe die eingelesene Kreuzung aus
+		vTemplateHeaderKreuzung();
+		cout << krzg;
+
+		infile.close();
+
+		//Teste ob die Fehlererzeugung funktioniert
+		infile.open("VO.dat");
+		infile >> pkw2;
+	}
+	catch (exception error)
+	{
+		cout << error.what() << endl;
+	}
 }
 
 int main()
@@ -611,7 +655,8 @@ int main()
 		cout << "3 - vAufgabe_3()\n4 - vAufgabe_4()\n";
 		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n";
 		cout << "6 - vAufgabe_6()\n61 - vAufgabe_6a()\n";
-		cout << "7 - vAufgabe_7()\n8 - vAufgabe_8()";
+		cout << "7 - vAufgabe_7()\n8 - vAufgabe_8()\n";
+		cout << "9 - vAufgabe_9()\n";
 		cout << "\n-1 - exit\nIhre Eingabe: ";
 		cin >> sInput;
 
@@ -657,7 +702,7 @@ int main()
 		}
 		else if (sInput == "9")
 		{
-		
+			vAufgabe_9();
 		}
 		else if (sInput == "-1")
 		{

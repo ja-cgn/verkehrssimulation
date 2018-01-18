@@ -36,9 +36,6 @@ void Weg::vAbfertigung()
 		try
 		{
 			(*iter)->vAbfertigung();
-
-			//Zeichne das Fahrzeug
-			(*iter)->vZeichnen(this);
 		}
 		catch (FahrAusnahme& exception)
 		{
@@ -117,6 +114,18 @@ void Weg::vAbgabe(Fahrzeug * fhzg)
 
 			FahrzeugeListIter++;
 		}
+	}
+}
+
+/* Zeichnet alle Fahrzeuge auf dem Weg */
+void Weg::vZeichnen()
+{
+	FahrzeugeListIter = p_pFahrzeuge.begin();
+	while(FahrzeugeListIter != p_pFahrzeuge.end())
+	{
+		(*FahrzeugeListIter)->vZeichnen(this);
+
+		FahrzeugeListIter++;
 	}
 }
 
