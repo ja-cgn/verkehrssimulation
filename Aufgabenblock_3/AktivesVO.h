@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -18,15 +19,20 @@ public:
 	AktivesVO(const AktivesVO& vo);
 	virtual ~AktivesVO();
 
+	//Getter methods
 	string sGetName();
+	virtual AktivesVO* ptObjekt(string sName);
 
+	//Methods
 	virtual void vInitialisierung();
 	virtual void vAbfertigung();
 	virtual void ostreamAusgabe(ostream& output);
 	virtual istream& istreamEingabe(istream& input);
+	virtual void vAddToMap(AktivesVO* object);
 
 private:
 	static int p_iMaxID;
+	map<string, AktivesVO*> mObjekteMap;
 
 protected:
 	string p_sName;

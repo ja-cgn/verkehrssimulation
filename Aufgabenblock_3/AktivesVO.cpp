@@ -3,6 +3,8 @@
 //Global scope definition of the ID var to start off increments correctly
 int AktivesVO::p_iMaxID = 0;
 
+map<string, AktivesVO*>::iterator pMapIter;
+
 /* Default constructor */
 AktivesVO::AktivesVO()
 {
@@ -15,6 +17,7 @@ AktivesVO::AktivesVO(string sName)
 	vInitialisierung();
 
 	this->p_sName = sName;
+	vAddToMap(this);
 }
 
 /* Copy Constructor */
@@ -33,6 +36,19 @@ AktivesVO::~AktivesVO()
 string AktivesVO::sGetName()
 {
 	return this->p_sName;
+}
+
+AktivesVO * AktivesVO::ptObjekt(string sName)
+{
+	if (mObjekteMap.count(sName))
+	{
+		pMapIter = mObjekteMap.find(sName);
+		return pMapIter->second;
+	}
+	else
+	{
+		throw exception("Error: Map enthaelt den gesuchten Objekt leider nicht.");
+	}
 }
 
 void AktivesVO::vInitialisierung()
@@ -65,10 +81,24 @@ istream & AktivesVO::istreamEingabe(istream & input)
 	if (p_sName == "")
 	{
 		input >> p_sName;
+		vAddToMap(this);
+		return input;
 	}
 	else
 	{
 		throw exception("Error: AktivesVO wurde frueher schon erzeugt");
+	}
+}
+
+void AktivesVO::vAddToMap(AktivesVO * object)
+{
+	if (mObjekteMap.count(object->sGetName()))
+	{
+		throw exception("Error: Map enthaelt den Objekt bereits");
+	}
+	else
+	{
+		mObjekteMap.emplace(object->sGetName(), object);
 	}
 }
 
