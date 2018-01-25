@@ -12,6 +12,7 @@
 #include "LazyListe.h"
 #include "LazyAktion.h"
 #include "Kreuzung.h"
+#include "Welt.h"
 #define EPSILON 0.01
 #define TIME_INCREMENT 0.05
 #define FUEL_UP_TIME 3
@@ -485,6 +486,9 @@ void vAufgabe_7()
 {
 	cout << "----------vAufgabe_7()----------" << endl;
 	
+	/*ERZEUGE KREUZUNG*/
+
+
 	//Zwei Wege laenge 500
 	Weg weg1("Hin", 500, Autobahn, true);
 	Weg weg2("Zurueck", 500, Autobahn, true);
@@ -496,30 +500,29 @@ void vAufgabe_7()
 
 	//Erzeuge ein PKW und ein Fahrrad
 	PKW pkw1("FOCUS", 67, 5.3, 62);
-	PKW pkw2("AUDIA4", 240, 6.5, 58);
+	PKW pkw2("AUDIA4", 50, 6.5, 58);
 	Fahrrad fhrd("BIKE", 23);
 	
-	weg1.vAnnahme(&pkw1, 0.8);
-	weg1.vAnnahme(&fhrd, 0.9);
-	weg1.vAnnahme(&pkw2, 1.6);
 
 	int max = 10;
+	weg1.vAnnahme(&pkw1, 0.8);
+	weg1.vAnnahme(&fhrd, 0.9);
+	weg1.vAnnahme(&pkw2, floor(max / 2));
+	
 	//Hauptschleife
 	for (dGlobaleZeit = 0; dGlobaleZeit <= max; dGlobaleZeit += TIME_INCREMENT)
 	{
 		vSetzeZeit(dGlobaleZeit);
 		vSleep(500);
 
-		//Nach der haelfte der Zeit ein weiterer parkender PKW annehmen
-		if (dGlobaleZeit == floor(max / 2))
-		{
-			weg1.vAnnahme(&pkw2, max/2 + TIME_INCREMENT);
-		}
-
 		//Fertige ab und zeichne
 		weg1.vAbfertigung();
 		weg2.vAbfertigung();
 
+		//Zeichne
+		weg1.vZeichnen();
+		weg2.vZeichnen();
+		
 		//Debug console
 		vTemplateHeaderFhzg();
 		cout << pkw1 << pkw2 << fhrd;
@@ -533,8 +536,9 @@ void vAufgabe_8()
 	cout << "----------vAufgabe_8()----------" << endl;
 
 	//Erzeuge ein PKW und ein Fahrrad
-	PKW pkw1("FOCUS", 137, 5.3, 62);
+	PKW pkw1("FOCUS", 140, 5.3, 62);
 	PKW pkw2("AUDIA4", 180, 6.5, 58);
+	PKW pkw3("ROCKET", 300, 10, 800);
 	Fahrrad fhrd("BIKE", 23);
 
 	//Graphische Initialisierungen
@@ -570,14 +574,16 @@ void vAufgabe_8()
 	bZeichneStrasse("Strasse6_w", "Strasse6_e", 130, 7, strasse6);
 
 	Kreuzung1.vAnnahme(&pkw1, 0);
-	Kreuzung2.vAnnahme(&pkw2, 0);
+	Kreuzung2.vAnnahme(&pkw2, 0.5);
+	Kreuzung3.vAnnahme(&pkw3, 0.3);
+	Kreuzung4.vAnnahme(&fhrd, 0.3);
 
-	/*
+	
 	vTemplateHeaderFhzg();
 	cout << pkw1 << pkw2 << fhrd;
 	vTemplateHeaderKreuzung();
 	cout << Kreuzung1 << Kreuzung2 << Kreuzung3 << Kreuzung4;
-	*/
+	
 
 	for (dGlobaleZeit = 0; dGlobaleZeit <= 25; dGlobaleZeit += TIME_INCREMENT)
 	{
@@ -642,6 +648,25 @@ void vAufgabe_9()
 	}
 }
 
+void vAufgabe_9_graf()
+{
+	ifstream infile("SimuDisplay.dat");
+	bInitialisiereGrafik(1400, 1000);
+	Welt* welt = new Welt();
+
+	welt->vEinlesen(infile);
+
+	for (dGlobaleZeit = 0; dGlobaleZeit <= 25; dGlobaleZeit += TIME_INCREMENT)
+	{
+		vSetzeZeit(dGlobaleZeit);
+		vSleep(500);
+
+		welt->vSimulation();
+	}
+
+	delete welt;
+}
+
 int main()
 {
 	//Feeding a time seed for the iRandom function
@@ -656,8 +681,8 @@ int main()
 		cout << "5 - vAufgabe_5()\n51 - vAufgabe_5_graf()\n";
 		cout << "6 - vAufgabe_6()\n61 - vAufgabe_6a()\n";
 		cout << "7 - vAufgabe_7()\n8 - vAufgabe_8()\n";
-		cout << "9 - vAufgabe_9()\n";
-		cout << "\n-1 - exit\nIhre Eingabe: ";
+		cout << "9 - vAufgabe_9()\n91 - vAufgabe_9_graf()\n";
+		cout << "-1 - exit\nIhre Eingabe: ";
 		cin >> sInput;
 
 		if (sInput == "1")
@@ -703,6 +728,10 @@ int main()
 		else if (sInput == "9")
 		{
 			vAufgabe_9();
+		}
+		else if (sInput == "91")
+		{
+			vAufgabe_9_graf();
 		}
 		else if (sInput == "-1")
 		{

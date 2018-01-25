@@ -123,6 +123,7 @@ void PKW::ostreamAusgabe(ostream & output)
 	output.width(15);
 	output << this->p_dTankInhalt;
 	cout << endl;
+
 }
 
 istream & PKW::istreamEingabe(istream & input)

@@ -29,5 +29,8 @@ void Streckenende::vBearbeiten()
 	p_pWeg->vAbgabe(p_pFhzg);
 
 	//Setze das Fahzeug auf einem neuem Weg
-	p_pWeg->getZiel()->vWeiterleiten(p_pFhzg, p_pWeg);
+	if (p_pWeg->getZiel() != nullptr)
+	{
+		p_pWeg->getZiel()->vWeiterleiten(p_pFhzg, p_pWeg);
+	}
 }	

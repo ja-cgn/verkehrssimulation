@@ -9,6 +9,8 @@ const string Welt::KREUZUNGTAG = "KREUZUNG";
 const string Welt::STRASSETAG = "STRASSE";
 const string Welt::PKWTAG = "PKW";
 const string Welt::FAHRRADTAG = "FAHRRAD";
+vector<Kreuzung*>::iterator iterKrzg;
+
 
 Welt::Welt()
 {
@@ -36,31 +38,98 @@ void Welt::vEinlesen(istream & input)
 			//KREUZUNG
 			if (sType == "KREUZUNG")
 			{
+				int x, y;
+
+				//Lese die Attributen ein
 				Kreuzung* krzg = new Kreuzung();
 				input >> *krzg;
+				input >> x;
+				input >> y;
+
+				//Speichere die Kreuzung
+				this->vectorKreuzungen.push_back(krzg);
 			}
 
 			//STRASSE
 			else if (sType == "STRASSE")
 			{
 				string NameQ, NameZ, NameW1, NameW2;
-				double dLaenge, dGeschwindigkeit;
+				double dLaenge;
+				int iUeberholverbot, iGeschwindigkeit;
 				bool bUeberholverbot;
 
+				//Lese die Attributen ein
 				Weg* weg = new Weg();
-				input >> NameQ >> NameZ >> NameW1 >> NameW2 >> dLaenge >> dGeschwindigkeit >> bUeberholverbot;
+				input >> NameQ >> NameZ >> NameW1 >> NameW2 >> dLaenge >> iGeschwindigkeit >> iUeberholverbot;
+
+				//Checke Ueberholverbot syntax
+				if (iUeberholverbot != 0 && iUeberholverbot != 1)
+				{
+					ssError.str("");
+					ssError << "ERROR Row: " << iRow << " Ueberholverbot ist kein bool";
+					
+					throw exception(ssError.str().c_str());
+				}
+				else
+				{
+					//Verwandle in bool
+					bUeberholverbot = (bool)iUeberholverbot;
+				}
+
+				//Verwandle das Tempolimit in enum
+				enum Begrenzung eTempolimit;
+				switch (iGeschwindigkeit)
+				{
+				case 1:
+					eTempolimit = Innenort;
+					break;
+				case 2:
+					eTempolimit = Landstrasse;
+					break;
+				case 3: 
+					eTempolimit = Autobahn;
+					break;
+				default:
+					ssError.str("");
+					ssError << "ERROR Row: " << iRow << " Geschwindigkeitbegrenzung ist definitert";
+				}
+
+				//Verbinde die eingelesene Kreuzungen
+				try
+				{
+					Kreuzung* origin = (Kreuzung*)weg->ptObjekt(NameQ);
+					Kreuzung* destination = (Kreuzung*)weg->ptObjekt(NameZ);
+
+					if (origin && destination)
+					{
+						origin->vVerbinde(NameW1, NameW2, dLaenge, destination, eTempolimit, bUeberholverbot);
+					}
+					else
+					{
+						throw exception();
+					}
+				}
+				catch (exception error)
+				{
+					ssError.str("");
+					ssError << "ERROR Row: " << iRow << " Verbindiung kann nicht hergestellt werden";
+					throw exception(ssError.str().c_str());
+				}
 			}
 
 			//PKW
 			else if (sType == "PKW")
 			{
-				PKW* pkw = new PKW();
-				input >> *pkw;
 				string sKreuzung;
 				double dStartZeit;
 
+				//Lese die Attributen ein
+				PKW* pkw = new PKW();
+				input >> *pkw;
+
 				//Speichere die Daten
 				input >> sKreuzung >> dStartZeit;
+
 				try
 				{
 					Kreuzung* krzg = dynamic_cast<Kreuzung*>(pkw->ptObjekt(sKreuzung));
@@ -72,7 +141,7 @@ void Welt::vEinlesen(istream & input)
 
 					//Zeige spezifische Fehlermeldung an
 					ssError.str("");
-					ssError << "ERROR ROW: " << iRow << "Name der Zielkreuzung kann nicht vergeben werden";
+					ssError << "ERROR ROW: " << iRow << " Name der Zielkreuzung kann nicht vergeben werden";
 					throw exception(ssError.str().c_str());
 				}
 			}
@@ -80,12 +149,14 @@ void Welt::vEinlesen(istream & input)
 			//Fahrrad
 			else  if (sType == "FAHRRAD")
 			{
+				int x, y;
 				Fahrrad* fhrd = new Fahrrad();
 				input >> *fhrd;
 				string sKreuzung;
 				double dStartZeit;
 
 				input >> sKreuzung >> dStartZeit;
+				input >> x >> y;
 				try
 				{
 					Kreuzung* krzg = dynamic_cast<Kreuzung*>(fhrd->ptObjekt(sKreuzung));
@@ -97,9 +168,15 @@ void Welt::vEinlesen(istream & input)
 
 					//Zeige spezifische Fehlermeldung an
 					ssError.str("");
-					ssError << "ERROR ROW: " << iRow << "Name der Zielkreuzung kann nicht vergeben werden";
+					ssError << "ERROR ROW: " << iRow << " Name der Zielkreuzung kann nicht vergeben werden";
 					throw exception(ssError.str().c_str());
 				}
+			}
+			else
+			{
+				ssError.str("");
+				ssError << "ERROR ROW: " << iRow << " Syntaxfehler, Typ unbekannt";
+				throw exception(ssError.str().c_str());
 			}
 		}
 		catch(exception error)
@@ -111,4 +188,15 @@ void Welt::vEinlesen(istream & input)
 
 void Welt::vSimulation()
 {
+	//Fertige alle Kreuzungen ab
+	if (!this->vectorKreuzungen.empty())
+	{
+		iterKrzg = vectorKreuzungen.begin();
+
+		while (iterKrzg != vectorKreuzungen.end())
+		{
+			(*iterKrzg)->vAbfertigung();
+			iterKrzg++;
+		}
+	}
 }

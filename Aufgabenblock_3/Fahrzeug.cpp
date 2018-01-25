@@ -80,6 +80,7 @@ void Fahrzeug::ostreamAusgabe(ostream &output)
 	output << this->p_dMaxGeschwindigkeit;
 	output.width(12);
 	output << this->p_dGesamtStrecke;
+	output.width(10);
 }
 
 istream & Fahrzeug::istreamEingabe(istream & input)
@@ -102,9 +103,11 @@ void Fahrzeug::vNeueStrecke(Weg * weg)
 {
 	//Garbage Collection
 	delete this->p_pVerhalten;
-
+	
 	//Erzeuge eine neue Instanz von FzgVerhalten
 	FzgFahren* pNeuVerhalten = new FzgFahren(weg);
+	this->p_dAbschnittStrecke = 0;
+	this->p_dZeit = dGlobaleZeit;
 
 	//Speichere in Fahrzeug
 	this->p_pVerhalten = pNeuVerhalten;

@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
+class AktivesVO;
+class Kreuzung;
 using namespace std;
 
 class Welt
@@ -17,5 +20,8 @@ public:
 	
 	void vEinlesen(istream& input);
 	void vSimulation();
+
+private:
+	vector<Kreuzung*> vectorKreuzungen;
 };
 
