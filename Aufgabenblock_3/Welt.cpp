@@ -55,12 +55,12 @@ void Welt::vEinlesen(istream & input)
 			{
 				string NameQ, NameZ, NameW1, NameW2;
 				double dLaenge;
-				int iUeberholverbot, iGeschwindigkeit;
+				int iUeberholverbot, iGeschwindigkeit, x, y;
 				bool bUeberholverbot;
 
 				//Lese die Attributen ein
 				Weg* weg = new Weg();
-				input >> NameQ >> NameZ >> NameW1 >> NameW2 >> dLaenge >> iGeschwindigkeit >> iUeberholverbot;
+				input >> NameQ >> NameZ >> NameW1 >> NameW2 >> dLaenge >> iGeschwindigkeit >> iUeberholverbot >> x >> y;
 
 				//Checke Ueberholverbot syntax
 				if (iUeberholverbot != 0 && iUeberholverbot != 1)

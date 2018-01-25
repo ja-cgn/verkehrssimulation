@@ -618,19 +618,19 @@ void vAufgabe_9()
 	ifstream infile("VO.dat");
 
 	PKW pkw1;
-	PKW pkw2;
+	Fahrrad fhrd;
 	Kreuzung krzg;
 
 	try
 	{
 		//Einlesen
 		infile >> pkw1;
-		infile >> pkw2;
+		infile >> fhrd;
 		infile >> krzg;
 
 		//Gebe die eingelesene Fahzeuge aus
 		vTemplateHeaderFhzg();
-		cout << pkw1 << pkw2;
+		cout << pkw1 << fhrd;
 
 		//Gebe die eingelesene Kreuzung aus
 		vTemplateHeaderKreuzung();
@@ -640,7 +640,7 @@ void vAufgabe_9()
 
 		//Teste ob die Fehlererzeugung funktioniert
 		infile.open("VO.dat");
-		infile >> pkw2;
+		infile >> fhrd;
 	}
 	catch (exception error)
 	{
