@@ -132,7 +132,7 @@ void Kreuzung::vWeiterleiten(Fahrzeug * fhzg, Weg * origin)
 		<< setw(10) << "ZEIT" << ":" << dGlobaleZeit << endl
 		<< setw(10) << "KREUZUNG" << ":" << this->sGetName() << endl
 		<< setw(10) << "WECHSEL" << ":" << origin->sGetName() << "->" << destination->sGetName() << endl
-		<< setw(10) << "FAHRZEUG" << ":" << &fhzg << endl;
+		<< setw(10) << "FAHRZEUG" << ":" << *fhzg << endl;
 }
 
 /* Liefert eine zufaellige Zielkreuzung */

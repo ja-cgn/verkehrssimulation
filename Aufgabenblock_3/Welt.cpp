@@ -3,6 +3,7 @@
 #include "Weg.h"
 #include "PKW.h"
 #include "Fahrrad.h"
+#include "SimuClient.h"
 #include <sstream>
 
 const string Welt::KREUZUNGTAG = "KREUZUNG";
@@ -55,12 +56,13 @@ void Welt::vEinlesen(istream & input)
 			{
 				string NameQ, NameZ, NameW1, NameW2;
 				double dLaenge;
-				int iUeberholverbot, iGeschwindigkeit, x, y;
+				int iUeberholverbot, iGeschwindigkeit, x, y, iPunkte;
 				bool bUeberholverbot;
+				vector<int> iCoors;
 
 				//Lese die Attributen ein
 				Weg* weg = new Weg();
-				input >> NameQ >> NameZ >> NameW1 >> NameW2 >> dLaenge >> iGeschwindigkeit >> iUeberholverbot >> x >> y;
+				input >> NameQ >> NameZ >> NameW1 >> NameW2 >> dLaenge >> iGeschwindigkeit >> iUeberholverbot;
 
 				//Checke Ueberholverbot syntax
 				if (iUeberholverbot != 0 && iUeberholverbot != 1)
@@ -86,12 +88,21 @@ void Welt::vEinlesen(istream & input)
 				case 2:
 					eTempolimit = Landstrasse;
 					break;
-				case 3: 
+				case 3:
 					eTempolimit = Autobahn;
 					break;
 				default:
 					ssError.str("");
 					ssError << "ERROR Row: " << iRow << " Geschwindigkeitbegrenzung ist definitert";
+				}
+
+				//Lese die Koordinaten ein
+				input >> iPunkte;
+				for (int i = 0; i < iPunkte; i++)
+				{
+					input >> x >> y;
+					iCoors.push_back(x);
+					iCoors.push_back(y);
 				}
 
 				//Verbinde die eingelesene Kreuzungen
@@ -115,6 +126,8 @@ void Welt::vEinlesen(istream & input)
 					ssError << "ERROR Row: " << iRow << " Verbindiung kann nicht hergestellt werden";
 					throw exception(ssError.str().c_str());
 				}
+
+				bZeichneStrasse(NameW1, NameW2, dLaenge, iPunkte, &iCoors[0]);
 			}
 
 			//PKW
