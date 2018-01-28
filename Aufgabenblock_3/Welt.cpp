@@ -145,7 +145,7 @@ void Welt::vEinlesen(istream & input)
 
 				try
 				{
-					Kreuzung* krzg = dynamic_cast<Kreuzung*>(pkw->ptObjekt(sKreuzung));
+					Kreuzung* krzg = (Kreuzung*)pkw->ptObjekt(sKreuzung);
 					krzg->vAnnahme(pkw, dStartZeit);
 				}
 				catch(exception error)
@@ -209,6 +209,7 @@ void Welt::vSimulation()
 		while (iterKrzg != vectorKreuzungen.end())
 		{
 			(*iterKrzg)->vAbfertigung();
+			(*iterKrzg)->vZeichnen();
 			iterKrzg++;
 		}
 	}

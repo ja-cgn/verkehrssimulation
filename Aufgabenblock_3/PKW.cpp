@@ -7,7 +7,7 @@
 
 /* Default constructor */
 PKW::PKW()
-	:Fahrzeug(this->p_sName, this->p_dMaxGeschwindigkeit),
+	:Fahrzeug(),
 	p_dVerbrauch(this->p_dVerbrauch),
 	p_dTankvolumen(DEFAULT_TANK_VOLUME)
 {
