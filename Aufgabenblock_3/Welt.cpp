@@ -49,6 +49,8 @@ void Welt::vEinlesen(istream & input)
 
 				//Speichere die Kreuzung
 				this->vectorKreuzungen.push_back(krzg);
+
+				bZeichneKreuzung(x, y);
 			}
 
 			//STRASSE
