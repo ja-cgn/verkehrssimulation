@@ -32,7 +32,7 @@ public:
 
 private:
 	static int p_iMaxID;
-	map<string, AktivesVO*> mObjekteMap;
+	static map<string, AktivesVO*> mObjekteMap;
 
 protected:
 	string p_sName;

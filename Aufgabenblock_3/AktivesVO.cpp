@@ -3,6 +3,7 @@
 //Global scope definition of the ID var to start off increments correctly
 int AktivesVO::p_iMaxID = 0;
 
+map<string, AktivesVO*> AktivesVO::mObjekteMap;
 map<string, AktivesVO*>::iterator pMapIter;
 
 /* Default constructor */
