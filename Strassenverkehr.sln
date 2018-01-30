@@ -9,6 +9,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Aufgabenblock_2", "Aufgaben
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Aufgabenblock_3", "Aufgabenblock_3\Aufgabenblock_3.vcxproj", "{AF7C7428-36F3-4E46-BEF3-AFBD7A305C89}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AA17AE7-AD08-486C-8BA5-7A3A9CB67A21}"
+	ProjectSection(SolutionItems) = preProject
+		Aufgabenblock_3\SimuDisplay.dat = Aufgabenblock_3\SimuDisplay.dat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

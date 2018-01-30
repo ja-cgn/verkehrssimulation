@@ -106,6 +106,7 @@ void Kreuzung::ostreamAusgabe(ostream & output)
 			WeglistIter++;
 		}
 	}
+	cout << "TANKINHALT: " << this->p_dTankstelle;
 	cout << endl;
 }
 

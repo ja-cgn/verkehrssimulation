@@ -504,7 +504,7 @@ void vAufgabe_7()
 	Fahrrad fhrd("BIKE", 23);
 	
 
-	int max = 10;
+	int max = 5;
 	weg1.vAnnahme(&pkw1, 0.8);
 	weg1.vAnnahme(&fhrd, 0.9);
 	weg1.vAnnahme(&pkw2, floor(max / 2));
